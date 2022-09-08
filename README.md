@@ -8,7 +8,7 @@ Supported Anki version >= 2.1.55 (related discussion: [Some problems in implemen
 
 Please copy the code in `main.js` and paste it into the bottom of the deck options screen (need to enable the scheduler v3 in Preferences), then it works.
 
-![deck options](images/deck options.png)
+![deck options](images/deck_options.png)
 
 ## Future Work 
 
