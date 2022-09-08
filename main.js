@@ -5,6 +5,8 @@ const defaultDifficulty = 5;
 const defaultStability = 2;
 const requestRetention = 0.9;
 const lapsesBase = -0.3;
+const easyBonus = 1.3;
+const hardInterval = 1.2;
 
 debugger;
 
@@ -19,11 +21,11 @@ if (states.current.normal.new) {
     customData.easy.s = defaultStability * 2;
     states.easy.normal.review.scheduledDays = Math.round(customData.easy.s * Math.log(requestRetention) / Math.log(0.9));
 } else if (states.current.normal.learning) {
-    if (states.easy.normal?.review) {
-        states.easy.normal.review.scheduledDays = Math.round(customData.easy.s * Math.log(requestRetention) / Math.log(0.9));
-    }
     if (states.good.normal?.review) {
         states.good.normal.review.scheduledDays = Math.round(customData.good.s * Math.log(requestRetention) / Math.log(0.9));
+    }
+    if (states.easy.normal?.review) {
+        states.easy.normal.review.scheduledDays = Math.round(easyBonus * customData.easy.s * Math.log(requestRetention) / Math.log(0.9));
     }
 } else if (states.current.normal.review) {
 
@@ -55,12 +57,12 @@ if (states.current.normal.new) {
     customData.easy.s = last_s * (1 + increaseFactor * Math.pow(customData.easy.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
 
     if (states.hard.normal?.review) {
-        states.hard.normal.review.scheduledDays = Math.round(customData.hard.s * Math.log(requestRetention) / Math.log(0.9));
+        states.hard.normal.review.scheduledDays = Math.round(last_s * hardInterval);
     }
     if (states.good.normal?.review) {
         states.good.normal.review.scheduledDays = Math.round(customData.good.s * Math.log(requestRetention) / Math.log(0.9));
     }
     if (states.easy.normal?.review) {
-        states.easy.normal.review.scheduledDays = Math.round(customData.easy.s * Math.log(requestRetention) / Math.log(0.9));
+        states.easy.normal.review.scheduledDays = Math.round(customData.easy.s * Math.log(requestRetention) / Math.log(0.9) * easyBonus);
     }
 }
