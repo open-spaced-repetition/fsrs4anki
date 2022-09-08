@@ -48,7 +48,7 @@ if (states.current.normal.new) {
     const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
 
     customData.again.d = Math.min(Math.max(last_d  + retrievability - 0 + 0.2, 1), 10);
-    customData.again.s = defaultStability * Math.exp(lapsesBase * (states.again.normal.relearning.review.lapses + 1))
+    customData.again.s = defaultStability * Math.exp(lapsesBase * (states.again.normal.relearning.review.lapses))
     customData.hard.d = Math.min(Math.max(last_d  + retrievability - 0.5 + 0.2, 1), 10);
     customData.hard.s = last_s * (1 + increaseFactor * Math.pow(customData.hard.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
     customData.good.d = Math.min(Math.max(last_d  + retrievability - 1 + 0.2, 1), 10);
