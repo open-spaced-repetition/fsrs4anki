@@ -6,6 +6,10 @@ Supported Anki version >= 2.1.55 (related discussion: [Some problems in implemen
 
 ## Usage
 
+> Remember to use the dev version of Anki because the customData feature was implemented in the last two weeks. It has not been released yet.
+
+To the "Usage" section here.
+
 Please copy the code in `main.js` and paste it into the bottom of the deck options screen (need to enable the scheduler v3 in Preferences), then it works.
 
 ![deck options](images/deck_options.png)
