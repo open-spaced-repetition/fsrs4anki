@@ -1,20 +1,23 @@
-const difficultyDecay = -0.7;
-const stabilityDecay = -0.2;
-const increaseFactor = 60;
-const defaultDifficulty = 5;
-const defaultStability = 2;
+// Default parameters of fsrs4anki
+const defaultDifficulty = 3.7424;
+const defaultStability = 3.3262;
+const difficultyDecay = -0.7724;
+const stabilityDecay = -0.0187;
+const increaseFactor = 3.4325;
+const lapsesBase = -0.1552;
+// Custom parameters for user
 const requestRetention = 0.9;
-const lapsesBase = -0.3;
 const easyBonus = 1.3;
 const hardInterval = 1.2;
 
 debugger;
 
+// For new cards
 if (states.current.normal.new) {
     customData.again.d = defaultDifficulty + 2;
-    customData.again.s = defaultStability / 4;
+    customData.again.s = defaultStability * 0.25;
     customData.hard.d = defaultDifficulty + 1;
-    customData.hard.s = defaultStability / 2;
+    customData.hard.s = defaultStability * 0.5;
     customData.good.d = defaultDifficulty;
     customData.good.s = defaultStability;
     customData.easy.d = defaultDifficulty - 1;
@@ -27,8 +30,9 @@ if (states.current.normal.new) {
     if (states.easy.normal?.review) {
         states.easy.normal.review.scheduledDays = Math.round(easyBonus * customData.easy.s * Math.log(requestRetention) / Math.log(0.9));
     }
+// For review cards
 } else if (states.current.normal.review) {
-
+    // Convert the interval and factor to stability and difficulty if the card didn't contain customData
     if (!customData.again.d) {
         const old_d = 10 / states.current.normal.review.easeFactor;
         const old_s = states.current.normal.review.scheduledDays;
@@ -47,14 +51,14 @@ if (states.current.normal.new) {
     const last_s = customData.again.s;
     const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
 
-    customData.again.d = Math.min(Math.max(last_d  + retrievability - 0 + 0.2, 1), 10);
+    customData.again.d = Math.min(Math.max(last_d + retrievability - 0.25 + 0.1, 0.1), 10);
     customData.again.s = defaultStability * Math.exp(lapsesBase * (states.again.normal.relearning.review.lapses))
-    customData.hard.d = Math.min(Math.max(last_d  + retrievability - 0.5 + 0.2, 1), 10);
-    customData.hard.s = last_s * (1 + increaseFactor * Math.pow(customData.hard.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
-    customData.good.d = Math.min(Math.max(last_d  + retrievability - 1 + 0.2, 1), 10);
-    customData.good.s = last_s * (1 + increaseFactor * Math.pow(customData.good.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
-    customData.easy.d = Math.min(Math.max(last_d  + retrievability - 2 + 0.2, 1), 10);
-    customData.easy.s = last_s * (1 + increaseFactor * Math.pow(customData.easy.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
+    customData.hard.d = Math.min(Math.max(last_d + retrievability - 0.5 + 0.1, 0.1), 10);
+    customData.hard.s = last_s * (1 + Math.exp(increaseFactor) * Math.pow(customData.hard.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
+    customData.good.d = Math.min(Math.max(last_d + retrievability - 1 + 0.1, 0.1), 10);
+    customData.good.s = last_s * (1 + Math.exp(increaseFactor) * Math.pow(customData.good.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
+    customData.easy.d = Math.min(Math.max(last_d + retrievability - 2 + 0.1, 0.1), 10);
+    customData.easy.s = last_s * (1 + Math.exp(increaseFactor) * Math.pow(customData.easy.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
 
     if (states.hard.normal?.review) {
         states.hard.normal.review.scheduledDays = Math.round(last_s * hardInterval);
