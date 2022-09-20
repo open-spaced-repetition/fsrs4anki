@@ -32,13 +32,13 @@ if (states.current.normal.new) {
     customData.good.s = defaultStability;
     customData.easy.d = defaultDifficulty - 1;
     customData.easy.s = defaultStability * 2;
-    states.easy.normal.review.scheduledDays = constrain_interval(Math.round(customData.easy.s));
+    states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
 } else if (states.current.normal.learning) {
     if (states.good.normal?.review) {
-        states.good.normal.review.scheduledDays = constrain_interval(Math.round(customData.good.s));
+        states.good.normal.review.scheduledDays = constrain_interval(customData.good.s);
     }
     if (states.easy.normal?.review) {
-        states.easy.normal.review.scheduledDays = constrain_interval(Math.round(customData.easy.s * easyBonus));
+        states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s * easyBonus);
     }
 // For review cards
 } else if (states.current.normal.review) {
@@ -65,22 +65,22 @@ if (states.current.normal.new) {
     customData.again.s = defaultStability * Math.exp(lapsesBase * (states.again.normal.relearning.review.lapses));
 
     customData.hard.d = constrain_difficulty(last_d + retrievability - 0.5 + 0.1);
-    customData.hard.s = last_s * (1 + Math.exp(increaseFactor) * Math.pow(customData.hard.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp((1 - retrievability) * retrievabilityFactor) - 1));
+    customData.hard.s = next_stability(customData.hard.d, last_s, retrievability)
 
     customData.good.d = constrain_difficulty(last_d + retrievability - 1 + 0.1);
-    customData.good.s = last_s * (1 + Math.exp(increaseFactor) * Math.pow(customData.good.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp((1 - retrievability) * retrievabilityFactor) - 1));
+    customData.good.s = next_stability(customData.good.d, last_s, retrievability)
 
     customData.easy.d = constrain_difficulty(last_d + retrievability - 2 + 0.1);
-    customData.easy.s = last_s * (1 + Math.exp(increaseFactor) * Math.pow(customData.easy.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp((1 - retrievability) * retrievabilityFactor) - 1));
+    customData.easy.s = next_stability(customData.easy.d, last_s, retrievability)
 
     if (states.hard.normal?.review) {
-        states.hard.normal.review.scheduledDays = constrain_interval(Math.round(last_s * hardInterval));
+        states.hard.normal.review.scheduledDays = constrain_interval(last_s * hardInterval);
     }
     if (states.good.normal?.review) {
-        states.good.normal.review.scheduledDays = constrain_interval(Math.round(customData.good.s));
+        states.good.normal.review.scheduledDays = constrain_interval(customData.good.s);
     }
     if (states.easy.normal?.review) {
-        states.easy.normal.review.scheduledDays = constrain_interval(Math.round(customData.easy.s * easyBonus));
+        states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s * easyBonus);
     }
 }
 
@@ -89,5 +89,9 @@ function constrain_difficulty(difficulty) {
 }
 
 function constrain_interval(interval) {
-    return Math.min(Math.max(interval * intervalModifier, 1), maximumInterval);
+    return Math.min(Math.max(Math.round(interval * intervalModifier), 1), maximumInterval);
+}
+
+function next_stability(d, s, r) {
+    return s * (1 + Math.exp(increaseFactor) * Math.pow(d, difficultyDecay) * Math.pow(s, stabilityDecay) * (Math.exp((1 - r) * retrievabilityFactor) - 1));
 }
