@@ -65,7 +65,7 @@ if (states.current.normal.new) {
     customData.easy.s = last_s * (1 + Math.exp(increaseFactor) * Math.pow(customData.easy.d, difficultyDecay) * Math.pow(last_s, stabilityDecay) * (Math.exp(1 - retrievability) - 1));
 
     if (states.hard.normal?.review) {
-        states.hard.normal.review.scheduledDays = Math.round(last_s * hardInterval);
+        states.hard.normal.review.scheduledDays = Math.round(last_s * Math.log(requestRetention) / Math.log(0.9) * hardInterval);
     }
     if (states.good.normal?.review) {
         states.good.normal.review.scheduledDays = Math.round(customData.good.s * Math.log(requestRetention) / Math.log(0.9));
