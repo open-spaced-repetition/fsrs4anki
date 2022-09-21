@@ -1,8 +1,7 @@
-// fsrs4anki: An Anki custom scheduling based on free spaced repetition scheduler algorithm
+// FSRS4Anki v1.0.0 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
-// Default parameters of fsrs4anki, which can be optimized via
-// https://github.com/open-spaced-repetition/fsrs4anki/blob/main/fsrs4anki_optimizer.ipynb
+// Default parameters of FSRS4Anki
 const defaultDifficulty = 4.6179;
 const defaultStability = 2.5636;
 const difficultyDecay = -0.5913;
@@ -10,6 +9,7 @@ const stabilityDecay = -0.1382;
 const retrievabilityFactor = 1.1951;
 const increaseFactor = 3.201;
 const lapsesBase = -0.0562;
+// The above parameters can be optimized via FSRS4Anki optimizer.
 
 // Custom parameters for user
 const requestRetention = 0.9; // recommended setting: 0.8 ~ 0.9
@@ -19,7 +19,7 @@ const hardInterval = 1.2;
 
 debugger;
 
-// auto-calculate 
+// auto-calculate intervalModifier
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 
 // For new cards
