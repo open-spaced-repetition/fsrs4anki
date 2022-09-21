@@ -16,11 +16,19 @@ Please copy the code in [fsrs4anki_scheduler.js](fsrs4anki_scheduler.js), paste 
 
 > Remember to use the dev version of Anki because the customData feature was implemented in Anki 2.1.55, which has not been released yet.
 
-![deck options](images/deck_options.png)
+![deck options](.images/deck_options.png)
 
 ### Optimization
 
 The default parameters of FSRS4Anki are trained from my review logs. If you want the algorithm more adaptive to yourself, please follow the guide in [fsrs4anki_optimizer.ipynb](fsrs4anki_optimizer.ipynb) to optimize the parameters from your review logs. Because the neural network model is hard to port to various platforms, I deploy the optimizer on Google Colab. You need to click the button `Open in Colab` to run it.
+
+Upload your deck file or collection file, and run the notebook. Then you will get the optimal parameters for yourself in the Result. Just replace the default parameters with the output of the optimizer.
+
+![deck options](.images/default_output_in_optimizer.png)
+
+![deck options](.images/default_parameters_in_scheduler.jpg)
+
+> The default output is generated from my revlog. So they have no differencnce.
 
 ## Compatibility
 
@@ -63,9 +71,9 @@ A5: It can work on existing cards, but not use their past review history. The in
 
 
 
-Q6: Once I started using this fsrs algorithm on my existing deck, if I ever have to go back to using Anki's built in algorithm for the same deck, would that still be possible?
+Q6: Once I started using this fsrs algorithm on my existing deck, if I ever have to go back to using Anki's built-in algorithm for the same deck, would that still be possible?
 
-A6: The ease factor is modified by v3 scheduler as usual, and fsrs doesn’t interfere it. Fsrs only modifies the interval of card. So you can go back without any problem.
+A6: The ease factor is modified by the v3 scheduler as usual, and FSRS4Anki doesn’t intervene in it. Fsrs only modifies the interval of cards. So you can go back without any problem.
 
 
 
