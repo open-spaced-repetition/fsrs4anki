@@ -1,4 +1,4 @@
-// FSRS4Anki v1.0.0 Scheduler
+// FSRS4Anki v1.2.0 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki
