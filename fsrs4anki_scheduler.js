@@ -1,4 +1,4 @@
-// FSRS4Anki v1.3.1 Scheduler
+// FSRS4Anki v1.3.2 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki
@@ -84,6 +84,15 @@ if (states.current.normal?.new !== undefined | Object.hasOwn(states.current.filt
     if (states.hard.normal?.review) {
         states.hard.normal.review.scheduledDays = hard_interval;
     }
+    if (states.good.normal?.review) {
+        states.good.normal.review.scheduledDays = good_interval;
+    }
+    if (states.easy.normal?.review) {
+        states.easy.normal.review.scheduledDays = easy_interval;
+    }
+} else if (states.current.normal?.relearning !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'relearning')) {
+    const good_interval = constrain_interval(customData.good.s);
+    const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
     if (states.good.normal?.review) {
         states.good.normal.review.scheduledDays = good_interval;
     }
