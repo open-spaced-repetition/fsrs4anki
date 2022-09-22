@@ -1,4 +1,4 @@
-// FSRS4Anki v1.2.0 Scheduler
+// FSRS4Anki v1.2.1 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki
@@ -23,7 +23,7 @@ debugger;
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 
 // For new cards
-if (states.current.normal.new) {
+if (states.current.normal?.new) {
     customData.again.d = defaultDifficulty + 2;
     customData.again.s = defaultStability * 0.25;
     customData.hard.d = defaultDifficulty + 1;
@@ -33,15 +33,17 @@ if (states.current.normal.new) {
     customData.easy.d = defaultDifficulty - 1;
     customData.easy.s = defaultStability * 2;
     states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
-} else if (states.current.normal.learning) {
+} else if (states.current.normal?.learning) {
+    const good_interval = constrain_interval(customData.good.s);
+    const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
     if (states.good.normal?.review) {
-        states.good.normal.review.scheduledDays = constrain_interval(customData.good.s);
+        states.good.normal.review.scheduledDays = good_interval;
     }
     if (states.easy.normal?.review) {
-        states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s * easyBonus);
+        states.easy.normal.review.scheduledDays = easy_interval;
     }
 // For review cards
-} else if (states.current.normal.review) {
+} else if (states.current.normal?.review) {
     // Convert the interval and factor to stability and difficulty if the card didn't contain customData
     if (!customData.again.d) {
         const old_d = constrain_difficulty(10 / states.current.normal.review.easeFactor);
