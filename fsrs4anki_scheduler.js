@@ -1,4 +1,4 @@
-// FSRS4Anki v1.2.1 Scheduler
+// FSRS4Anki v1.3.0 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki
@@ -23,7 +23,7 @@ debugger;
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 
 // For new cards
-if (states.current.normal?.new) {
+if (states.current.normal?.new !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'new')) {
     customData.again.d = defaultDifficulty + 2;
     customData.again.s = defaultStability * 0.25;
     customData.hard.d = defaultDifficulty + 1;
@@ -33,7 +33,8 @@ if (states.current.normal?.new) {
     customData.easy.d = defaultDifficulty - 1;
     customData.easy.s = defaultStability * 2;
     states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
-} else if (states.current.normal?.learning) {
+// For learing cards
+} else if (states.current.normal?.learning !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'learning')) {
     const good_interval = constrain_interval(customData.good.s);
     const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
     if (states.good.normal?.review) {
@@ -43,7 +44,7 @@ if (states.current.normal?.new) {
         states.easy.normal.review.scheduledDays = easy_interval;
     }
 // For review cards
-} else if (states.current.normal?.review) {
+} else if (states.current.normal?.review !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'review')) {
     // Convert the interval and factor to stability and difficulty if the card didn't contain customData
     if (!customData.again.d) {
         const old_d = constrain_difficulty(10 / states.current.normal.review.easeFactor);
@@ -58,22 +59,23 @@ if (states.current.normal?.new) {
         customData.easy.s = old_s;
     }
 
-    const interval = states.current.normal.review.elapsedDays;
+    const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : 0;
     const last_d = customData.again.d;
     const last_s = customData.again.s;
     const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
+    const lapses = states.again.normal?.review.elapsedDays ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
 
     customData.again.d = constrain_difficulty(last_d + retrievability - 0.25 + 0.1);
-    customData.again.s = defaultStability * Math.exp(lapsesBase * (states.again.normal.relearning.review.lapses));
+    customData.again.s = defaultStability * Math.exp(lapsesBase * lapses);
 
     customData.hard.d = constrain_difficulty(last_d + retrievability - 0.5 + 0.1);
-    customData.hard.s = next_stability(customData.hard.d, last_s, retrievability)
+    customData.hard.s = next_stability(customData.hard.d, last_s, retrievability);
 
     customData.good.d = constrain_difficulty(last_d + retrievability - 1 + 0.1);
-    customData.good.s = next_stability(customData.good.d, last_s, retrievability)
+    customData.good.s = next_stability(customData.good.d, last_s, retrievability);
 
     customData.easy.d = constrain_difficulty(last_d + retrievability - 2 + 0.1);
-    customData.easy.s = next_stability(customData.easy.d, last_s, retrievability)
+    customData.easy.s = next_stability(customData.easy.d, last_s, retrievability);
 
     if (states.hard.normal?.review) {
         states.hard.normal.review.scheduledDays = constrain_interval(last_s * hardInterval);
