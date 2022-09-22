@@ -33,8 +33,8 @@ if (states.current.normal?.new !== undefined | Object.hasOwn(states.current.filt
     customData.easy.d = defaultDifficulty - 1;
     customData.easy.s = defaultStability * 2;
     states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
-// For learing cards
-} else if (states.current.normal?.learning !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'learning')) {
+// For learning/relearning cards
+} else if (states.current.normal?.learning !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'learning') | states.current.normal?.relearning !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'relearning')) {
     const good_interval = constrain_interval(customData.good.s);
     const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
     if (states.good.normal?.review) {
@@ -84,15 +84,6 @@ if (states.current.normal?.new !== undefined | Object.hasOwn(states.current.filt
     if (states.hard.normal?.review) {
         states.hard.normal.review.scheduledDays = hard_interval;
     }
-    if (states.good.normal?.review) {
-        states.good.normal.review.scheduledDays = good_interval;
-    }
-    if (states.easy.normal?.review) {
-        states.easy.normal.review.scheduledDays = easy_interval;
-    }
-} else if (states.current.normal?.relearning !== undefined | Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'relearning')) {
-    const good_interval = constrain_interval(customData.good.s);
-    const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
     if (states.good.normal?.review) {
         states.good.normal.review.scheduledDays = good_interval;
     }
