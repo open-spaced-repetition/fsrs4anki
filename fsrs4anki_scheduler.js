@@ -1,4 +1,4 @@
-// FSRS4Anki v1.4.1 Scheduler
+// FSRS4Anki v1.4.2 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
@@ -44,17 +44,15 @@ const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 
 // For new cards
 if (is_new()) {
-    customData.again.d = defaultDifficulty + 2;
-    customData.again.s = defaultStability * 0.25;
-    customData.hard.d = defaultDifficulty + 1;
-    customData.hard.s = defaultStability * 0.5;
-    customData.good.d = defaultDifficulty;
-    customData.good.s = defaultStability;
-    customData.easy.d = defaultDifficulty - 1;
-    customData.easy.s = defaultStability * 2;
+    init_states();
     states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
 // For learning/relearning cards
 } else if (is_learning()) {
+    // Init states if the card didn't contain customData
+    if (!customData.again.d) {
+        init_states();
+        states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
+    }
     const good_interval = constrain_interval(customData.good.s);
     const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
     if (states.good.normal?.review) {
@@ -124,6 +122,17 @@ function constrain_interval(interval) {
 
 function next_stability(d, s, r) {
     return s * (1 + Math.exp(increaseFactor) * Math.pow(d, difficultyDecay) * Math.pow(s, stabilityDecay) * (Math.exp((1 - r) * retrievabilityFactor) - 1));
+}
+
+function init_states() {
+    customData.again.d = defaultDifficulty + 2;
+    customData.again.s = defaultStability * 0.25;
+    customData.hard.d = defaultDifficulty + 1;
+    customData.hard.s = defaultStability * 0.5;
+    customData.good.d = defaultDifficulty;
+    customData.good.s = defaultStability;
+    customData.easy.d = defaultDifficulty - 1;
+    customData.easy.s = defaultStability * 2;
 }
 
 function is_new() {
