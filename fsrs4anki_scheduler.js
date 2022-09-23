@@ -1,4 +1,4 @@
-// FSRS4Anki v1.3.2 Scheduler
+// FSRS4Anki v1.3.3 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki
@@ -59,11 +59,11 @@ if (is_new()) {
         customData.easy.s = old_s;
     }
 
-    const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : 0;
+    const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
     const last_d = customData.again.d;
     const last_s = customData.again.s;
     const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
-    const lapses = states.again.normal?.review.elapsedDays ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
+    const lapses = states.again.normal?.relearning.review.lapses ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
 
     customData.again.d = constrain_difficulty(last_d + retrievability - 0.25 + 0.1);
     customData.again.s = defaultStability * Math.exp(lapsesBase * lapses);
