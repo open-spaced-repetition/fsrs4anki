@@ -24,8 +24,8 @@ debugger;
 if (document.getElementById('deck') !== null) {
     const deck_name = document.getElementById('deck').innerHTML;
     // parameters for a specific deck
-    if (deck_name == "Shape Up") {
-        defaultDifficulty = 4;
+    if (deck_name == "test") {
+        defaultDifficulty = 5;
         defaultStability = 3;
         difficultyDecay = -0.5;
         stabilityDecay = -0.1;
@@ -65,18 +65,7 @@ if (is_new()) {
 } else if (is_review()) {
     // Convert the interval and factor to stability and difficulty if the card didn't contain customData
     if (!customData.again.d) {
-        const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
-        const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
-        const old_d = constrain_difficulty(10 / easeFactor);
-        const old_s = scheduledDays;
-        customData.again.d = old_d;
-        customData.again.s = old_s;
-        customData.hard.d = old_d;
-        customData.hard.s = old_s;
-        customData.good.d = old_d;
-        customData.good.s = old_s;
-        customData.easy.d = old_d;
-        customData.easy.s = old_s;
+        convert_states()
     }
 
     const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
@@ -133,6 +122,21 @@ function init_states() {
     customData.good.s = defaultStability;
     customData.easy.d = defaultDifficulty - 1;
     customData.easy.s = defaultStability * 2;
+}
+
+function convert_states() {
+    const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
+    const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
+    const old_d = constrain_difficulty(10 / easeFactor);
+    const old_s = scheduledDays;
+    customData.again.d = old_d;
+    customData.again.s = old_s;
+    customData.hard.d = old_d;
+    customData.hard.s = old_s;
+    customData.good.d = old_d;
+    customData.good.s = old_s;
+    customData.easy.d = old_d;
+    customData.easy.s = old_s;
 }
 
 function is_new() {
