@@ -48,6 +48,7 @@ if (is_new()) {
     states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
 // For learning/relearning cards
 } else if (is_learning()) {
+    // Init states if the card didn't contain customData
     if (!customData.again.d) {
         init_states();
         states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
