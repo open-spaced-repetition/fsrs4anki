@@ -1,4 +1,4 @@
-// FSRS4Anki v1.4.0 Scheduler
+// FSRS4Anki v1.4.1 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
@@ -21,20 +21,22 @@ debugger;
 
 // get the name of the card's deck
 // need add <div id=deck>{{Deck}}</div> to your card's front template
-const deck_name = document.getElementById('deck').innerHTML;
-// parameters for a specific deck
-if (deck_name == "Shape Up") {
-    defaultDifficulty = 4;
-    defaultStability = 3;
-    difficultyDecay = -0.5;
-    stabilityDecay = -0.1;
-    retrievabilityFactor = 1.2;
-    increaseFactor = 3;
-    lapsesBase = -0.1;
-    requestRetention = 0.85;
-    maximumInterval = 36500;
-    easyBonus = 1.3;
-    hardInterval = 1.2;
+if (document.getElementById('deck') !== null) {
+    const deck_name = document.getElementById('deck').innerHTML;
+    // parameters for a specific deck
+    if (deck_name == "Shape Up") {
+        defaultDifficulty = 4;
+        defaultStability = 3;
+        difficultyDecay = -0.5;
+        stabilityDecay = -0.1;
+        retrievabilityFactor = 1.2;
+        increaseFactor = 3;
+        lapsesBase = -0.1;
+        requestRetention = 0.85;
+        maximumInterval = 36500;
+        easyBonus = 1.3;
+        hardInterval = 1.2;
+    }
 }
 
 // auto-calculate intervalModifier
