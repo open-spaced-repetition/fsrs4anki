@@ -47,8 +47,10 @@ if (is_new()) {
 } else if (is_review()) {
     // Convert the interval and factor to stability and difficulty if the card didn't contain customData
     if (!customData.again.d) {
-        const old_d = constrain_difficulty(10 / states.current.normal.review.easeFactor);
-        const old_s = states.current.normal.review.scheduledDays;
+        const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
+        const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
+        const old_d = constrain_difficulty(10 / easeFactor);
+        const old_s = scheduledDays;
         customData.again.d = old_d;
         customData.again.s = old_s;
         customData.hard.d = old_d;
