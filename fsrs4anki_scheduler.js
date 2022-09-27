@@ -1,14 +1,10 @@
-// FSRS4Anki v1.7.0 Scheduler
+// FSRS4Anki v2.0.0 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
-let defaultDifficulty = 4.6179;
-let defaultStability = 2.5636;
-let difficultyDecay = -0.5913;
-let stabilityDecay = -0.1382;
-let retrievabilityFactor = 1.1951;
-let increaseFactor = 3.201;
-let lapsesBase = -0.0562;
+let f_s = [1.6112,1.9112];
+let f_d = [1.0082,-0.853,-0.8968,0.0489];
+let s_w = [3.2505,-0.9278,-0.1652,1.2391,2.1835,-0.2284,0.4383,1.0737];
 // The above parameters can be optimized via FSRS4Anki optimizer.
 
 // Custom parameters for user
@@ -16,6 +12,13 @@ let requestRetention = 0.9; // recommended setting: 0.8 ~ 0.9
 let maximumInterval = 36500;
 let easyBonus = 1.3;
 let hardInterval = 1.2;
+
+const ratings = {
+  "again": 1,
+  "hard": 2,
+  "good": 3,
+  "easy": 4
+};
 
 debugger;
 
@@ -73,16 +76,16 @@ if (is_new()) {
     const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
     const lapses = states.again.normal?.relearning.review.lapses ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
 
-    customData.again.d = constrain_difficulty(last_d + retrievability - 0.25 + 0.1);
-    customData.again.s = next_forget_stability(lapses);
+    customData.again.d = next_difficulty(last_d, "again");
+    customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
 
-    customData.hard.d = constrain_difficulty(last_d + retrievability - 0.5 + 0.1);
+    customData.hard.d = next_difficulty(last_d, "hard");
     customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability);
 
-    customData.good.d = constrain_difficulty(last_d + retrievability - 1 + 0.1);
+    customData.good.d = next_difficulty(last_d, "good");
     customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability);
 
-    customData.easy.d = constrain_difficulty(last_d + retrievability - 2 + 0.1);
+    customData.easy.d = next_difficulty(last_d, "easy");
     customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
 
     const hard_interval = constrain_interval(last_s * hardInterval);
@@ -101,37 +104,54 @@ if (is_new()) {
 }
 
 function constrain_difficulty(difficulty) {
-    return Math.min(Math.max(difficulty.toFixed(2), 0.1), 10);
+    return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
 }
 
 function constrain_interval(interval) {
     return Math.min(Math.max(Math.round(interval * intervalModifier), 1), maximumInterval);
 }
 
-function next_recall_stability(d, s, r) {
-    return +(s * (1 + Math.exp(increaseFactor) * Math.pow(d, difficultyDecay) * Math.pow(s, stabilityDecay) * (Math.exp((1 - r) * retrievabilityFactor) - 1))).toFixed(2);
+function next_difficulty(d, rating) {
+    let next_d = d + f_d[2] * (ratings[rating] - 3);
+    return constrain_difficulty(mean_reversion(f_d[0] * (- f_d[1] + 1), next_d));
 }
 
-function next_forget_stability(lapses) {
-    return +(defaultStability * Math.exp(lapsesBase * lapses)).toFixed(2);
+function mean_reversion(init, current) {
+    return f_d[3] * init + (1 - f_d[3]) * current;
+}
+
+function next_recall_stability(d, s, r) {
+    return +(s * (1 + Math.exp(s_w[0]) * Math.pow(d, s_w[1]) * Math.pow(s, s_w[2]) * (Math.exp((1 - r) * s_w[3]) - 1))).toFixed(2);
+}
+
+function next_forget_stability(d, s, r) {
+    return +(Math.exp(s_w[4]) * Math.pow(d, s_w[5]) * Math.pow(s, s_w[6]) * (Math.exp((1 - r) * s_w[7]) - 1)).toFixed(2);
 }
 
 function init_states() {
-    customData.again.d = +(defaultDifficulty + 2).toFixed(2)
-    customData.again.s = +(defaultStability * 0.25).toFixed(2)
-    customData.hard.d = +(defaultDifficulty + 1).toFixed(2)
-    customData.hard.s = +(defaultStability * 0.5).toFixed(2)
-    customData.good.d = +(defaultDifficulty).toFixed(2)
-    customData.good.s = +(defaultStability).toFixed(2)
-    customData.easy.d = +(defaultDifficulty - 1).toFixed(2)
-    customData.easy.s = +(defaultStability * 2).toFixed(2)
+    customData.again.d = init_difficulty("again");
+    customData.again.s = init_stability("again");
+    customData.hard.d = init_difficulty("hard");
+    customData.hard.s = init_stability("hard");
+    customData.good.d = init_difficulty("good");
+    customData.good.s = init_stability("good");
+    customData.easy.d = init_difficulty("easy");
+    customData.easy.s = init_stability("easy");
+}
+
+function init_difficulty(rating) {
+    return +(f_d[0] * (f_d[1] * (ratings[rating] - 4) + 1)).toFixed(2);
+}
+
+function init_stability(rating) {
+    return +(f_s[0] * (f_s[1] * (ratings[rating] - 1) + 1)).toFixed(2);
 }
 
 function convert_states() {
     const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
     const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
     const old_s = +Math.max(scheduledDays / intervalModifier, 0.1).toFixed(2);
-    const old_d = constrain_difficulty(Math.pow((easeFactor - 1) / (Math.exp(increaseFactor) * Math.pow(old_s, stabilityDecay) * (Math.exp((1 - requestRetention) * retrievabilityFactor) - 1)), 1 / difficultyDecay));
+    const old_d = constrain_difficulty(Math.pow((easeFactor - 1) / (Math.exp(s_w[0]) * Math.pow(old_s, s_w[2]) * (Math.exp((1 - requestRetention) * s_w[3]) - 1)), 1 / s_w[1]));
     customData.again.d = old_d;
     customData.again.s = old_s;
     customData.hard.d = old_d;
