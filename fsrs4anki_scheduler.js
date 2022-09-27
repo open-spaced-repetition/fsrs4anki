@@ -28,13 +28,10 @@ if (document.getElementById('deck') !== null) {
     const deck_name = document.getElementById('deck').innerHTML;
     // parameters for a specific deck
     if (deck_name == "test") {
-        defaultDifficulty = 5;
-        defaultStability = 3;
-        difficultyDecay = -0.5;
-        stabilityDecay = -0.1;
-        retrievabilityFactor = 1.2;
-        increaseFactor = 3;
-        lapsesBase = -0.1;
+        f_s = [1.059,2.8402];
+        f_d = [1.0058,-1.0305,-0.9169,0.0193];
+        s_w = [3.5769,-1.1663,-0.2335,1.5382,2.1413,-0.3722,0.6591,0.8428];
+
         requestRetention = 0.85;
         maximumInterval = 36500;
         easyBonus = 1.3;
