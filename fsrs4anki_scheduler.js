@@ -2,9 +2,9 @@
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
-let f_s = [1.5663,1.9562];
-let f_d = [1.0083,-0.9032,-0.9891,0.0262];
-let s_w = [3.1401,-0.8024,-0.1813,1.3254,2.6638,-0.0247,0.6221,1.5337];
+var f_s = [1,1];
+var f_d = [1,-1,-1,0.2];
+var s_w = [3,-0.8,-0.2,1.3,2.6,-0.2,0.6,1.5];
 // The above parameters can be optimized via FSRS4Anki optimizer.
 
 // Custom parameters for user
@@ -27,10 +27,10 @@ debugger;
 if (document.getElementById('deck') !== null) {
     const deck_name = document.getElementById('deck').innerHTML;
     // parameters for a specific deck
-    if (deck_name == "test") {
-        f_s = [1.5663,1.9562];
-        f_d = [1.0083,-0.9032,-0.9891,0.0262];
-        s_w = [3.1401,-0.8024,-0.1813,1.3254,2.6638,-0.0247,0.6221,1.5337];
+    if (deck_name == "ALL::Learning::English::Reading") {
+        var f_s = [1.559,1.9103];
+        var f_d = [1.0082,-0.9627,-1.0287,0.0316];
+        var s_w = [3.1521,-0.8427,-0.1906,1.4371,2.9026,-0.0287,0.5584,1.6425];
 
         requestRetention = 0.85;
         maximumInterval = 36500;
