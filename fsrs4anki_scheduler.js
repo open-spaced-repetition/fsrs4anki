@@ -2,9 +2,9 @@
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
-let f_s = [1.6112,1.9112];
-let f_d = [1.0082,-0.853,-0.8968,0.0489];
-let s_w = [3.2505,-0.9278,-0.1652,1.2391,2.1835,-0.2284,0.4383,1.0737];
+let f_s = [1.5663,1.9562];
+let f_d = [1.0083,-0.9032,-0.9891,0.0262];
+let s_w = [3.1401,-0.8024,-0.1813,1.3254,2.6638,-0.0247,0.6221,1.5337];
 // The above parameters can be optimized via FSRS4Anki optimizer.
 
 // Custom parameters for user
@@ -28,9 +28,9 @@ if (document.getElementById('deck') !== null) {
     const deck_name = document.getElementById('deck').innerHTML;
     // parameters for a specific deck
     if (deck_name == "test") {
-        f_s = [1.059,2.8402];
-        f_d = [1.0058,-1.0305,-0.9169,0.0193];
-        s_w = [3.5769,-1.1663,-0.2335,1.5382,2.1413,-0.3722,0.6591,0.8428];
+        f_s = [1.5663,1.9562];
+        f_d = [1.0083,-0.9032,-0.9891,0.0262];
+        s_w = [3.1401,-0.8024,-0.1813,1.3254,2.6638,-0.0247,0.6221,1.5337];
 
         requestRetention = 0.85;
         maximumInterval = 36500;
@@ -122,7 +122,7 @@ function next_recall_stability(d, s, r) {
 }
 
 function next_forget_stability(d, s, r) {
-    return +(Math.exp(s_w[4]) * Math.pow(d, s_w[5]) * Math.pow(s, s_w[6]) * (Math.exp((1 - r) * s_w[7]) - 1)).toFixed(2);
+    return +(s_w[4] * Math.pow(d, s_w[5]) * Math.pow(s, s_w[6]) * (Math.exp((1 - r) * s_w[7]) - 1)).toFixed(2);
 }
 
 function init_states() {
