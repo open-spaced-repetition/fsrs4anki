@@ -1,4 +1,4 @@
-// FSRS4Anki v2.0.2 Scheduler
+// FSRS4Anki v2.0.3 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
@@ -23,7 +23,7 @@ const ratings = {
 debugger;
 
 // get the name of the card's deck
-// need add <div id=deck>{{Deck}}</div> to your card's front template
+// need add <div id=deck style="color: rgba(0, 0, 0, 0);">{{Deck}}</div> to your card's front template
 if (document.getElementById('deck') !== null) {
     const deck_name = document.getElementById('deck').innerHTML;
     // parameters for a specific deck
