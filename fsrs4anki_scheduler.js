@@ -1,10 +1,10 @@
-// FSRS4Anki v2.0.0 Scheduler
+// FSRS4Anki v2.0.2 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
 var f_s = [1,1];
 var f_d = [1,-1,-1,0.2];
-var s_w = [3,-0.8,-0.2,1.3,2.6,-0.2,0.6,1.5];
+var s_w = [3,-0.8,-0.2,1.3,2.2,-0.3,0.3,1.2];
 // The above parameters can be optimized via FSRS4Anki optimizer.
 
 // Custom parameters for user
@@ -122,7 +122,7 @@ function next_recall_stability(d, s, r) {
 }
 
 function next_forget_stability(d, s, r) {
-    return +(s_w[4] * Math.pow(d, s_w[5]) * Math.pow(s, s_w[6]) * (Math.exp((1 - r) * s_w[7]) - 1)).toFixed(2);
+    return +(s_w[4] * Math.pow(d, s_w[5]) * Math.pow(s, s_w[6]) * Math.exp((1 - r) * s_w[7])).toFixed(2);
 }
 
 function init_states() {
