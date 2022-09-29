@@ -1,4 +1,4 @@
-// FSRS4Anki v2.0.3 Scheduler
+// FSRS4Anki v2.1.0 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
@@ -7,7 +7,7 @@ var f_d = [1,-1,-1,0.2];
 var s_w = [3,-0.8,-0.2,1.3,2.2,-0.3,0.3,1.2];
 // The above parameters can be optimized via FSRS4Anki optimizer.
 
-// Custom parameters for user
+// User's custom parameters for global
 let requestRetention = 0.9; // recommended setting: 0.8 ~ 0.9
 let maximumInterval = 36500;
 let easyBonus = 1.3;
@@ -31,7 +31,17 @@ if (document.getElementById('deck') !== null) {
         var f_s = [1.559,1.9103];
         var f_d = [1.0082,-0.9627,-1.0287,0.0316];
         var s_w = [3.1521,-0.8427,-0.1906,1.4371,2.9026,-0.0287,0.5584,1.6425];
-
+        // User's custom parameters for the specific deck
+        requestRetention = 0.85;
+        maximumInterval = 36500;
+        easyBonus = 1.3;
+        hardInterval = 1.2;
+    // parameters for a deck's all sub-decks
+    } else if (deck_name.startsWith("ALL::Archive")) {
+        var f_s = [1.3028,1.4602];
+        var f_d = [1.011,-0.8495,-1.1868,0.0417];
+        var s_w = [3.2415,-0.8428,-0.0158,1.5379,2.1647,-0.3524,0.4513,1.1748];
+        // User's custom parameters for sub-decks
         requestRetention = 0.85;
         maximumInterval = 36500;
         easyBonus = 1.3;
