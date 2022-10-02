@@ -23,9 +23,9 @@ const ratings = {
 debugger;
 
 // get the name of the card's deck
-// need add <div id=deck style="color: rgba(0, 0, 0, 0);">{{Deck}}</div> to your card's front template
-if (document.getElementById('deck') !== null) {
-    const deck_name = document.getElementById('deck').innerHTML;
+// need add <div id=deck deck_name="{{Deck}}"></div> to your card's front template
+if (document.getElementById("deck") !== null) {
+    const deck_name = document.getElementById("deck").getAttribute("deck_name");
     // parameters for a specific deck
     if (deck_name == "ALL::Learning::English::Reading") {
         var f_s = [1.559,1.9103];
