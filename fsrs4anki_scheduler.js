@@ -1,4 +1,4 @@
-// FSRS4Anki v2.1.0 Scheduler
+// FSRS4Anki v2.2.1 Scheduler
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
@@ -120,7 +120,7 @@ function constrain_interval(interval) {
 
 function next_difficulty(d, rating) {
     let next_d = d + f_d[2] * (ratings[rating] - 3);
-    return constrain_difficulty(mean_reversion(f_d[0] * (- f_d[1] + 1), next_d));
+    return constrain_difficulty(mean_reversion(f_d[0] - f_d[1], next_d));
 }
 
 function mean_reversion(init, current) {
@@ -147,11 +147,11 @@ function init_states() {
 }
 
 function init_difficulty(rating) {
-    return +(f_d[0] * (f_d[1] * (ratings[rating] - 4) + 1)).toFixed(2);
+    return +(f_d[0] + f_d[1] * (ratings[rating] - 4)).toFixed(2);
 }
 
 function init_stability(rating) {
-    return +(f_s[0] * (f_s[1] * (ratings[rating] - 1) + 1)).toFixed(2);
+    return +(f_s[0] + f_s[1] * (ratings[rating] - 1)).toFixed(2);
 }
 
 function convert_states() {
