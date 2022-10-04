@@ -1,10 +1,9 @@
-// FSRS4Anki v2.2.1 Scheduler
+// FSRS4Anki v3.0.0 Scheduler
+set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
-var f_s = [1,1];
-var f_d = [1,-1,-1,0.2];
-var s_w = [3,-0.8,-0.2,1.3,2.2,-0.3,0.3,1.2];
+var w = [1, 1, 5, -1, -1, 0.1, 1.5, -0.2, 0.8, 2, -0.2, 0.2, 1];
 // The above parameters can be optimized via FSRS4Anki optimizer.
 
 // User's custom parameters for global
@@ -28,21 +27,18 @@ if (document.getElementById("deck") !== null) {
     const deck_name = document.getElementById("deck").getAttribute("deck_name");
     // parameters for a specific deck
     if (deck_name == "ALL::Learning::English::Reading") {
-        var f_s = [1.559,1.9103];
-        var f_d = [1.0082,-0.9627,-1.0287,0.0316];
-        var s_w = [3.1521,-0.8427,-0.1906,1.4371,2.9026,-0.0287,0.5584,1.6425];
+        var w = [1.1475, 1.401, 5.1483, -1.4221, -1.2282, 0.035, 1.4668, -0.1286, 0.7539, 1.9671, -0.2307, 0.32, 0.9451];
         // User's custom parameters for the specific deck
-        requestRetention = 0.85;
+        requestRetention = 0.9;
         maximumInterval = 36500;
         easyBonus = 1.3;
         hardInterval = 1.2;
     // parameters for a deck's all sub-decks
     } else if (deck_name.startsWith("ALL::Archive")) {
-        var f_s = [1.3028,1.4602];
-        var f_d = [1.011,-0.8495,-1.1868,0.0417];
-        var s_w = [3.2415,-0.8428,-0.0158,1.5379,2.1647,-0.3524,0.4513,1.1748];
+        var w = [1.2879, 0.5135, 4.9532, -1.502, -1.0922, 0.0081, 1.3771, -0.0294, 0.6718, 1.8335, -0.4066, 0.7291, 0.5517];
+        ;
         // User's custom parameters for sub-decks
-        requestRetention = 0.85;
+        requestRetention = 0.9;
         maximumInterval = 36500;
         easyBonus = 1.3;
         hardInterval = 1.2;
@@ -119,20 +115,24 @@ function constrain_interval(interval) {
 }
 
 function next_difficulty(d, rating) {
-    let next_d = d + f_d[2] * (ratings[rating] - 3);
-    return constrain_difficulty(mean_reversion(f_d[0] - f_d[1], next_d));
+    let next_d = d + w[4] * (ratings[rating] - 3);
+    return constrain_difficulty(mean_reversion(w[2], next_d));
 }
 
 function mean_reversion(init, current) {
-    return f_d[3] * init + (1 - f_d[3]) * current;
+    return w[5] * init + (1 - w[5]) * current;
 }
 
 function next_recall_stability(d, s, r) {
-    return +(s * (1 + Math.exp(s_w[0]) * Math.pow(d, s_w[1]) * Math.pow(s, s_w[2]) * (Math.exp((1 - r) * s_w[3]) - 1))).toFixed(2);
+    return +(s * (1 + Math.exp(w[6]) *
+    (11 - d) *
+    Math.pow(s, w[7]) *
+    (Math.exp((1 - r) * w[8]) - 1))).toFixed(2);
 }
 
 function next_forget_stability(d, s, r) {
-    return +(s_w[4] * Math.pow(d, s_w[5]) * Math.pow(s, s_w[6]) * Math.exp((1 - r) * s_w[7])).toFixed(2);
+    return +(w[9] * Math.pow(d, w[10]) * Math.pow(
+        s, w[11]) * Math.exp((1 - r) * w[12])).toFixed(2);
 }
 
 function init_states() {
@@ -147,18 +147,18 @@ function init_states() {
 }
 
 function init_difficulty(rating) {
-    return +(f_d[0] + f_d[1] * (ratings[rating] - 4)).toFixed(2);
+    return +(w[2] + w[3] * (ratings[rating] - 3)).toFixed(2);
 }
 
 function init_stability(rating) {
-    return +(f_s[0] + f_s[1] * (ratings[rating] - 1)).toFixed(2);
+    return +(w[0] + w[1] * (ratings[rating] - 1)).toFixed(2);
 }
 
 function convert_states() {
     const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
     const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
-    const old_s = +Math.max(scheduledDays / intervalModifier, 0.1).toFixed(2);
-    const old_d = constrain_difficulty(Math.pow((easeFactor - 1) / (Math.exp(s_w[0]) * Math.pow(old_s, s_w[2]) * (Math.exp((1 - requestRetention) * s_w[3]) - 1)), 1 / s_w[1]));
+    const old_s = +Math.max(scheduledDays, 0.1).toFixed(2);
+    const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[6]) * Math.pow(old_s, w[7]) * (Math.exp(0.1 * w[8]) - 1)))
     customData.again.d = old_d;
     customData.again.s = old_s;
     customData.hard.d = old_d;
@@ -223,4 +223,12 @@ function is_review() {
 
 function is_empty() {
     return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
+}
+
+function set_version() {
+    const version = "3.0.0";
+    customData.again.v = version;
+    customData.hard.v = version;
+    customData.good.v = version;
+    customData.easy.v = version;
 }
