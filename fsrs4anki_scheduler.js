@@ -147,11 +147,11 @@ function init_states() {
 }
 
 function init_difficulty(rating) {
-    return +(w[2] + w[3] * (ratings[rating] - 3)).toFixed(2);
+    return +constrain_difficulty(w[2] + w[3] * (ratings[rating] - 3)).toFixed(2);
 }
 
 function init_stability(rating) {
-    return +(w[0] + w[1] * (ratings[rating] - 1)).toFixed(2);
+    return +Math.max(w[0] + w[1] * (ratings[rating] - 1), 0.1).toFixed(2);
 }
 
 function convert_states() {
