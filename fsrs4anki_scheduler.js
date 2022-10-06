@@ -1,9 +1,9 @@
-// FSRS4Anki v3.0.0 Scheduler
+// FSRS4Anki v3.0.1 Scheduler
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
-var w = [1, 1, 5, -1, -1, 0.1, 1.5, -0.2, 0.8, 2, -0.2, 0.2, 1];
+var w = [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1];
 // The above parameters can be optimized via FSRS4Anki optimizer.
 
 // User's custom parameters for global
@@ -226,7 +226,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.0.0";
+    const version = "3.0.1";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
