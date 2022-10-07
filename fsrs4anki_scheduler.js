@@ -1,4 +1,4 @@
-// FSRS4Anki v3.0.1 Scheduler
+// FSRS4Anki v3.1.0 Scheduler
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -51,15 +51,15 @@ const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 // For new cards
 if (is_new()) {
     init_states();
-    states.easy.normal.review.scheduledDays = constrain_interval(customData.easy.s);
+    states.easy.normal.review.scheduledDays = next_interval(customData.easy.s);
 // For learning/relearning cards
 } else if (is_learning()) {
     // Init states if the card didn't contain customData
     if (is_empty()) {
         init_states();
     }
-    const good_interval = constrain_interval(customData.good.s);
-    const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
+    const good_interval = next_interval(customData.good.s);
+    const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
     if (states.good.normal?.review) {
         states.good.normal.review.scheduledDays = good_interval;
     }
@@ -91,9 +91,9 @@ if (is_new()) {
     customData.easy.d = next_difficulty(last_d, "easy");
     customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
 
-    const hard_interval = constrain_interval(last_s * hardInterval);
-    const good_interval = Math.max(constrain_interval(customData.good.s), hard_interval + 1);
-    const easy_interval = Math.max(constrain_interval(customData.easy.s * easyBonus), good_interval + 1);
+    const hard_interval = next_interval(last_s * hardInterval);
+    const good_interval = Math.max(next_interval(customData.good.s), hard_interval + 1);
+    const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
 
     if (states.hard.normal?.review) {
         states.hard.normal.review.scheduledDays = hard_interval;
@@ -110,8 +110,9 @@ function constrain_difficulty(difficulty) {
     return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
 }
 
-function constrain_interval(interval) {
-    return Math.min(Math.max(Math.round(interval * intervalModifier), 1), maximumInterval);
+function next_interval(stability) {
+    const new_interval = stability * intervalModifier * (0.2 * Math.random() + 0.9);
+    return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 
 function next_difficulty(d, rating) {
@@ -226,7 +227,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.0.1";
+    const version = "3.1.0";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
