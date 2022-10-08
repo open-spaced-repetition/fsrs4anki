@@ -1,4 +1,4 @@
-// FSRS4Anki v3.1.0 Scheduler
+// FSRS4Anki v3.1.1 Scheduler
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -11,7 +11,6 @@ let requestRetention = 0.9; // recommended setting: 0.8 ~ 0.9
 let maximumInterval = 36500;
 let easyBonus = 1.3;
 let hardInterval = 1.2;
-
 const ratings = {
   "again": 1,
   "hard": 2,
@@ -91,9 +90,12 @@ if (is_new()) {
     customData.easy.d = next_difficulty(last_d, "easy");
     customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
 
-    const hard_interval = next_interval(last_s * hardInterval);
-    const good_interval = Math.max(next_interval(customData.good.s), hard_interval + 1);
-    const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+    let hard_interval = next_interval(last_s * hardInterval);
+    let good_interval = next_interval(customData.good.s);
+    let easy_interval = next_interval(customData.easy.s * easyBonus)
+    hard_interval = Math.min(hard_interval, good_interval)
+    good_interval = Math.max(good_interval, hard_interval + 1);
+    easy_interval = Math.max(easy_interval, good_interval + 1);
 
     if (states.hard.normal?.review) {
         states.hard.normal.review.scheduledDays = hard_interval;
@@ -227,7 +229,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.1.0";
+    const version = "3.1.1";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
