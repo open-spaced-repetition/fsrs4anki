@@ -18,6 +18,10 @@ const ratings = {
   "easy": 4
 };
 
+// "Fuzz" is a small random delay applied to new intervals to prevent cards from
+// sticking together and always coming up for review on the same day
+const enable_fuzz = true;
+
 debugger;
 
 // get the name of the card's deck
@@ -112,8 +116,17 @@ function constrain_difficulty(difficulty) {
     return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
 }
 
+const fuzz_factor = Math.random();
+function apply_fuzz(ivl) {
+    if (!enable_fuzz || ivl < 2.5) return ivl;
+    ivl = Math.round(ivl);
+    const min_ivl = Math.max(2, Math.round(ivl * 0.95 - 1));
+    const max_ivl = Math.round(ivl * 1.05 + 1);
+    return Math.floor(fuzz_factor * (max_ivl - min_ivl + 1) + min_ivl);
+}
+
 function next_interval(stability) {
-    const new_interval = stability * intervalModifier * (0.2 * Math.random() + 0.9);
+    const new_interval = apply_fuzz(stability * intervalModifier);
     return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 
