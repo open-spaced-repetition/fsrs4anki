@@ -1,4 +1,4 @@
-// FSRS4Anki v3.1.1 Scheduler
+// FSRS4Anki v3.4.0 Scheduler
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -17,6 +17,10 @@ const ratings = {
   "good": 3,
   "easy": 4
 };
+
+// "Fuzz" is a small random delay applied to new intervals to prevent cards from
+// sticking together and always coming up for review on the same day
+const enable_fuzz = true;
 
 debugger;
 
@@ -46,6 +50,8 @@ if (document.getElementById("deck") !== null) {
 
 // auto-calculate intervalModifier
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
+// global fuzz factor for all ratings.
+const fuzz_factor = Math.random();
 
 // For new cards
 if (is_new()) {
@@ -112,8 +118,16 @@ function constrain_difficulty(difficulty) {
     return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
 }
 
+function apply_fuzz(ivl) {
+    if (!enable_fuzz || ivl < 2.5) return ivl;
+    ivl = Math.round(ivl);
+    const min_ivl = Math.max(2, Math.round(ivl * 0.95 - 1));
+    const max_ivl = Math.round(ivl * 1.05 + 1);
+    return Math.floor(fuzz_factor * (max_ivl - min_ivl + 1) + min_ivl);
+}
+
 function next_interval(stability) {
-    const new_interval = stability * intervalModifier * (0.2 * Math.random() + 0.9);
+    const new_interval = apply_fuzz(stability * intervalModifier);
     return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 
@@ -229,7 +243,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.1.1";
+    const version = "3.4.0";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
