@@ -1,4 +1,4 @@
-// FSRS4Anki v3.1.1 Scheduler
+// FSRS4Anki v3.4.0 Scheduler
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -50,6 +50,8 @@ if (document.getElementById("deck") !== null) {
 
 // auto-calculate intervalModifier
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
+// global fuzz factor for all ratings.
+const fuzz_factor = Math.random();
 
 // For new cards
 if (is_new()) {
@@ -116,7 +118,6 @@ function constrain_difficulty(difficulty) {
     return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
 }
 
-const fuzz_factor = Math.random();
 function apply_fuzz(ivl) {
     if (!enable_fuzz || ivl < 2.5) return ivl;
     ivl = Math.round(ivl);
