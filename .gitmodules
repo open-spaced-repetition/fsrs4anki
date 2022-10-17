@@ -1,0 +1,3 @@
+[submodule "fsrs4anki_helper"]
+	path = fsrs4anki_helper
+	url = https://github.com/open-spaced-repetition/fsrs4anki-helper
