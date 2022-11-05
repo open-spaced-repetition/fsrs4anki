@@ -1,4 +1,4 @@
-// FSRS4Anki v3.4.0 Scheduler
+// FSRS4Anki v3.8.2 Scheduler
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -25,7 +25,7 @@ const enable_fuzz = true;
 debugger;
 
 // get the name of the card's deck
-// need add <div id=deck deck_name="{{Deck}}"></div> to your card's front template
+// need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line
 if (document.getElementById("deck") !== null) {
     const deck_name = document.getElementById("deck").getAttribute("deck_name");
     // parameters for a specific deck
@@ -39,7 +39,6 @@ if (document.getElementById("deck") !== null) {
     // parameters for a deck's all sub-decks
     } else if (deck_name.startsWith("ALL::Archive")) {
         var w = [1.2879, 0.5135, 4.9532, -1.502, -1.0922, 0.0081, 1.3771, -0.0294, 0.6718, 1.8335, -0.4066, 0.7291, 0.5517];
-        ;
         // User's custom parameters for sub-decks
         requestRetention = 0.9;
         maximumInterval = 36500;
@@ -56,7 +55,14 @@ const fuzz_factor = Math.random();
 // For new cards
 if (is_new()) {
     init_states();
-    states.easy.normal.review.scheduledDays = next_interval(customData.easy.s);
+    const good_interval = next_interval(customData.good.s);
+    const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+    if (states.good.normal?.review) {
+        states.good.normal.review.scheduledDays = good_interval;
+    }
+    if (states.easy.normal?.review) {
+        states.easy.normal.review.scheduledDays = easy_interval;
+    }
 // For learning/relearning cards
 } else if (is_learning()) {
     // Init states if the card didn't contain customData
@@ -77,32 +83,25 @@ if (is_new()) {
     if (is_empty()) {
         convert_states();
     }
-
     const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
     const last_d = customData.again.d;
     const last_s = customData.again.s;
     const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
     const lapses = states.again.normal?.relearning.review.lapses ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
-
     customData.again.d = next_difficulty(last_d, "again");
     customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
-
     customData.hard.d = next_difficulty(last_d, "hard");
     customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability);
-
     customData.good.d = next_difficulty(last_d, "good");
     customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability);
-
     customData.easy.d = next_difficulty(last_d, "easy");
     customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
-
     let hard_interval = next_interval(last_s * hardInterval);
     let good_interval = next_interval(customData.good.s);
     let easy_interval = next_interval(customData.easy.s * easyBonus)
     hard_interval = Math.min(hard_interval, good_interval)
     good_interval = Math.max(good_interval, hard_interval + 1);
     easy_interval = Math.max(easy_interval, good_interval + 1);
-
     if (states.hard.normal?.review) {
         states.hard.normal.review.scheduledDays = hard_interval;
     }
@@ -175,7 +174,7 @@ function convert_states() {
     const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
     const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
     const old_s = +Math.max(scheduledDays, 0.1).toFixed(2);
-    const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[6]) * Math.pow(old_s, w[7]) * (Math.exp(0.1 * w[8]) - 1)))
+    const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[6]) * Math.pow(old_s, w[7]) * (Math.exp(0.1 * w[8]) - 1)));
     customData.again.d = old_d;
     customData.again.s = old_s;
     customData.hard.d = old_d;
@@ -243,7 +242,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.4.0";
+    const version = "3.8.2";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
