@@ -11,12 +11,8 @@ let requestRetention = 0.9; // recommended setting: 0.8 ~ 0.9
 let maximumInterval = 36500;
 let easyBonus = 1.3;
 let hardInterval = 1.2;
-const ratings = {
-  "again": 1,
-  "hard": 2,
-  "good": 3,
-  "easy": 4
-};
+// FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
+// I recommend not to set steps longer than one day.
 
 // "Fuzz" is a small random delay applied to new intervals to prevent cards from
 // sticking together and always coming up for review on the same day
@@ -51,6 +47,13 @@ if (document.getElementById("deck") !== null) {
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 // global fuzz factor for all ratings.
 const fuzz_factor = Math.random();
+
+const ratings = {
+  "again": 1,
+  "hard": 2,
+  "good": 3,
+  "easy": 4
+};
 
 // For new cards
 if (is_new()) {
