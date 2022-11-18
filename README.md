@@ -10,7 +10,7 @@ For more detail on the mechanism of the FSRS algorithm, please see this paper: [
 
 ## Usage
 
-For the tutorial on FSRS4Anki scheduler, optimizer, and simulator, please see: [Usage](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Usage)
+For the tutorial on FSRS4Anki scheduler, optimizer, helper, and simulator, please see: [Usage](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Usage)
 
 ## FAQ
 
@@ -18,4 +18,6 @@ Here collect some questions from issues, forums, and others: [FAQ](https://githu
 
 ## Compatibility
 
-Some add-ons intervene in the scheduling of Anki, which would cause conflict with FSRS4Anki scheduler. Please see [Compatibility](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Compatibility) for more details. I will test these add-ons. Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if I miss any add-ons.
+Some add-ons modify the scheduling of Anki, which would cause conflict with FSRS4Anki scheduler. Please see [Compatibility](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Compatibility) for more details. I will test these add-ons. Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if I miss any add-ons.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=open-spaced-repetition/fsrs4anki&type=Date)](https://star-history.com/#open-spaced-repetition/fsrs4anki&Date)
