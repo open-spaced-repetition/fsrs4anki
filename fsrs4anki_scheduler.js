@@ -1,4 +1,4 @@
-// FSRS4Anki v3.9.4 Scheduler
+// FSRS4Anki v3.9.5 Scheduler
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -245,7 +245,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.9.4";
+    const version = "3.9.5";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
@@ -272,7 +272,7 @@ function set_fuzz_factor() {
     // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     // SOFTWARE.
-    let seed = !customData.again.seed | !customData.hard.seed | !customData.good.seed | !customData.easy.seed ? Date.now() % 10000 : customData.good.seed;
+    let seed = !customData.again.seed | !customData.hard.seed | !customData.good.seed | !customData.easy.seed ? document.getElementById("qa").innerText : customData.good.seed;
     const generator = new Math.seedrandom(seed);
     const fuzz_factor = generator();
     seed = Math.round(fuzz_factor * 10000)
