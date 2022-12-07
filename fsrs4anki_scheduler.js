@@ -1,4 +1,4 @@
-// FSRS4Anki v3.9.5 Scheduler
+// FSRS4Anki v3.9.6 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -245,7 +245,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.9.5";
+    const version = "3.9.6";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
@@ -275,7 +275,7 @@ function set_fuzz_factor() {
     let seed = !customData.again.seed | !customData.hard.seed | !customData.good.seed | !customData.easy.seed ? document.getElementById("qa").innerText : customData.good.seed;
     const generator = new Math.seedrandom(seed);
     const fuzz_factor = generator();
-    seed = Math.round(fuzz_factor * 10000)
+    seed = Math.round(fuzz_factor * 10000);
     customData.again.seed = (seed + 1) % 10000;
     customData.hard.seed = (seed + 2) % 10000;
     customData.good.seed = (seed + 3) % 10000;
