@@ -1,4 +1,4 @@
-// FSRS4Anki v3.9.6 Scheduler Qt5
+// FSRS4Anki v3.10.0 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
