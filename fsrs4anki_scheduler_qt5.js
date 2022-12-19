@@ -252,7 +252,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "3.9.6";
+  const version = "3.10.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
