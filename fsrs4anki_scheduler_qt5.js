@@ -43,6 +43,20 @@ if (document.getElementById("deck") !== null) {
   }
 }
 
+// get the name of the card's tags
+// need to add <div id=tags tags_name="{{Tags}}"></div> to your card's front template's first line
+if (document.getElementById("tags") !== null) {
+  const tags_name = document.getElementById("tags").getAttribute("tags_name");
+  // parameters for a specific tag
+  if (tags_name.includes("test")) {
+    var w = [1.2879, 0.5135, 4.9532, -1.502, -1.0922, 0.0081, 1.3771, -0.0294, 0.6718, 1.8335, -0.4066, 0.7291, 0.5517];
+    requestRetention = 0.9;
+    maximumInterval = 36500;
+    easyBonus = 1.3;
+    hardInterval = 1.2;
+  }
+}
+
 // auto-calculate intervalModifier
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 // global fuzz factor for all ratings.
