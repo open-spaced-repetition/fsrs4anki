@@ -1,4 +1,4 @@
-// FSRS4Anki v3.9.6 Scheduler Qt5
+// FSRS4Anki v3.11.0 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -12,11 +12,15 @@ let maximumInterval = 36500;
 let easyBonus = 1.3;
 let hardInterval = 1.2;
 // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
-// I recommend not to set steps longer than one day.
+// I recommend setting steps shorter than 1 day.
 
 // "Fuzz" is a small random delay applied to new intervals to prevent cards from
 // sticking together and always coming up for review on the same day
 const enable_fuzz = true;
+
+// The memory state variables calculated by FSRS include Difficulty, Stability, and Retrievability.
+// FSRS supports displaying DSR of reviewing cards before you answer.
+const display_memory_state = false;
 
 debugger;
 
@@ -92,6 +96,12 @@ if (is_new()) {
   const last_d = customData.again.d;
   const last_s = customData.again.s;
   const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
+  if (display_memory_state) {
+    var DSR_variables = document.createElement('div');
+    DSR_variables.innerHTML = "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
+    DSR_variables.style.cssText = "font-size:12px;opacity:0.3;font-family:monospace;text-align:left;line-height:1em;";
+    document.getElementById("qa").appendChild(DSR_variables);
+  }
   const lapses = (_states$again$normal = states.again.normal) !== null && _states$again$normal !== void 0 && _states$again$normal.relearning.review.lapses ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
   customData.again.d = next_difficulty(last_d, "again");
   customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
@@ -238,7 +248,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "3.9.6";
+  const version = "3.11.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
