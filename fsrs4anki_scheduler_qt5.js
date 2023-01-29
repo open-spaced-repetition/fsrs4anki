@@ -99,7 +99,7 @@ if (is_new()) {
   if (display_memory_state) {
     var DSR_variables = document.createElement('div');
     DSR_variables.innerHTML = "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
-    DSR_variables.style.cssText = "font-size:12px;opacity:0.3;font-family:monospace;text-align:left;line-height:1em;";
+    DSR_variables.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;";
     document.getElementById("qa").appendChild(DSR_variables);
   }
   const lapses = (_states$again$normal = states.again.normal) !== null && _states$again$normal !== void 0 && _states$again$normal.relearning.review.lapses ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
