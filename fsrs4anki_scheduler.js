@@ -1,4 +1,4 @@
-// FSRS4Anki v3.11.0 Scheduler Qt6
+// FSRS4Anki v3.12.0 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -45,6 +45,11 @@ if (document.getElementById("deck") !== null) {
         easyBonus = 1.3;
         hardInterval = 1.2;
     }
+    // To turn off FSRS in specific decks, fill them into the skip_decks list below.
+    const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
+    for (const i of skip_decks) {
+        if (deck_name.startsWith(i)) return
+    }
 }
 
 // auto-calculate intervalModifier
@@ -58,6 +63,12 @@ const ratings = {
   "good": 3,
   "easy": 4
 };
+
+// display if FSRS is enabled
+var fsrs_status = document.createElement('div');
+fsrs_status.innerHTML = "<br>FSRS enabled";
+fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;"
+document.getElementById("qa").appendChild(fsrs_status);
 
 // For new cards
 if (is_new()) {
@@ -257,7 +268,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.11.0";
+    const version = "3.12.0";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
