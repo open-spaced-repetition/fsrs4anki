@@ -46,6 +46,7 @@ if (document.getElementById("deck") !== null) {
         hardInterval = 1.2;
     }
     // To turn off FSRS in specific decks, fill them into the skip_decks list below.
+    // Please don't remove it even if you don't need it.
     const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
     for (const i of skip_decks) {
         if (deck_name.startsWith(i)) return
@@ -65,10 +66,14 @@ const ratings = {
 };
 
 // display if FSRS is enabled
-var fsrs_status = document.createElement('div');
-fsrs_status.innerHTML = "<br>FSRS enabled";
-fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;"
-document.getElementById("qa").appendChild(fsrs_status);
+if (display_memory_state) {
+    var fsrs_status = document.createElement('div');
+    fsrs_status.innerHTML = "<br>FSRS enabled";
+    fsrs_status.id = "FSRS_status"
+    fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;position:absolute;bottom:-2em;"
+    document.getElementById("qa").appendChild(fsrs_status);
+    document.getElementById("qa").style.cssText += "min-height:65vh;"
+}
 
 // For new cards
 if (is_new()) {
@@ -107,10 +112,7 @@ if (is_new()) {
     const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
 
     if (display_memory_state) {
-        var DSR_variables = document.createElement('div');
-        DSR_variables.innerHTML = "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
-        DSR_variables.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;"
-        document.getElementById("qa").appendChild(DSR_variables);
+        fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
     }
 
     const lapses = states.again.normal?.relearning.review.lapses ? states.again.normal.relearning.review.lapses : states.again.filtered.rescheduling.originalState.relearning.review.lapses;
