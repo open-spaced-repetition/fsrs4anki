@@ -32,7 +32,7 @@ if (display_memory_state) {
   var fsrs_status = document.createElement('div');
   fsrs_status.innerHTML = "<br>FSRS enabled";
   fsrs_status.id = "FSRS_status";
-  fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;position:absolute;bottom:1em;";
+  fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;position:fixed;bottom:1em;";
   document.body.appendChild(fsrs_status);
 }
 
