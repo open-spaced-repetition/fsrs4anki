@@ -1,6 +1,4 @@
-// FSRS4Anki v3.13.1 Scheduler Qt5
-setTimeout(() => {
-wait_card_front().then(() => {
+// FSRS4Anki v3.13.2 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -29,12 +27,13 @@ debugger;
 
 // display if FSRS is enabled
 if (display_memory_state) {
+  const prev = document.getElementById('FSRS_status');
+  if (prev) {prev.remove();}
   var fsrs_status = document.createElement('div');
   fsrs_status.innerHTML = "<br>FSRS enabled";
   fsrs_status.id = "FSRS_status";
   fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;position:absolute;bottom:1em;";
-  document.getElementById("qa").appendChild(fsrs_status);
-  document.getElementById("qa").style.cssText += "min-height:65vh;";
+  document.body.appendChild(fsrs_status);
 }
 
 // get the name of the card's deck
@@ -269,7 +268,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "3.13.1";
+  const version = "3.13.2";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
@@ -304,23 +303,4 @@ function set_fuzz_factor() {
     customData.good.seed = (seed + 3) % 10000;
     customData.easy.seed = (seed + 4) % 10000;
     return fuzz_factor;
-}
-});
-}, 100);
-function wait_card_front() {
-  return new Promise(resolve => {
-    if (document.getElementById("qa").textContent != "") {
-      return resolve(document.getElementById("qa").textContent);
-    }
-    const observer = new MutationObserver(mutations => {
-      if (document.getElementById("qa").textContent != "") {
-        resolve(document.getElementById("qa").textContent);
-        observer.disconnect();
-      }
-    });
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-  });
 }
