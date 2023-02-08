@@ -1,4 +1,6 @@
-// FSRS4Anki v3.12.1 Scheduler Qt5
+// FSRS4Anki v3.13.1 Scheduler Qt5
+setTimeout(() => {
+wait_card_front().then(() => {
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -20,9 +22,20 @@ const enable_fuzz = true;
 
 // The memory state variables calculated by FSRS include Difficulty, Stability, and Retrievability.
 // FSRS supports displaying DSR of reviewing cards before you answer.
+// Enable it for debugging if you encounter something wrong.
 const display_memory_state = false;
 
 debugger;
+
+// display if FSRS is enabled
+if (display_memory_state) {
+  var fsrs_status = document.createElement('div');
+  fsrs_status.innerHTML = "<br>FSRS enabled";
+  fsrs_status.id = "FSRS_status";
+  fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;position:absolute;bottom:1em;";
+  document.getElementById("qa").appendChild(fsrs_status);
+  document.getElementById("qa").style.cssText += "min-height:65vh;";
+}
 
 // get the name of the card's deck
 // need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line
@@ -49,7 +62,13 @@ if (document.getElementById("deck") !== null) {
   // Please don't remove it even if you don't need it.
   const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
   for (const i of skip_decks) {
-    if (deck_name.startsWith(i)) return
+    if (deck_name.startsWith(i)) {
+      fsrs_status.innerHTML = "<br>FSRS disabled";
+      return;
+    }
+  }
+  if (display_memory_state) {
+    fsrs_status.innerHTML += "<br>Deck name: " + deck_name;
   }
 }
 
@@ -63,15 +82,6 @@ const ratings = {
   "good": 3,
   "easy": 4
 };
-// display if FSRS is enabled
-if (display_memory_state) {
-  var fsrs_status = document.createElement('div');
-  fsrs_status.innerHTML = "<br>FSRS enabled";
-  fsrs_status.id = "FSRS_status"
-  fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;position:absolute;bottom:-2em;"
-  document.getElementById("qa").appendChild(fsrs_status);
-  document.getElementById("qa").style.cssText += "min-height:65vh;"
-}
 // For new cards
 if (is_new()) {
   var _states$good$normal, _states$easy$normal;
@@ -259,7 +269,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "3.12.1";
+  const version = "3.13.1";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
@@ -294,4 +304,23 @@ function set_fuzz_factor() {
     customData.good.seed = (seed + 3) % 10000;
     customData.easy.seed = (seed + 4) % 10000;
     return fuzz_factor;
+}
+});
+}, 100);
+function wait_card_front() {
+  return new Promise(resolve => {
+    if (document.getElementById("qa").textContent != "") {
+      return resolve(document.getElementById("qa").textContent);
+    }
+    const observer = new MutationObserver(mutations => {
+      if (document.getElementById("qa").textContent != "") {
+        resolve(document.getElementById("qa").textContent);
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  });
 }
