@@ -1,4 +1,4 @@
-// FSRS4Anki v3.13.3 Scheduler Qt6
+// FSRS4Anki v3.13.4 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -29,12 +29,12 @@ debugger;
 if (display_memory_state) {
     const prev = document.getElementById('FSRS_status')
     if (prev) {prev.remove();}
-    var fsrs_status = document.createElement('div');
+    var fsrs_status = document.createElement('span');
     fsrs_status.innerHTML = "<br>FSRS enabled";
     fsrs_status.id = "FSRS_status";
     fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;";
     document.body.appendChild(fsrs_status);
-    document.getElementById("qa").style.cssText += "min-height:65vh;"
+    document.getElementById("qa").style.cssText += "min-height:50vh;";
 }
 
 // get the name of the card's deck
@@ -280,7 +280,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.13.3";
+    const version = "3.13.4";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
