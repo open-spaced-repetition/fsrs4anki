@@ -1,10 +1,11 @@
-// FSRS4Anki v3.13.2 Scheduler Qt6
+// FSRS4Anki v3.13.4 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
 // Default parameters of FSRS4Anki for global
 var w = [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1];
 // The above parameters can be optimized via FSRS4Anki optimizer.
+// For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
 
 // User's custom parameters for global
 let requestRetention = 0.9; // recommended setting: 0.8 ~ 0.9
@@ -18,8 +19,7 @@ let hardInterval = 1.2;
 // sticking together and always coming up for review on the same day
 const enable_fuzz = true;
 
-// The memory state variables calculated by FSRS include Difficulty, Stability, and Retrievability.
-// FSRS supports displaying DSR of reviewing cards before you answer.
+// FSRS supports displaying memory states of cards.
 // Enable it for debugging if you encounter something wrong.
 const display_memory_state = false;
 
@@ -29,11 +29,12 @@ debugger;
 if (display_memory_state) {
     const prev = document.getElementById('FSRS_status')
     if (prev) {prev.remove();}
-    var fsrs_status = document.createElement('div');
+    var fsrs_status = document.createElement('span');
     fsrs_status.innerHTML = "<br>FSRS enabled";
-    fsrs_status.id = "FSRS_status"
-    fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;position:absolute;bottom:1em;"
+    fsrs_status.id = "FSRS_status";
+    fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;";
     document.body.appendChild(fsrs_status);
+    document.getElementById("qa").style.cssText += "min-height:50vh;";
 }
 
 // get the name of the card's deck
@@ -279,7 +280,7 @@ function is_empty() {
 }
 
 function set_version() {
-    const version = "3.13.2";
+    const version = "3.13.4";
     customData.again.v = version;
     customData.hard.v = version;
     customData.good.v = version;
