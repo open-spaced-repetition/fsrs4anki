@@ -5,6 +5,7 @@ set_version();
 // Default parameters of FSRS4Anki for global
 var w = [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1];
 // The above parameters can be optimized via FSRS4Anki optimizer.
+// For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
 
 // User's custom parameters for global
 let requestRetention = 0.9; // recommended setting: 0.8 ~ 0.9
@@ -18,8 +19,7 @@ let hardInterval = 1.2;
 // sticking together and always coming up for review on the same day
 const enable_fuzz = true;
 
-// The memory state variables calculated by FSRS include Difficulty, Stability, and Retrievability.
-// FSRS supports displaying DSR of reviewing cards before you answer.
+// FSRS supports displaying memory states of cards.
 // Enable it for debugging if you encounter something wrong.
 const display_memory_state = false;
 
