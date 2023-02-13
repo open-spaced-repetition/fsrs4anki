@@ -42,10 +42,7 @@ const deckParams = [
 
 // To turn off FSRS in specific decks, fill them into the skip_decks list below.
 // Please don't remove it even if you don't need it.
-const skip_decks [
-	"ALL::Learning::ML::NNDL",
-	"ALL::Learning::English"
-	];
+const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
 
 // "Fuzz" is a small random delay applied to new intervals to prevent cards from
 // sticking together and always coming up for review on the same day
