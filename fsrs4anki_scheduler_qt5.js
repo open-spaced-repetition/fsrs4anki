@@ -13,7 +13,8 @@ const deckParams = [
     "requestRetention": 0.9, // recommended setting: 0.8 ~ 0.9
     "maximumInterval": 36500,
     "easyBonus": 1.3,
-    "hardInterval": 1.2
+    "hardInterval": 1.2,
+    "includeSubdecks?": true,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
   },
