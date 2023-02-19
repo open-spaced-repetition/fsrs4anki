@@ -73,7 +73,7 @@ if (document.getElementById("deck") !== null) {
   for (let i = 0; i < deckParams.length; i++) {
 	  if (deck_name.startsWith(deckParams[i]["deckName"])) {
 	  	params = deckParams[i];
-		  break;
+		break;
 	  }
   }
   if (Object.keys(params).length === 0) {
