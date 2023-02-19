@@ -1,4 +1,4 @@
-// FSRS4Anki v3.13.4 Scheduler Qt5
+// FSRS4Anki v3.14.0 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -14,7 +14,6 @@ const deckParams = [
     "maximumInterval": 36500,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
-    "includeSubdecks?": true,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
   },
@@ -26,7 +25,6 @@ const deckParams = [
     "maximumInterval": 36500,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
-    "includeSubdecks?": false
     // User's custom parameters for only this deck
   },
   {
@@ -36,7 +34,6 @@ const deckParams = [
     "maximumInterval": 36500,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
-    "includeSubdecks?": true
     // User's custom parameters for this deck and all sub-decks
   }
 ];
@@ -74,17 +71,10 @@ if (document.getElementById("deck") !== null) {
   let params = {};
 
   for (let i = 0; i < deckParams.length; i++) {
-	if (deckParams[i]["includeSubdecks?"] === true) {
 	  if (deck_name.startsWith(deckParams[i]["deckName"])) {
 	  	params = deckParams[i];
-		break;
+		  break;
 	  }
-	} else {
-      if (deck_name === deckParams[i]["deckName"]) {
-        params = deckParams[i];
-        break;
-      }
-	}
   }
   if (Object.keys(params).length === 0) {
     params = deckParams.find(deck => deck.deckName === "global config for FSRS4Anki");
