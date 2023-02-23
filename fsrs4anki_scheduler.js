@@ -73,9 +73,12 @@ let params = {};
 // get the name of the card's deck
 if (document.getElementById("deck") !== null) {
     const deck_name = document.getElementById("deck").getAttribute("deck_name");
+    if (display_memory_state) {
+        fsrs_status.innerHTML += "<br>Deck name: " + deck_name;
+    }
     for (const i of skip_decks) {
         if (deck_name.startsWith(i)) {
-            fsrs_status.innerHTML = "<br>FSRS disabled";
+            fsrs_status.innerHTML = fsrs_status.innerHTML.replace("FSRS enabled", "FSRS disabled");
             return;
         }
     }
@@ -85,8 +88,9 @@ if (document.getElementById("deck") !== null) {
             break;
         }
     }
+} else {
     if (display_memory_state) {
-        fsrs_status.innerHTML += "<br>Deck name: " + deck_name;
+        fsrs_status.innerHTML += "<br>Deck name not found";
     }
 }
 if (Object.keys(params).length === 0) {
