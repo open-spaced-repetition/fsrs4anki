@@ -2,6 +2,8 @@
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
+// Configuration Start
+
 const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
@@ -20,12 +22,13 @@ const deckParams = [
   {
     "deckName": "ALL::Learning::English::Reading",
     // User's custom parameters for the specific deck
+    // need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line
     "w": [1.1475, 1.401, 5.1483, -1.4221, -1.2282, 0.035, 1.4668, -0.1286, 0.7539, 1.9671, -0.2307, 0.32, 0.9451],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
-    // User's custom parameters for only this deck
+    // User's custom parameters for this deck and all sub-decks
   },
   {
     "deckName": "ALL::Archive",
@@ -50,6 +53,8 @@ const enable_fuzz = true;
 // Enable it for debugging if you encounter something wrong.
 const display_memory_state = false;
 
+// Configuration End
+
 debugger;
 
 // display if FSRS is enabled
@@ -64,38 +69,34 @@ if (display_memory_state) {
   document.getElementById("qa").style.cssText += "min-height:50vh;";
 }
 
+let params = {};
 // get the name of the card's deck
-// need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line
 if (document.getElementById("deck") !== null) {
   const deck_name = document.getElementById("deck").getAttribute("deck_name");
-  let params = {};
-
-  for (let i = 0; i < deckParams.length; i++) {
-	  if (deck_name.startsWith(deckParams[i]["deckName"])) {
-	  	params = deckParams[i];
-		  break;
-	  }
-  }
-  if (Object.keys(params).length === 0) {
-    params = deckParams.find(deck => deck.deckName === "global config for FSRS4Anki");
-  }
-  var w = params["w"];
-  var requestRetention = params["requestRetention"];
-  var maximumInterval = params["maximumInterval"];
-  var easyBonus = params["easyBonus"];
-  var hardInterval = params["hardInterval"];
-
   for (const i of skip_decks) {
     if (deck_name.startsWith(i)) {
       fsrs_status.innerHTML = "<br>FSRS disabled";
       return;
     }
   }
+  for (let i = 0; i < deckParams.length; i++) {
+    if (deck_name.startsWith(deckParams[i]["deckName"])) {
+      params = deckParams[i];
+      break;
+    }
+  }
   if (display_memory_state) {
     fsrs_status.innerHTML += "<br>Deck name: " + deck_name;
   }
 }
-
+if (Object.keys(params).length === 0) {
+  params = deckParams.find(deck => deck.deckName === "global config for FSRS4Anki");
+}
+const w = params["w"];
+const requestRetention = params["requestRetention"];
+const maximumInterval = params["maximumInterval"];
+const easyBonus = params["easyBonus"];
+const hardInterval = params["hardInterval"];
 // auto-calculate intervalModifier
 const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 // global fuzz factor for all ratings.
