@@ -1,4 +1,4 @@
-// FSRS4Anki v3.14.1 Scheduler Qt6
+// FSRS4Anki v3.14.2 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -82,6 +82,10 @@ if (document.getElementById("deck") !== null) {
       return;
     }
   }
+  // Arrange the deckParams of sub-decks in front of their parent decks.
+  deckParams.sort(function(a, b) {
+    return -a.deckName.localeCompare(b.deckName);
+  });
   for (let i = 0; i < deckParams.length; i++) {
     if (deck_name.startsWith(deckParams[i]["deckName"])) {
       params = deckParams[i];
@@ -288,7 +292,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "3.14.1";
+  const version = "3.14.2";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
