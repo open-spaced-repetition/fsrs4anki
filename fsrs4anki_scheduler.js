@@ -57,24 +57,7 @@ const display_memory_state = false;
 // Configuration End
 
 debugger;
-// TODO put this code in a better place ↓
-function compareDeckNames(a, b) {
-  // longer names come first, if equal length they will be ordered alphabetically
-  if (a.deckName.length > b.deckName.length) {
-    return -1;
-  } else if (a.deckName.length < b.deckName.length) {
-    return 1;
-  } else {
-    if (a.deckName < b.deckName) {
-      return -1;
-    } else if (a.deckName > b.deckName) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-}
-// TODO put this code in a better place ↑
+
 // display if FSRS is enabled
 if (display_memory_state) {
   const prev = document.getElementById('FSRS_status')
@@ -99,7 +82,10 @@ if (document.getElementById("deck") !== null) {
       return;
     }
   }
-  deckParams.sort(compareDeckNames);
+  // Arrange the deckParams of sub-decks in front of their parent decks.
+  deckParams.sort(function(a, b) {
+    return -a.deckName.localeCompare(b.deckName);
+  });
   for (let i = 0; i < deckParams.length; i++) {
     if (deck_name.startsWith(deckParams[i]["deckName"])) {
       params = deckParams[i];
