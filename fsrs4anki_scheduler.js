@@ -59,7 +59,7 @@ const display_memory_state = false;
 debugger;
 // TODO put this code in a better place ↓
 function compareDeckNames(a, b) {
-  // longer names come first, if equal length are ordered alphabetically
+  // longer names come first, if equal length they will be ordered alphabetically
   if (a.deckName.length > b.deckName.length) {
     return -1;
   } else if (a.deckName.length < b.deckName.length) {
