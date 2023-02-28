@@ -52,7 +52,7 @@ const enable_fuzz = true;
 
 // FSRS supports displaying memory states of cards.
 // Enable it for debugging if you encounter something wrong.
-const display_memory_state = false;
+const display_memory_state = true;
 
 // Configuration End
 
@@ -152,7 +152,9 @@ if (is_new()) {
   const last_s = customData.again.s;
   const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
   if (display_memory_state) {
-    fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
+    const color = (retrievability > 80) ? "green" : "red";
+    const prompt = (retrievability > 80) ? "" : "<h2>Recommended to flag this card. Retention low.</h2>";
+    fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: <span style='color: " + color + "'>" + (retrievability * 100).toFixed(2) + "%. " + prompt + "</span>";
   }
   customData.again.d = next_difficulty(last_d, "again");
   customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
