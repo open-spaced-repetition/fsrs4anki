@@ -8,13 +8,13 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1],
+    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
     "requestRetention": 0.9, // recommended setting: 0.8 ~ 0.9
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
+    "easyBonus": 1.5,
     "hardInterval": 1.2,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
@@ -22,12 +22,12 @@ const deckParams = [
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
     // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "ALL::Learning::English::Reading",
-    "w": [1.1475, 1.401, 5.1483, -1.4221, -1.2282, 0.035, 1.4668, -0.1286, 0.7539, 1.9671, -0.2307, 0.32, 0.9451],
+    "deckName": "Leetcode::Leetcode",
+    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
     "requestRetention": 0.9,
-    "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
+    "maximumInterval": 120,
+    "easyBonus": 1.5,
+    "hardInterval": 1.0,
   },
   {
     // Example 2: User's custom parameters for this deck and its sub-decks.
@@ -52,7 +52,7 @@ const enable_fuzz = true;
 
 // FSRS supports displaying memory states of cards.
 // Enable it for debugging if you encounter something wrong.
-const display_memory_state = false;
+const display_memory_state = true;
 
 // Configuration End
 
@@ -77,7 +77,7 @@ if (document.getElementById("deck") !== null) {
     fsrs_status.innerHTML += "<br>Deck name: " + deck_name;
   }
   for (const i of skip_decks) {
-    if (deck_name.startsWith(i)) {
+    if (deck_name.includes(i)) {
       fsrs_status.innerHTML = fsrs_status.innerHTML.replace("FSRS enabled", "FSRS disabled");
       return;
     }
@@ -87,7 +87,8 @@ if (document.getElementById("deck") !== null) {
     return -a.deckName.localeCompare(b.deckName);
   });
   for (let i = 0; i < deckParams.length; i++) {
-    if (deck_name.startsWith(deckParams[i]["deckName"])) {
+    if (deck_name.includes(deckParams[i]["deckName"])) {
+      console.log("deck name: " + deck_name + ", params: " + deckParams[i])
       params = deckParams[i];
       break;
     }
@@ -151,7 +152,9 @@ if (is_new()) {
   const last_s = customData.again.s;
   const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
   if (display_memory_state) {
-    fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
+    const color = (retrievability > 80) ? "green" : "red";
+    const prompt = (retrievability > 80) ? "" : "<h2>Recommended to flag this card. Retention low.</h2>";
+    fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: <span style='color: " + color + "'>" + (retrievability * 100).toFixed(2) + "%. " + prompt + "</span>";
   }
   customData.again.d = next_difficulty(last_d, "again");
   customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
