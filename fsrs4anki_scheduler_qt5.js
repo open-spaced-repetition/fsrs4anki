@@ -4,7 +4,7 @@ set_version();
 
 // Configuration Start
 
-const deckParams = [
+var deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
@@ -38,8 +38,30 @@ const deckParams = [
     "maximumInterval": 36500,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
-  }
+  },
+  {
+    "deckName": "config to be shared among several decks",
+    "w": [83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95],
+    "requestRetention": 96,
+    "maximumInterval": 97,
+    "easyBonus": 98,
+    "hardInterval": 99,
+  },
 ];
+
+// you can add multiple shared configs too
+const decks_with_shared_config = {
+  "config to be shared among several decks: [
+    "example::deck::name1",
+    "example::deck::name2",
+    "example::deck::name3:",
+  ],
+  "other config to be shared": [
+    "example::deck::name1",
+    "example::deck::name2",
+    "example::deck::name3:",
+  ],
+};
 
 // To turn off FSRS in specific decks, fill them into the skip_decks list below.
 // And add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
@@ -69,6 +91,29 @@ if (display_memory_state) {
   document.body.appendChild(fsrs_status);
   document.getElementById("qa").style.cssText += "min-height:50vh;";
 }
+
+// add decks with shared config to deck parameters
+for (const deck_config_name in decks_with_shared_config) {
+  const deck_names = decks_with_shared_config[deck_config_name];
+  for (const deck_name of deck_names) {
+    const deck_param = Object.assign({}, deckParams.find(dp => dp.deckName === deck_config_name));
+    if (Object.keys(deck_param).length === 0) {
+      // I did not find the the deck config in deckParams, TODO give some warning to the user
+      continue;
+    };
+    deck_param.deckName = deck_name;
+    deckParams.push(deck_param);
+  };
+};
+
+// remove placeholders for shared deck configs
+for (const deck_name_to_remove in decks_with_shared_config) {
+  const deck_param_index = deckParams.findIndex(dp => dp.deckName == deck_name_to_remove);
+  if (deck_param_index > -1) {
+    deckParams.splice(deck_param_index, 1);
+  };
+};
+
 let params = {};
 // get the name of the card's deck
 if (document.getElementById("deck") !== null) {
