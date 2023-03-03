@@ -8,7 +8,8 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
+    "w": [1.149, 1.1285, 4.6908, -0.4103, -0.6001, 0.1209, 1.7399, -0.0333, 1.127, 2.1305, -0.0677, 0.3754, 1.1049],
+
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
@@ -32,10 +33,10 @@ const deckParams = [
   {
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
-    "deckName": "ALL::Archive",
-    "w": [1.2879, 0.5135, 4.9532, -1.502, -1.0922, 0.0081, 1.3771, -0.0294, 0.6718, 1.8335, -0.4066, 0.7291, 0.5517],
+    "deckName": "Numbers You Should Know",
+    "w": [1.0157, 1.0396, 4.9505, -0.4867, -0.4943, 0.2093, 1.4537, -0.0577, 0.8526, 2.0201, -0.1799, 0.2217, 1.0241],
     "requestRetention": 0.9,
-    "maximumInterval": 36500,
+    "maximumInterval": 30,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
   }
@@ -88,7 +89,7 @@ if (document.getElementById("deck") !== null) {
   });
   for (let i = 0; i < deckParams.length; i++) {
     if (deck_name.includes(deckParams[i]["deckName"])) {
-      console.log("deck name: " + deck_name + ", params: " + deckParams[i])
+      console.log("deck name: " + deck_name + ", params: " + deckParams[i], ", requestRetention: ", deckParams[i]["requestRetention"])
       params = deckParams[i];
       break;
     }
