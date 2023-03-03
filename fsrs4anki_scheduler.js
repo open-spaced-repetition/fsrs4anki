@@ -89,7 +89,7 @@ if (document.getElementById("deck") !== null) {
   });
   for (let i = 0; i < deckParams.length; i++) {
     if (deck_name.includes(deckParams[i]["deckName"])) {
-      console.log("deck name: " + deck_name + ", params: " + deckParams[i], ", requestRetention: ", deckParams[i]["requestRetention"])
+      console.log("deck name: " + deck_name + ", params: " + deckParams[i])
       params = deckParams[i];
       break;
     }
