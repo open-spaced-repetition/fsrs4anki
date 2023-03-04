@@ -23,7 +23,7 @@ const deckParams = [
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
     // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "Leetcode::Leetcode",
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems",
     "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
     "requestRetention": 0.9,
     "maximumInterval": 120,
@@ -31,9 +31,31 @@ const deckParams = [
     "hardInterval": 1.0,
   },
   {
-    // Example 2: User's custom parameters for this deck and its sub-decks.
-    // Don't omit any keys.
-    "deckName": "Numbers You Should Know",
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​Easy",
+    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
+    "requestRetention": 0.9,
+    "maximumInterval": 150,
+    "easyBonus": 1.5,
+    "hardInterval": 1.0,
+  },
+  {
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Medium",
+    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
+    "requestRetention": 0.9,
+    "maximumInterval": 120,
+    "easyBonus": 1.5,
+    "hardInterval": 1.0,
+  },
+  {
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​​Hard",
+    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
+    "requestRetention": 0.9,
+    "maximumInterval": 120,
+    "easyBonus": 1.5,
+    "hardInterval": 1.0,
+  },
+  {
+    "deckName": "​SRE💰::​Software Engineering::​​​​​​​Numbers You Should Know",
     "w": [1.0157, 1.0396, 4.9505, -0.4867, -0.4943, 0.2093, 1.4537, -0.0577, 0.8526, 2.0201, -0.1799, 0.2217, 1.0241],
     "requestRetention": 0.9,
     "maximumInterval": 30,
@@ -88,7 +110,7 @@ if (document.getElementById("deck") !== null) {
     return -a.deckName.localeCompare(b.deckName);
   });
   for (let i = 0; i < deckParams.length; i++) {
-    if (deck_name.includes(deckParams[i]["deckName"])) {
+    if (deck_name.startsWith(deckParams[i]["deckName"])) {
       console.log("deck name: " + deck_name + ", params: " + deckParams[i])
       params = deckParams[i];
       break;
