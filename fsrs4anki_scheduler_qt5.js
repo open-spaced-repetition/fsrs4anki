@@ -51,7 +51,7 @@ var deckParams = [
 
 // you can add multiple shared configs too
 const decks_with_shared_config = {
-  "config to be shared among several decks: [
+  "config to be shared among several decks": [
     "example::deck::name1",
     "example::deck::name2",
     "example::deck::name3:",
