@@ -4,7 +4,7 @@ set_version();
 
 // Configuration Start
 
-var deckParams = [
+const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
