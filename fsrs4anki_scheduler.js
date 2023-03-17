@@ -23,7 +23,7 @@ const deckParams = [
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
     // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems",
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::Binary-Search",
     "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
     "requestRetention": 0.9,
     "maximumInterval": 120,
