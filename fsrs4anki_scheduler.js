@@ -25,7 +25,7 @@ const deckParams = [
     // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::Binary-Search",
     "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
-    "requestRetention": 0.6,
+    "requestRetention": 0.75,
     "maximumInterval": 180,
     "easyBonus": 1.5,
     "hardInterval": 1.0,
@@ -33,7 +33,7 @@ const deckParams = [
   {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​Easy",
     "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
-    "requestRetention": 0.6,
+    "requestRetention": 0.75,
     "maximumInterval": 240,
     "easyBonus": 1.5,
     "hardInterval": 1.0,
@@ -41,7 +41,7 @@ const deckParams = [
   {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Medium",
     "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
-    "requestRetention": 0.6,
+    "requestRetention": 0.75,
     "maximumInterval": 180,
     "easyBonus": 1.5,
     "hardInterval": 1.0,
