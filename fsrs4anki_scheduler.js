@@ -20,16 +20,6 @@ const deckParams = [
     // I recommend setting steps shorter than 1 day.
   },
   {
-    // Example 1: User's custom parameters for this deck and its sub-decks.
-    // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::Binary-Search",
-    "w": [1.1551, 1.1122, 4.6846, -0.4487, -0.6639, 0.0559, 1.7706, -0.0124, 1.1487, 2.1323, -0.0688, 0.3691, 1.1142],
-    "requestRetention": 0.75,
-    "maximumInterval": 180,
-    "easyBonus": 1.5,
-    "hardInterval": 1.0,
-  },
-  {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​Easy",
     "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
     "requestRetention": 0.75,
@@ -56,7 +46,7 @@ const deckParams = [
   {
     "deckName": "​SRE💰::​Software Engineering::​​​​​​​Numbers You Should Know",
     "w": [1.0157, 1.0396, 4.959, -0.4984, -0.5204, 0.1813, 1.4509, -0.0642, 0.8497, 2.0005, -0.1997, 0.199, 1.0007],
-    "requestRetention": 1.0,
+    "requestRetention": 0.95,
     "maximumInterval": 30,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
