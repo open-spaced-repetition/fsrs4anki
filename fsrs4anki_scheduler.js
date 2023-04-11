@@ -310,7 +310,7 @@ function get_seed() {
     if (typeof ctx !== 'undefined' && ctx.seed) {
       return ctx.seed;
     } else {
-      return document.getElementById("qa").innerText
+      return document.getElementById("qa").innerText;
     }
   } else {
     return customData.good.seed;
