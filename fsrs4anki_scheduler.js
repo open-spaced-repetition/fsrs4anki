@@ -8,8 +8,7 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1.149, 1.1285, 4.6908, -0.4103, -0.6001, 0.1209, 1.7399, -0.0333, 1.127, 2.1305, -0.0677, 0.3754, 1.1049],
-
+    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
@@ -21,43 +20,33 @@ const deckParams = [
     // I recommend setting steps shorter than 1 day.
   },
   {
-    // Example 1: User's custom parameters for this deck and its sub-decks.
-    // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems",
-    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
-    "requestRetention": 0.9,
-    "maximumInterval": 120,
-    "easyBonus": 1.5,
-    "hardInterval": 1.0,
-  },
-  {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​Easy",
-    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
-    "requestRetention": 0.9,
-    "maximumInterval": 150,
+    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
+    "requestRetention": 0.75,
+    "maximumInterval": 240,
     "easyBonus": 1.5,
     "hardInterval": 1.0,
   },
   {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Medium",
-    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
-    "requestRetention": 0.9,
-    "maximumInterval": 120,
+    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
+    "requestRetention": 0.75,
+    "maximumInterval": 180,
     "easyBonus": 1.5,
     "hardInterval": 1.0,
   },
   {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​​Hard",
-    "w": [1.1546, 1.1442, 4.705, -0.394, -0.5401, 0.1349, 1.7153, -0.0104, 1.1052, 2.1644, -0.0326, 0.3739, 1.1545],
-    "requestRetention": 0.9,
+    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
+    "requestRetention": 0.6,
     "maximumInterval": 120,
     "easyBonus": 1.5,
     "hardInterval": 1.0,
   },
   {
     "deckName": "​SRE💰::​Software Engineering::​​​​​​​Numbers You Should Know",
-    "w": [1.0157, 1.0396, 4.9505, -0.4867, -0.4943, 0.2093, 1.4537, -0.0577, 0.8526, 2.0201, -0.1799, 0.2217, 1.0241],
-    "requestRetention": 0.9,
+    "w": [1.0157, 1.0396, 4.959, -0.4984, -0.5204, 0.1813, 1.4509, -0.0642, 0.8497, 2.0005, -0.1997, 0.199, 1.0007],
+    "requestRetention": 0.95,
     "maximumInterval": 30,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
