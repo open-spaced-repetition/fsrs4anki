@@ -12,3 +12,5 @@ meta
 *.csv
 *.tsv
 *.pth
+
+__pycache__
