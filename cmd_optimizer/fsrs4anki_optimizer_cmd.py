@@ -53,22 +53,33 @@ if __name__ == "__main__":
     remembered_fallback_prompt("next_day", "used next day start hour")
     remembered_fallback_prompt("revlog_start_date", "the date at which before reviews will be ignored")
     
-    try:
-        optimizer = fsrs4anki_optimizer.Optimizer()
-        optimizer.anki_extract(args.filename)
-        optimizer.create_time_series(
-            remembered_fallbacks["timezone"],
-            remembered_fallbacks["revlog_start_date"],
-            remembered_fallbacks["next_day"]
-        )
+    graphs_input = prompt("View graphs(y/n)" , remembered_fallbacks["preview"])
+    
+    if graphs_input.lower() != 'y':
+        remembered_fallbacks["preview"] = "n"
 
-        optimizer.define_model()
-        optimizer.train()
-        optimizer.predict_memory_states()
-        print("\nWhen the graph appears close it continue\n")
-        optimizer.find_optimal_retention()
+    with open(config_save, "w+") as f: # Save the settings to load next time the program is run
+        json.dump(remembered_fallbacks, f)
 
-        print(f"""Paste this into your scheduling code
+    show_graphs = graphs_input != "n"
+
+    optimizer = fsrs4anki_optimizer.Optimizer()
+    optimizer.anki_extract(args.filename)
+    optimizer.create_time_series(
+        remembered_fallbacks["timezone"],
+        remembered_fallbacks["revlog_start_date"],
+        remembered_fallbacks["next_day"]
+    )
+
+    optimizer.define_model()
+    optimizer.train()
+
+    optimizer.predict_memory_states()
+    optimizer.find_optimal_retention(show_graphs)
+
+    optimizer.preview(optimizer.optimal_retention)
+
+    print(f"""Paste this into your scheduling code
     {{
     // Generated, Optimized anki deck settings
     // Need to add <div id=deck deck_name="{{{{Deck}}}}"></div> to your card's front template's first line.
@@ -80,13 +91,6 @@ if __name__ == "__main__":
     "hardInterval": 1.2,
     }},
 """)
-
-        preview = prompt("Preview graphs(y/n)" , remembered_fallbacks["preview"])
-        if preview.lower() != 'y':
-            remembered_fallbacks["preview"] = "n"
-        
-        optimizer.preview(optimizer.optimal_retention)
     
-    finally: # Save the settings at the end
-        with open(config_save, "w+") as f:
-            json.dump(remembered_fallbacks, f)
+    if show_graphs:
+        optimizer.calibration_graph()

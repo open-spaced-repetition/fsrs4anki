@@ -411,7 +411,7 @@ class Optimizer:
             if i+1 in self.difficulty_distribution.index:
                 self.difficulty_distribution_padding[i] = self.difficulty_distribution.loc[i+1]
     
-    def find_optimal_retention(self):
+    def find_optimal_retention(self, graph=True):
         """should not be called before predict_memory_states"""
 
         base = 1.01
@@ -504,12 +504,14 @@ class Optimizer:
         self.optimal_retention = np.inner(self.difficulty_distribution_padding, optimal_retention_list)
 
         print(f"\n-----suggested retention (experimental): {self.optimal_retention:.2f}-----")
-        plt.ylabel("expected time (second)")
-        plt.xlabel("retention")
-        plt.legend()
-        plt.grid()
-        plt.semilogy()
-        plt.show()
+
+        if graph:
+            plt.ylabel("expected time (second)")
+            plt.xlabel("retention")
+            plt.legend()
+            plt.grid()
+            plt.semilogy()
+            plt.show()
     
     def evaluate(self):
         my_collection = Collection(self.init_w)
