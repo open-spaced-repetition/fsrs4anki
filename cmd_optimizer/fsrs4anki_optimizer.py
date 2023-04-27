@@ -1,17 +1,25 @@
 import zipfile
 import sqlite3
 import time
-from tqdm import notebook
 import pandas as pd
 import numpy as np
 import os
 from datetime import timedelta, datetime
 import matplotlib.pyplot as plt
-import math
-import sys
 import torch
 from torch import nn
 from sklearn.utils import shuffle
+from sklearn.metrics import mean_squared_error, r2_score
+
+def is_interactive(): # https://stackoverflow.com/questions/15411967/how-can-i-check-if-code-is-executed-in-the-ipython-notebook
+    import __main__ as main
+    return not hasattr(main, '__file__')
+
+if is_interactive():
+    from tqdm import notebook
+else:
+    # Export cli module pretending to be notebook if not in notebook
+    from tqdm import cli as notebook 
 
 class FSRS(nn.Module):
     def __init__(self, w):
@@ -85,6 +93,19 @@ def lineToTensor(line):
         tensor[li][1] = int(response)
     return tensor
 
+class Collection:
+    def __init__(self, w):
+        self.model = FSRS(w)
+
+    def states(self, t_history, r_history):
+        with torch.no_grad():
+            line_tensor = lineToTensor(list(zip([t_history], [r_history]))[0])
+            output_t = [(self.model.zero, self.model.zero)]
+            for input_t in line_tensor:
+                output_t.append(self.model(input_t, *output_t[-1]))
+            return output_t[-1]
+
+"""Used to store all the results from FSRS related functions"""
 class Optimizer:
     def __init__(self) -> None:
         pass
@@ -95,7 +116,7 @@ class Optimizer:
         # Extract the collection file or deck file to get the .anki21 database.
         with zipfile.ZipFile(f'./{filename}', 'r') as zip_ref:
             zip_ref.extractall('./')
-            print("Extract successfully!")
+            print("Deck file extracted successfully!")
 
     def create_time_series(self, timezone: str, revlog_start_date: str, next_day_starts_at: int):
         """Step 2"""
@@ -127,8 +148,8 @@ class Optimizer:
             'UTC').dt.tz_convert(timezone)
         df.drop(df[df['review_date'].dt.year < 2006].index, inplace=True)
         df.sort_values(by=['cid', 'id'], inplace=True, ignore_index=True)
-        type_sequence = np.array(df['type'])
-        time_sequence = np.array(df['time'])
+        self.type_sequence = np.array(df['type'])
+        self.time_sequence = np.array(df['time'])
         df.to_csv("revlog.csv", index=False)
         print("revlog.csv saved.")
         df = df[df['type'] != 3].copy()
@@ -314,3 +335,248 @@ class Optimizer:
         self.w = list(map(lambda x: round(float(x), 4), dict(model.named_parameters())['w'].data))
 
         print("\nTraining finished!")
+
+    def preview(self, requestRetention: float):
+        my_collection = Collection(self.w)
+        print("1:again, 2:hard, 3:good, 4:easy\n")
+        for first_rating in (1,2,3,4):
+            print(f'first rating: {first_rating}')
+            t_history = "0"
+            d_history = "0"
+            r_history = f"{first_rating}"  # the first rating of the new card
+            # print("stability, difficulty, lapses")
+            for i in range(10):
+                states = my_collection.states(t_history, r_history)
+                # print('{0:9.2f} {1:11.2f} {2:7.0f}'.format(
+                    # *list(map(lambda x: round(float(x), 4), states))))
+                next_t = max(round(float(np.log(requestRetention)/np.log(0.9) * states[0])), 1)
+                difficulty = round(float(states[1]), 1)
+                t_history += f',{int(next_t)}'
+                d_history += f',{difficulty}'
+                r_history += f",3"
+            print(f"rating history: {r_history}")
+            print(f"interval history: {t_history}")
+            print(f"difficulty history: {d_history}")
+            print('')
+
+    def preview_sequence(self, test_rating_sequence: str, requestRetention: float, easyBonus: float, hardInterval: float):
+        my_collection = Collection(self.w)
+
+        t_history = "0"
+        d_history = "0"
+        for i in range(len(test_rating_sequence.split(','))):
+            rating = test_rating_sequence[2*i]
+            last_t = int(t_history.split(',')[-1])
+            r_history = test_rating_sequence[:2*i+1]
+            states = my_collection.states(t_history, r_history)
+            print(states)
+            next_t = max(1,round(float(np.log(requestRetention)/np.log(0.9) * states[0])))
+            if rating == '4':
+                next_t = round(next_t * easyBonus)
+            elif rating == '2':
+                next_t = round(last_t * hardInterval)
+            t_history += f',{int(next_t)}'
+            difficulty = round(float(states[1]), 1)
+            d_history += f',{difficulty}'
+        print(f"rating history: {test_rating_sequence}")
+        print(f"interval history: {t_history}")
+        print(f"difficulty history: {d_history}")
+
+    def predict_memory_states(self):
+        my_collection = Collection(self.w)
+
+        def predict_memory_states(group):
+            states = my_collection.states(*group.name)
+            group['stability'] = float(states[0])
+            group['difficulty'] = float(states[1])
+            group['count'] = len(group)
+            return pd.DataFrame({
+                'r_history': [group.name[1]], 
+                't_history': [group.name[0]], 
+                'stability': [round(float(states[0]),2)], 
+                'difficulty': [round(float(states[1]),2)], 
+                'count': [len(group)] 
+            })
+
+        prediction = self.dataset.groupby(by=['t_history', 'r_history']).progress_apply(predict_memory_states)
+        prediction.reset_index(drop=True, inplace=True)
+        prediction.sort_values(by=['r_history'], inplace=True)
+        prediction.to_csv("./prediction.tsv", sep='\t', index=None)
+        print("prediction.tsv saved.")
+        prediction['difficulty'] = prediction['difficulty'].map(lambda x: int(round(x)))
+        self.difficulty_distribution = prediction.groupby(by=['difficulty'])['count'].sum() / prediction['count'].sum()
+        print(self.difficulty_distribution)
+        self.difficulty_distribution_padding = np.zeros(10)
+        for i in range(10):
+            if i+1 in self.difficulty_distribution.index:
+                self.difficulty_distribution_padding[i] = self.difficulty_distribution.loc[i+1]
+    
+    def find_optimal_retention(self):
+        """should not be called before predict_memory_states"""
+
+        base = 1.01
+        index_len = 793
+        index_offset = 200
+        d_range = 10
+        d_offset = 1
+        r_time = 8
+        f_time = 25
+        max_time = 200000
+
+        type_block = dict()
+        type_count = dict()
+        type_time = dict()
+        last_t = self.type_sequence[0]
+        type_block[last_t] = 1
+        type_count[last_t] = 1
+        type_time[last_t] = self.time_sequence[0]
+        for i,t in enumerate(self.type_sequence[1:]):
+            type_count[t] = type_count.setdefault(t, 0) + 1
+            type_time[t] = type_time.setdefault(t, 0) + self.time_sequence[i]
+            if t != last_t:
+                type_block[t] = type_block.setdefault(t, 0) + 1
+            last_t = t
+
+        r_time = round(type_time[1]/type_count[1]/1000, 1)
+
+        if 2 in type_count and 2 in type_block:
+            f_time = round(type_time[2]/type_block[2]/1000 + r_time, 1)
+
+        print(f"average time for failed cards: {f_time}s")
+        print(f"average time for recalled cards: {r_time}s")
+
+        def stability2index(stability):
+            return int(round(np.log(stability) / np.log(base)) + index_offset)
+
+        def init_stability(d):
+            return max(((d - self.w[2]) / self.w[3] + 2) * self.w[1] + self.w[0], np.power(base, -index_offset))
+
+        def cal_next_recall_stability(s, r, d, response):
+            if response == 1:
+                return s * (1 + np.exp(self.w[6]) * (11 - d) * np.power(s, self.w[7]) * (np.exp((1 - r) * self.w[8]) - 1))
+            else:
+                return self.w[9] * np.power(d, self.w[10]) * np.power(s, self.w[11]) * np.exp((1 - r) * self.w[12])
+
+
+        stability_list = np.array([np.power(base, i - index_offset) for i in range(index_len)])
+        print(f"terminal stability: {stability_list.max(): .2f}")
+        df = pd.DataFrame(columns=["retention", "difficulty", "time"])
+
+        for percentage in notebook.tqdm(range(96, 66, -2)):
+            recall = percentage / 100
+            time_list = np.zeros((d_range, index_len))
+            time_list[:,:-1] = max_time
+            for d in range(d_range, 0, -1):
+                s0 = init_stability(d)
+                s0_index = stability2index(s0)
+                diff = max_time
+                while diff > 0.1:
+                    s0_time = time_list[d - 1][s0_index]
+                    for s_index in range(index_len - 2, -1, -1):
+                        stability = stability_list[s_index];
+                        interval = max(1, round(stability * np.log(recall) / np.log(0.9)))
+                        p_recall = np.power(0.9, interval / stability)
+                        recall_s = cal_next_recall_stability(stability, p_recall, d, 1)
+                        forget_d = min(d + d_offset, 10)
+                        forget_s = cal_next_recall_stability(stability, p_recall, forget_d, 0)
+                        recall_s_index = min(stability2index(recall_s), index_len - 1)
+                        forget_s_index = min(max(stability2index(forget_s), 0), index_len - 1)
+                        recall_time = time_list[d - 1][recall_s_index] + r_time
+                        forget_time = time_list[forget_d - 1][forget_s_index] + f_time
+                        exp_time = p_recall * recall_time + (1.0 - p_recall) * forget_time
+                        if exp_time < time_list[d - 1][s_index]:
+                            time_list[d - 1][s_index] = exp_time
+                    diff = s0_time - time_list[d - 1][s0_index]
+                df.loc[0 if pd.isnull(df.index.max()) else df.index.max() + 1] = [recall, d, s0_time]
+
+        df.sort_values(by=["difficulty", "retention"], inplace=True)
+        df.to_csv("./expected_time.csv", index=False)
+        print("expected_time.csv saved.")
+
+        optimal_retention_list = np.zeros(10)
+        for d in range(1, d_range+1):
+            retention = df[df["difficulty"] == d]["retention"]
+            time = df[df["difficulty"] == d]["time"]
+            optimal_retention = retention.iat[time.argmin()]
+            optimal_retention_list[d-1] = optimal_retention
+            plt.plot(retention, time, label=f"d={d}, r={optimal_retention}")
+        
+        self.optimal_retention = np.inner(self.difficulty_distribution_padding, optimal_retention_list)
+
+        print(f"\n-----suggested retention (experimental): {self.optimal_retention:.2f}-----")
+        plt.ylabel("expected time (second)")
+        plt.xlabel("retention")
+        plt.legend()
+        plt.grid()
+        plt.semilogy()
+        plt.show()
+    
+    def evaluate(self):
+        my_collection = Collection(self.init_w)
+        self.dataset['stability'] = self.dataset.progress_apply(lambda row: my_collection.states(row['t_history'], row['r_history'])[0].item(), axis=1)
+        self.dataset['p'] = np.exp(np.log(0.9) * self.dataset['delta_t'] / self.dataset['stability'])
+        self.dataset['log_loss'] = self.dataset.apply(lambda row: - np.log(row['p']) if row['y'] == 1 else - np.log(1 - row['p']), axis=1)
+        print(f"Loss before training: {self.dataset['log_loss'].mean():.4f}")
+
+        my_collection = Collection(self.w)
+        self.dataset['stability'] = self.dataset.progress_apply(lambda row: my_collection.states(row['t_history'], row['r_history'])[0].item(), axis=1)
+        self.dataset['p'] = np.exp(np.log(0.9) * self.dataset['delta_t'] / self.dataset['stability'])
+        self.dataset['log_loss'] = self.dataset.apply(lambda row: - np.log(row['p']) if row['y'] == 1 else - np.log(1 - row['p']), axis=1)
+        print(f"Loss after training: {self.dataset['log_loss'].mean():.4f}")
+
+    def calibration_graph(self):
+        # code from https://github.com/papousek/duolingo-halflife-regression/blob/master/evaluation.py
+        def load_brier(predictions, real, bins=20):
+            counts = np.zeros(bins)
+            correct = np.zeros(bins)
+            prediction = np.zeros(bins)
+            for p, r in zip(predictions, real):
+                bin = min(int(p * bins), bins - 1)
+                counts[bin] += 1
+                correct[bin] += r
+                prediction[bin] += p
+            prediction_means = prediction / counts
+            prediction_means[np.isnan(prediction_means)] = ((np.arange(bins) + 0.5) / bins)[np.isnan(prediction_means)]
+            correct_means = correct / counts
+            correct_means[np.isnan(correct_means)] = 0
+            size = len(predictions)
+            answer_mean = sum(correct) / size
+            return {
+                "reliability": sum(counts * (correct_means - prediction_means) ** 2) / size,
+                "resolution": sum(counts * (correct_means - answer_mean) ** 2) / size,
+                "uncertainty": answer_mean * (1 - answer_mean),
+                "detail": {
+                    "bin_count": bins,
+                    "bin_counts": list(counts),
+                    "bin_prediction_means": list(prediction_means),
+                    "bin_correct_means": list(correct_means),
+                }
+            }
+
+
+        def plot_brier(predictions, real, bins=20):
+            brier = load_brier(predictions, real, bins=bins)
+            bin_prediction_means = brier['detail']['bin_prediction_means']
+            bin_correct_means = brier['detail']['bin_correct_means']
+            bin_counts = brier['detail']['bin_counts']
+            r2 = r2_score(bin_correct_means, bin_prediction_means, sample_weight=bin_counts)
+            rmse = np.sqrt(mean_squared_error(bin_correct_means, bin_prediction_means, sample_weight=bin_counts))
+            print(f"R-squared: {r2:.4f}")
+            print(f"RMSE: {rmse:.4f}")
+            plt.figure()
+            plt.plot(bin_prediction_means, bin_correct_means, label='Average actual retention')
+            plt.plot((0, 1), (0, 1), label='Optimal average actual retention')
+            bin_count = brier['detail']['bin_count']
+            counts = np.array(bin_counts)
+            bins = (np.arange(bin_count) + 0.5) / bin_count
+            plt.legend(loc='upper center')
+            plt.xlabel('Predicted Retention')
+            plt.ylabel('Actual Retention')
+            plt.twinx()
+            plt.ylabel('Number of predictions')
+            plt.bar(bins, counts, width=(0.5 / bin_count), alpha=0.5, label='Number of predictions')
+            plt.legend(loc='lower center')
+
+
+        plot_brier(self.dataset['p'], self.dataset['y'], bins=40)
+        plt.show()
