@@ -93,4 +93,5 @@ if __name__ == "__main__":
 """)
     
     if show_graphs:
+        optimizer.evaluate()
         optimizer.calibration_graph()
