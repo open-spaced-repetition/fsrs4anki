@@ -1,3 +1,4 @@
+# python fsrs4anki_optimizer_cmd.py <filename.apkg|filename.colpkg>
 import fsrs4anki_optimizer
 import argparse
 import json
