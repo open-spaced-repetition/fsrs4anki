@@ -64,6 +64,7 @@ if __name__ == "__main__":
         optimizer.define_model()
         optimizer.train()
         optimizer.predict_memory_states()
+        print("\nWhen the graph appears close it continue\n")
         optimizer.find_optimal_retention()
 
         print(f"""Paste this into your scheduling code
