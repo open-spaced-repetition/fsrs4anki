@@ -24,9 +24,12 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("filename")
-    parser.add_argument("--yes",
+    parser.add_argument("-y","--yes",
                         action=argparse.BooleanOptionalAction,
                         help="If set automatically defaults on all stdin settings."
+                        )
+    parser.add_argument("-o","--out",
+                        help="File to APPEND the automatically generated profile to."
                         )
     args = parser.parse_args()
 
@@ -86,8 +89,8 @@ if __name__ == "__main__":
 
     optimizer.preview(optimizer.optimal_retention)
 
-    print(f"""Paste this into your scheduling code
-    {{
+    profile = \
+f"""{{
     // Generated, Optimized anki deck settings
     // Need to add <div id=deck deck_name="{{{{Deck}}}}"></div> to your card's front template's first line.
     "deckName": "{args.filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
@@ -96,9 +99,16 @@ if __name__ == "__main__":
     "maximumInterval": 36500,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
-    }},
-""")
+}},
+"""
+
+    print("Paste this into your scheduling code")
+    print(profile)
     
+    if args.out:
+        with open(args.out, "a+") as f:
+            f.write(profile)
+
     if show_graphs:
         optimizer.evaluate()
         optimizer.calibration_graph()
