@@ -114,7 +114,7 @@ class Optimizer:
     def anki_extract(filename: str):
         """Step 1"""
         # Extract the collection file or deck file to get the .anki21 database.
-        with zipfile.ZipFile(f'./{filename}', 'r') as zip_ref:
+        with zipfile.ZipFile(f'{filename}', 'r') as zip_ref:
             zip_ref.extractall('./')
             print("Deck file extracted successfully!")
 

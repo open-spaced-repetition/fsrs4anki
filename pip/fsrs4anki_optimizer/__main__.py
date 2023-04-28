@@ -24,6 +24,10 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("filename")
+    parser.add_argument("--yes",
+                        action=argparse.BooleanOptionalAction,
+                        help="If set automatically defaults on all stdin settings."
+                        )
     args = parser.parse_args()
 
     try: # Try and remember the last values inputted.
@@ -45,15 +49,18 @@ if __name__ == "__main__":
 
     print("The defaults will switch to whatever you entered last.\n")
     
-    print("Timezone list: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568")
-    remembered_fallback_prompt("timezone", "used timezone")
-    if remembered_fallbacks["timezone"] not in pytz.all_timezones:
-        raise Exception("Not a valid timezone, Check the list for more information")
+    if not args.yes:
+        print("Timezone list: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568")
+        remembered_fallback_prompt("timezone", "used timezone")
+        if remembered_fallbacks["timezone"] not in pytz.all_timezones:
+            raise Exception("Not a valid timezone, Check the list for more information")
 
-    remembered_fallback_prompt("next_day", "used next day start hour")
-    remembered_fallback_prompt("revlog_start_date", "the date at which before reviews will be ignored")
-    
-    graphs_input = prompt("View graphs(y/n)" , remembered_fallbacks["preview"])
+        remembered_fallback_prompt("next_day", "used next day start hour")
+        remembered_fallback_prompt("revlog_start_date", "the date at which before reviews will be ignored")
+        
+        graphs_input = prompt("View graphs? (y/n)" , remembered_fallbacks["preview"])
+    else:
+        graphs_input = remembered_fallbacks["preview"]
     
     if graphs_input.lower() != 'y':
         remembered_fallbacks["preview"] = "n"
