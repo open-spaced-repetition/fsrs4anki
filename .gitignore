@@ -12,3 +12,8 @@ meta
 *.csv
 *.tsv
 *.pth
+
+__pycache__
+build
+dist
+*.egg-info
