@@ -232,7 +232,7 @@ class Optimizer:
                 index = df[(df['i'] == item['i'] + 1) & (df['r_history'].str.startswith(item['r_history']))].index
                 df.loc[index, 'last_stability'] = item['stability']
             df['factor'] = round(df['stability'] / df['last_stability'], 2)
-            df = df[(df['i'] >= 2) & (df['group_cnt'] >= 100)]
+            df = df[(df['i'] >= 2) & (df['group_cnt'] >= 100)].copy()
             df['last_recall'] = df['r_history'].map(lambda x: x[-1])
             df = df[df.groupby(['i', 'r_history'], group_keys=False)['group_cnt'].transform(max) == df['group_cnt']]
             df.to_csv('./stability_for_analysis.tsv', sep='\t', index=None)
@@ -537,6 +537,7 @@ class Optimizer:
                 counts[bin] += 1
                 correct[bin] += r
                 prediction[bin] += p
+            np.seterr(invalid='ignore')
             prediction_means = prediction / counts
             prediction_means[np.isnan(prediction_means)] = ((np.arange(bins) + 0.5) / bins)[np.isnan(prediction_means)]
             correct_means = correct / counts
