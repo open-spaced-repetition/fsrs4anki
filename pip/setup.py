@@ -5,7 +5,7 @@ with open("requirements.txt", "r") as f:
 
 setuptools.setup(
     name="fsrs4anki_optimizer",
-    version="3.17.2",
+    version="3.18.0",
     packages=setuptools.find_packages(),
     install_requires=requires
 )
