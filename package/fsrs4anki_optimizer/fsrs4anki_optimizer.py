@@ -261,10 +261,9 @@ class Optimizer:
         https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
         '''
 
-    def train(self):
+    def train(self, lr: float = 5e-4, n_epoch: int = 1):
         """Step 4"""
         model = FSRS(self.init_w)
-        lr = 5e-4
         clipper = WeightClipper()
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
@@ -301,9 +300,8 @@ class Optimizer:
 
         train_set = self.dataset[self.dataset['i'] > 2]
         epoch_len = len(train_set)
-        n_epoch = 1
         print_len = max(epoch_len*n_epoch // 10, 1)
-        scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr, total_steps=epoch_len * n_epoch)
+        scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epoch_len * n_epoch)
         pbar = notebook.tqdm(desc="train", colour="red", total=epoch_len*n_epoch)
 
         for k in range(n_epoch):
