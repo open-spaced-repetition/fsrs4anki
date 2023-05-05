@@ -413,7 +413,7 @@ class Optimizer:
         """should not be called before predict_memory_states"""
 
         base = 1.01
-        index_len = 793
+        index_len = 664
         index_offset = 200
         d_range = 10
         d_offset = 1
