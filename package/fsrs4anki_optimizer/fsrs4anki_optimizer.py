@@ -519,10 +519,22 @@ class Optimizer:
         print(f"Loss before training: {self.dataset['log_loss'].mean():.4f}")
 
         my_collection = Collection(self.w)
-        self.dataset['stability'] = self.dataset.progress_apply(lambda row: my_collection.states(row['t_history'], row['r_history'])[0].item(), axis=1)
+        self.dataset['state'] = self.dataset.progress_apply(lambda row: my_collection.states(row['t_history'], row['r_history']), axis=1)
+        self.dataset['stability'] = self.dataset['state'].apply(lambda x: x[0].item())
+        self.dataset['difficulty'] = self.dataset['state'].apply(lambda x: x[1].item())
+        del self.dataset['state']
         self.dataset['p'] = np.exp(np.log(0.9) * self.dataset['delta_t'] / self.dataset['stability'])
         self.dataset['log_loss'] = self.dataset.apply(lambda row: - np.log(row['p']) if row['y'] == 1 else - np.log(1 - row['p']), axis=1)
         print(f"Loss after training: {self.dataset['log_loss'].mean():.4f}")
+        
+        tmp = self.dataset.copy()
+        tmp['stability'] = tmp['stability'].map(lambda x: round(x, 2))
+        tmp['difficulty'] = tmp['difficulty'].map(lambda x: round(x, 2))
+        tmp['p'] = tmp['p'].map(lambda x: round(x, 2))
+        tmp['log_loss'] = tmp['log_loss'].map(lambda x: round(x, 2))
+        tmp.rename(columns={"r": "grade", "p": "retrievability"}, inplace=True)
+        tmp[['id', 'cid', 'review_date', 'r_history', 't_history', 'delta_t', 'grade', 'stability', 'difficulty', 'retrievability', 'log_loss']].to_csv("./evaluation.tsv", sep='\t', index=False)
+        del tmp
 
     def calibration_graph(self):
         # code from https://github.com/papousek/duolingo-halflife-regression/blob/master/evaluation.py

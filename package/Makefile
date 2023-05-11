@@ -1,4 +1,4 @@
-VERSION="3.18.2"
+VERSION="3.19.0"
 
 setup:
 	python setup.py bdist_wheel
