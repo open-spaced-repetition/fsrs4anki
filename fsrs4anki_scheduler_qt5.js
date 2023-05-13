@@ -188,7 +188,7 @@ function apply_fuzz(ivl) {
   let min_ivl = Math.max(2, Math.round(ivl * 0.95 - 1));
   let max_ivl = Math.round(ivl * 1.05 + 1);
   if (is_review()) {
-    const scheduledDays = states.current.normal?.review.scheduledDays ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
+    const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
     if (ivl > scheduledDays) {
       min_ivl = Math.max(min_ivl, scheduledDays + 1);
     }
