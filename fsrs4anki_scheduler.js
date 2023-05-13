@@ -1,4 +1,4 @@
-// FSRS4Anki v3.15.1 Scheduler Qt6
+// FSRS4Anki v3.20.0 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -182,8 +182,14 @@ function constrain_difficulty(difficulty) {
 function apply_fuzz(ivl) {
   if (!enable_fuzz || ivl < 2.5) return ivl;
   ivl = Math.round(ivl);
-  const min_ivl = Math.max(2, Math.round(ivl * 0.95 - 1));
-  const max_ivl = Math.round(ivl * 1.05 + 1);
+  let min_ivl = Math.max(2, Math.round(ivl * 0.95 - 1));
+  let max_ivl = Math.round(ivl * 1.05 + 1);
+  if (is_review()) {
+    const scheduledDays = states.current.normal?.review.scheduledDays ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
+    if (ivl > scheduledDays) {
+      min_ivl = Math.max(min_ivl, scheduledDays + 1);
+    }
+  }
   return Math.floor(fuzz_factor * (max_ivl - min_ivl + 1) + min_ivl);
 }
 function next_interval(stability) {
@@ -290,7 +296,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "3.15.1";
+  const version = "v3.20.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
