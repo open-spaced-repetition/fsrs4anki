@@ -31,12 +31,13 @@ The optimizer applies *Maximum Likelihood Estimation* and *Backpropagation Throu
 
 For more detail on the mechanism of the FSRS algorithm, please see my papers: [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://www.maimemo.com/paper/) and [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://doi.org/10.1109/TKDE.2023.3251721).
 
-[FSRS4Anki Helper](https://github.com/open-spaced-repetition/fsrs4anki-helper) is an Anki add-on that supports the FSRS4Anki Scheduler. It has five features:
+[FSRS4Anki Helper](https://github.com/open-spaced-repetition/fsrs4anki-helper) is an Anki add-on that supports the FSRS4Anki Scheduler. It has six features:
 1. **Reschedule** cards based on their entire review histories.
 2. **Postpone** due cards whose retention is higher than your target.
 3. **Advance** undue cards whose retention is lower than your target.
 4. **Balance** the load during rescheduling.
 5. **No Anki** on Free Days (such as weekends).
+6. **Disperse** Siblings (cards with the same note) to avoid interference & reminder.
 
 ## Usage
 
