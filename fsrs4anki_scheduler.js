@@ -8,11 +8,11 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
+    "w": [1.1499, 1.1555, 4.7568, -0.4626, -0.6429, 0.0629, 1.6986, -0.01, 1.083, 2.0134, -0.1884, 0.331, 1.0332],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
-    "requestRetention": 0.94, // recommended setting: 0.8 ~ 0.9
+    "requestRetention": 0.92, // recommended setting: 0.8 ~ 0.9
     "maximumInterval": 365,
     "easyBonus": 1.5,
     "hardInterval": 1.2,
@@ -21,7 +21,7 @@ const deckParams = [
   },
   {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​Easy",
-    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
+    "w": [1.1499, 1.1555, 4.7568, -0.4626, -0.6429, 0.0629, 1.6986, -0.01, 1.083, 2.0134, -0.1884, 0.331, 1.0332],
     "requestRetention": 0.75,
     "maximumInterval": 240,
     "easyBonus": 1.5,
@@ -29,7 +29,7 @@ const deckParams = [
   },
   {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Medium",
-    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
+    "w": [1.1499, 1.1555, 4.7568, -0.4626, -0.6429, 0.0629, 1.6986, -0.01, 1.083, 2.0134, -0.1884, 0.331, 1.0332],
     "requestRetention": 0.75,
     "maximumInterval": 180,
     "easyBonus": 1.5,
@@ -37,7 +37,7 @@ const deckParams = [
   },
   {
     "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​​Hard",
-    "w": [1.1238, 1.1289, 4.6561, -0.5333, -0.7144, 0.0181, 1.8371, -0.0348, 1.2142, 2.0115, -0.1911, 0.3449, 0.9948],
+    "w": [1.1499, 1.1555, 4.7568, -0.4626, -0.6429, 0.0629, 1.6986, -0.01, 1.083, 2.0134, -0.1884, 0.331, 1.0332], 
     "requestRetention": 0.6,
     "maximumInterval": 120,
     "easyBonus": 1.5,
@@ -45,13 +45,36 @@ const deckParams = [
   },
   {
     "deckName": "​SRE💰::​Software Engineering::​​​​​​​Numbers You Should Know",
-    "w": [1.0157, 1.0396, 4.959, -0.4984, -0.5204, 0.1813, 1.4509, -0.0642, 0.8497, 2.0005, -0.1997, 0.199, 1.0007],
+    "w": [1.1499, 1.1555, 4.7568, -0.4626, -0.6429, 0.0629, 1.6986, -0.01, 1.083, 2.0134, -0.1884, 0.331, 1.0332], 
     "requestRetention": 0.95,
-    "maximumInterval": 30,
+    "maximumInterval": 60,
+    "easyBonus": 1.3,
+    "hardInterval": 1.2,
+  },
+  {
+    "deckName": "​​Personal",
+    "w": [1.1499, 1.1555, 4.7568, -0.4626, -0.6429, 0.0629, 1.6986, -0.01, 1.083, 2.0134, -0.1884, 0.331, 1.0332],
+    "requestRetention": 0.90,
+    "maximumInterval": 730,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
   }
 ];
+
+// you can add multiple shared configs too
+const decks_with_shared_config = {
+  "config to be shared among several decks": [
+    "example::deck::name1",
+    "example::deck::name2",
+    "example::deck::name3",
+  ],
+  "other config to be shared among several decks": [
+    "example::deck::name1",
+    "example::deck::name2",
+    "example::deck::name3",
+  ],
+};
+
 
 // To turn off FSRS in specific decks, fill them into the skip_decks list below.
 // And add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
@@ -81,6 +104,31 @@ if (display_memory_state) {
   document.body.appendChild(fsrs_status);
   document.getElementById("qa").style.cssText += "min-height:50vh;";
 }
+
+// add decks with shared config to deck parameters
+for (const deck_config_name in decks_with_shared_config) {
+  const deck_names = decks_with_shared_config[deck_config_name];
+  for (const deck_name of deck_names) {
+    const deck_param = Object.assign({}, deckParams.find(dp => dp.deckName === deck_config_name));
+    if (Object.keys(deck_param).length === 0) {
+      // I did not find the the deck config in deckParams, TODO give some warning to the user
+      continue;
+    };
+    deck_param.deckName = deck_name;
+    deckParams.push(deck_param);
+  };
+};
+
+// remove placeholders for shared deck configs
+for (const deck_name_to_remove in decks_with_shared_config) {
+  const deck_param_index = deckParams.findIndex(dp => dp.deckName == deck_name_to_remove);
+  if (deck_param_index > -1) {
+    deckParams.splice(deck_param_index, 1);
+  };
+};
+
+
+
 let params = {};
 // get the name of the card's deck
 if (deck_name = get_deckname()) {
@@ -98,6 +146,7 @@ if (deck_name = get_deckname()) {
     return -a.deckName.localeCompare(b.deckName);
   });
   for (let i = 0; i < deckParams.length; i++) {
+    console.log("checking if " + deck_name + " starts with " + deckParams[i]["deckName"])
     if (deck_name.startsWith(deckParams[i]["deckName"])) {
       console.log("deck name: " + deck_name + ", params: " + deckParams[i])
       params = deckParams[i];
@@ -113,6 +162,7 @@ if (Object.keys(params).length === 0) {
   params = deckParams.find(deck => deck.deckName === "global config for FSRS4Anki");
 }
 var w = params["w"];
+console.log("Using deck settings: " + params["deckName"])
 var requestRetention = params["requestRetention"];
 var maximumInterval = params["maximumInterval"];
 var easyBonus = params["easyBonus"];
