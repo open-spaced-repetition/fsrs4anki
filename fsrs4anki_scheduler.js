@@ -13,7 +13,7 @@ const deckParams = [
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
     "requestRetention": 0.92, // recommended setting: 0.8 ~ 0.9
-    "maximumInterval": 365,
+    "maximumInterval": 35565,
     "easyBonus": 1.5,
     "hardInterval": 1.2,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
@@ -55,7 +55,7 @@ const deckParams = [
     "deckName": "​​Personal",
     "w": [1.1499, 1.1555, 4.7568, -0.4626, -0.6429, 0.0629, 1.6986, -0.01, 1.083, 2.0134, -0.1884, 0.331, 1.0332],
     "requestRetention": 0.90,
-    "maximumInterval": 730,
+    "maximumInterval": 35565,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
   }
