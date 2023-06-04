@@ -153,7 +153,7 @@ class Optimizer:
         df.to_csv("revlog.csv", index=False)
         print("revlog.csv saved.")
         df = df[df['type'] != 3].copy()
-        df['real_days'] = df['review_date'] - timedelta(hours=next_day_starts_at)
+        df['real_days'] = df['review_date'] - timedelta(hours=int(next_day_starts_at))
         df['real_days'] = pd.DatetimeIndex(df['real_days'].dt.floor('D', ambiguous='infer', nonexistent='shift_forward')).to_julian_date()
         df.drop_duplicates(['cid', 'real_days'], keep='first', inplace=True)
         df['delta_t'] = df.real_days.diff()
