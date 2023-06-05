@@ -5,3 +5,4 @@ pytz>=2023.3
 scikit_learn>=1.2.2
 torch>=1.13.1
 tqdm>=4.64.1
+statsmodels>=0.13.5

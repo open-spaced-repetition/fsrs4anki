@@ -818,7 +818,7 @@ class Optimizer:
         plt.gca().xaxis.set_major_formatter(ticker.FormatStrFormatter('%d'))
         plt.show()
 
-    def bm_matrix(self):
+    def bw_matrix(self):
         B_W_Metric_raw = self.dataset[['difficulty', 'stability', 'p', 'y']].copy()
         B_W_Metric_raw['s_bin'] = B_W_Metric_raw['stability'].map(lambda x: round(math.pow(1.4, math.floor(math.log(x, 1.4))), 2))
         B_W_Metric_raw['d_bin'] = B_W_Metric_raw['difficulty'].map(lambda x: int(round(x)))
