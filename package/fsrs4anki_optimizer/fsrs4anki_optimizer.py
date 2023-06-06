@@ -96,7 +96,7 @@ class WeightClipper(object):
             w[2] = w[2].clamp(1, 10)
             w[3] = w[3].clamp(-5, -0.1)
             w[4] = w[4].clamp(-5, -0.1)
-            w[5] = w[5].clamp(0, 0.5)
+            w[5] = w[5].clamp(0.05, 0.5)
             w[6] = w[6].clamp(0, 2)
             w[7] = w[7].clamp(-0.8, -0.15)
             w[8] = w[8].clamp(0.01, 1.5)
