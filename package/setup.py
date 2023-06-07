@@ -1,7 +1,7 @@
 import setuptools
-import sys
 
-version = sys.argv.pop(2)
+with open("version.txt", "r") as f:
+    version = f.read()
 
 with open("requirements.txt", "r") as f:
     requires = [a.strip('\n') for a in f.readlines()]
