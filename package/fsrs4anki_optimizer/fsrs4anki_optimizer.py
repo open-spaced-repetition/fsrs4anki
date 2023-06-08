@@ -10,6 +10,7 @@ import torch
 from torch import nn
 from sklearn.utils import shuffle
 from sklearn.metrics import mean_squared_error, r2_score
+from tqdm.contrib.concurrent import process_map
 
 def is_interactive(): # https://stackoverflow.com/questions/15411967/how-can-i-check-if-code-is-executed-in-the-ipython-notebook
     import __main__ as main
@@ -20,6 +21,55 @@ if is_interactive():
 else:
     # Export cli module pretending to be notebook if not in notebook
     from tqdm import cli as notebook 
+
+
+def applyParallel(dfGrouped, func):
+    ret_list = process_map(func, [group for name, group in dfGrouped], chunksize=16)
+    return pd.concat(ret_list)
+
+col_idx = {key: i for i, key in enumerate(['id', 'cid', 'usn', 'r', 'ivl', 'last_lvl', 'factor', 'time', 'type',
+       'create_date', 'review_date', 'real_days', 'delta_t', 'i', 'r_history',
+       't_history'])}
+# code from https://github.com/L-M-Sherlock/anki_revlog_analysis/blob/main/revlog_analysis.py
+def get_feature(x):
+    last_kind = None
+    for idx, log in enumerate(x.itertuples()):
+        if last_kind is not None and last_kind in (1, 2) and log.type == 0:
+            return x.iloc[:idx]
+        last_kind = log.type
+        if idx == 0:
+            if log.type != 0:
+                return x.iloc[:idx]
+            x.iloc[idx, col_idx['delta_t']] = 0
+        if idx == x.shape[0] - 1:
+            break
+        x.iloc[idx + 1, col_idx['i']] = x.iloc[idx, col_idx['i']] + 1
+        x.iloc[idx + 1, col_idx['t_history']] = f"{x.iloc[idx, col_idx['t_history']]},{x.iloc[idx, col_idx['delta_t']]}"
+        x.iloc[idx + 1, col_idx['r_history']] = f"{x.iloc[idx, col_idx['r_history']]},{x.iloc[idx, col_idx['r']]}"
+    return x
+
+def cal_retention(group: pd.DataFrame) -> pd.DataFrame:
+    group['retention'] = round(group['r'].map(lambda x: {1: 0, 2: 1, 3: 1, 4: 1}[x]).mean(), 4)
+    group['total_cnt'] = group.shape[0]
+    return group
+
+def cal_stability(group: pd.DataFrame) -> pd.DataFrame:
+    group_cnt = sum(group['total_cnt'])
+    if group_cnt < 10:
+        return pd.DataFrame()
+    group['group_cnt'] = group_cnt
+    if group['i'].values[0] > 1:
+        r_ivl_cnt = sum(group['delta_t'] * group['retention'].map(np.log) * pow(group['total_cnt'], 2))
+        ivl_ivl_cnt = sum(group['delta_t'].map(lambda x: x ** 2) * pow(group['total_cnt'], 2))
+        group['stability'] = round(np.log(0.9) / (r_ivl_cnt / ivl_ivl_cnt), 1)
+    else:
+        group['stability'] = 0.0
+    group['avg_retention'] = round(sum(group['retention'] * pow(group['total_cnt'], 2)) / sum(pow(group['total_cnt'], 2)), 3)
+    group['avg_interval'] = round(sum(group['delta_t'] * pow(group['total_cnt'], 2)) / sum(pow(group['total_cnt'], 2)), 1)
+    del group['total_cnt']
+    del group['retention']
+    del group['delta_t']
+    return group
 
 class FSRS(nn.Module):
     def __init__(self, w):
@@ -162,63 +212,22 @@ class Optimizer:
         df['i'] = 1
         df['r_history'] = ""
         df['t_history'] = ""
-        col_idx = {key: i for i, key in enumerate(df.columns)}
 
-
-        # code from https://github.com/L-M-Sherlock/anki_revlog_analysis/blob/main/revlog_analysis.py
-        def get_feature(x):
-            last_kind = None
-            for idx, log in enumerate(x.itertuples()):
-                if last_kind is not None and last_kind in (1, 2) and log.type == 0:
-                    return x.iloc[:idx]
-                last_kind = log.type
-                if idx == 0:
-                    if log.type != 0:
-                        return x.iloc[:idx]
-                    x.iloc[idx, col_idx['delta_t']] = 0
-                if idx == x.shape[0] - 1:
-                    break
-                x.iloc[idx + 1, col_idx['i']] = x.iloc[idx, col_idx['i']] + 1
-                x.iloc[idx + 1, col_idx['t_history']] = f"{x.iloc[idx, col_idx['t_history']]},{x.iloc[idx, col_idx['delta_t']]}"
-                x.iloc[idx + 1, col_idx['r_history']] = f"{x.iloc[idx, col_idx['r_history']]},{x.iloc[idx, col_idx['r']]}"
-            return x
 
         notebook.tqdm.pandas()
-        df = df.groupby('cid', as_index=False, group_keys=False).progress_apply(get_feature)
+        df = applyParallel(df.groupby('cid', as_index=False, group_keys=False), get_feature)
+        # df = df.groupby('cid', as_index=False, group_keys=False).progress_apply(get_feature)
         df = df[df['id'] >= time.mktime(datetime.strptime(revlog_start_date, "%Y-%m-%d").timetuple()) * 1000]
         df["t_history"] = df["t_history"].map(lambda x: x[1:] if len(x) > 1 else x)
         df["r_history"] = df["r_history"].map(lambda x: x[1:] if len(x) > 1 else x)
         df.to_csv('revlog_history.tsv', sep="\t", index=False)
         print("Trainset saved.")
 
-        def cal_retention(group: pd.DataFrame) -> pd.DataFrame:
-            group['retention'] = round(group['r'].map(lambda x: {1: 0, 2: 1, 3: 1, 4: 1}[x]).mean(), 4)
-            group['total_cnt'] = group.shape[0]
-            return group
-
-        df = df.groupby(by=['r_history', 'delta_t'], group_keys=False).progress_apply(cal_retention)
+        df = applyParallel(df.groupby(by=['r_history', 'delta_t'], group_keys=False), cal_retention)
         print("Retention calculated.")
         df = df.drop(columns=['id', 'cid', 'usn', 'ivl', 'last_lvl', 'factor', 'time', 'type', 'create_date', 'review_date', 'real_days', 'r', 't_history'])
         df.drop_duplicates(inplace=True)
         df['retention'] = df['retention'].map(lambda x: max(min(0.99, x), 0.01))
-
-        def cal_stability(group: pd.DataFrame) -> pd.DataFrame:
-            group_cnt = sum(group['total_cnt'])
-            if group_cnt < 10:
-                return pd.DataFrame()
-            group['group_cnt'] = group_cnt
-            if group['i'].values[0] > 1:
-                r_ivl_cnt = sum(group['delta_t'] * group['retention'].map(np.log) * pow(group['total_cnt'], 2))
-                ivl_ivl_cnt = sum(group['delta_t'].map(lambda x: x ** 2) * pow(group['total_cnt'], 2))
-                group['stability'] = round(np.log(0.9) / (r_ivl_cnt / ivl_ivl_cnt), 1)
-            else:
-                group['stability'] = 0.0
-            group['avg_retention'] = round(sum(group['retention'] * pow(group['total_cnt'], 2)) / sum(pow(group['total_cnt'], 2)), 3)
-            group['avg_interval'] = round(sum(group['delta_t'] * pow(group['total_cnt'], 2)) / sum(pow(group['total_cnt'], 2)), 1)
-            del group['total_cnt']
-            del group['retention']
-            del group['delta_t']
-            return group
 
         df = df.groupby(by=['r_history'], group_keys=False).progress_apply(cal_stability)
         print("Stability calculated.")
