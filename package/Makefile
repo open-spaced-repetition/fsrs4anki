@@ -1,8 +1,10 @@
-VERSION="3.21.2"
+VERSION=${shell cat version.txt}
+WHEEL_FILE=dist/fsrs4anki_optimizer-${VERSION}-py3-none-any.whl
 
-setup:
+${WHEEL_FILE}:
 	python setup.py bdist_wheel
 
-install: setup
-	pip install dist/fsrs4anki_optimizer-${VERSION}-py3-none-any.whl
+.PHONEY: install
+install: ${WHEEL_FILE}
+	pip install ${WHEEL_FILE}
 	
