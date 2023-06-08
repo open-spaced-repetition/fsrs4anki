@@ -701,68 +701,6 @@ class Optimizer:
         del tmp
 
     def calibration_graph(self):
-        # code from https://github.com/papousek/duolingo-halflife-regression/blob/master/evaluation.py
-        def load_brier(predictions, real, bins=20):
-            counts = np.zeros(bins)
-            correct = np.zeros(bins)
-            prediction = np.zeros(bins)
-            for p, r in zip(predictions, real):
-                bin = min(int(p * bins), bins - 1)
-                counts[bin] += 1
-                correct[bin] += r
-                prediction[bin] += p
-            np.seterr(invalid='ignore')
-            prediction_means = prediction / counts
-            prediction_means[np.isnan(prediction_means)] = ((np.arange(bins) + 0.5) / bins)[np.isnan(prediction_means)]
-            correct_means = correct / counts
-            correct_means[np.isnan(correct_means)] = 0
-            size = len(predictions)
-            answer_mean = sum(correct) / size
-            return {
-                "reliability": sum(counts * (correct_means - prediction_means) ** 2) / size,
-                "resolution": sum(counts * (correct_means - answer_mean) ** 2) / size,
-                "uncertainty": answer_mean * (1 - answer_mean),
-                "detail": {
-                    "bin_count": bins,
-                    "bin_counts": list(counts),
-                    "bin_prediction_means": list(prediction_means),
-                    "bin_correct_means": list(correct_means),
-                }
-            }
-
-
-        def plot_brier(predictions, real, bins=20):
-            brier = load_brier(predictions, real, bins=bins)
-            bin_prediction_means = brier['detail']['bin_prediction_means']
-            bin_correct_means = brier['detail']['bin_correct_means']
-            bin_counts = brier['detail']['bin_counts']
-            r2 = r2_score(bin_correct_means, bin_prediction_means, sample_weight=bin_counts)
-            rmse = np.sqrt(mean_squared_error(bin_correct_means, bin_prediction_means, sample_weight=bin_counts))
-            print(f"R-squared: {r2:.4f}")
-            print(f"RMSE: {rmse:.4f}")
-            plt.figure()
-            ax = plt.gca()
-            ax.set_xlim([0, 1])
-            ax.set_ylim([0, 1])
-            plt.grid(True)
-            fit_wls = sm.WLS(bin_correct_means, sm.add_constant(bin_prediction_means), weights=bin_counts).fit()
-            print(fit_wls.params)
-            y_regression = [fit_wls.params[0] + fit_wls.params[1]*x for x in bin_prediction_means]
-            plt.plot(bin_prediction_means, y_regression, label='Weighted Least Squares Regression', color="green")
-            plt.plot(bin_prediction_means, bin_correct_means, label='Actual Calibration', color="#1f77b4")
-            plt.plot((0, 1), (0, 1), label='Perfect Calibration', color="#ff7f0e")
-            bin_count = brier['detail']['bin_count']
-            counts = np.array(bin_counts)
-            bins = (np.arange(bin_count) + 0.5) / bin_count
-            plt.legend(loc='upper center')
-            plt.xlabel('Predicted R')
-            plt.ylabel('Actual R')
-            plt.twinx()
-            plt.ylabel('Number of reviews')
-            plt.bar(bins, counts, width=(0.8 / bin_count), ec='k', lw=.2, alpha=0.5, label='Number of reviews')
-            plt.legend(loc='lower center')
-            
-
         plot_brier(self.dataset['p'], self.dataset['y'], bins=40)
         plt.show()
 
@@ -843,3 +781,125 @@ class Optimizer:
         bins = len(B_W_Metric)
         B_W_Metric_pivot = B_W_Metric[B_W_Metric_count['p'] > max(50, n / (3 * bins))].pivot(index="s_bin", columns='d_bin', values='B-W')
         return B_W_Metric_pivot.apply(pd.to_numeric).style.background_gradient(cmap='seismic', axis=None, vmin=-0.2, vmax=0.2).format("{:.2%}", na_rep='')
+    
+    def compare_with_sm2(self):
+        self.dataset['sm2_ivl'] = self.dataset['tensor'].map(sm2)
+        self.dataset['sm2_p'] = np.exp(np.log(0.9) * self.dataset['delta_t'] / self.dataset['sm2_ivl'])
+        self.dataset['log_loss'] = self.dataset.apply(lambda row: - np.log(row['sm2_p']) if row['y'] == 1 else - np.log(1 - row['sm2_p']), axis=1)
+        print(f"Loss of SM-2: {self.dataset['log_loss'].mean():.4f}")
+        cross_comparison = self.dataset[['sm2_p', 'p', 'y']].copy()
+        plot_brier(cross_comparison['sm2_p'], cross_comparison['y'], bins=40)
+
+        plt.figure(figsize=(6, 6))
+
+        cross_comparison['SM2_B-W'] = cross_comparison['sm2_p'] - cross_comparison['y']
+        cross_comparison['SM2_bin'] = cross_comparison['sm2_p'].map(lambda x: round(x, 1))
+        cross_comparison['FSRS_B-W'] = cross_comparison['p'] - cross_comparison['y']
+        cross_comparison['FSRS_bin'] = cross_comparison['p'].map(lambda x: round(x, 1))
+
+        plt.axhline(y = 0.0, color = 'black', linestyle = '-')
+
+        cross_comparison_group = cross_comparison.groupby(by='SM2_bin').agg({'y': ['mean'], 'FSRS_B-W': ['mean'], 'p': ['mean', 'count']})
+        print(f"Universal Metric of FSRS: {mean_squared_error(cross_comparison_group['y', 'mean'], cross_comparison_group['p', 'mean'], sample_weight=cross_comparison_group['p', 'count'], squared=False):.4f}")
+        cross_comparison_group['p', 'percent'] = cross_comparison_group['p', 'count'] / cross_comparison_group['p', 'count'].sum()
+        plt.scatter(cross_comparison_group.index, cross_comparison_group['FSRS_B-W', 'mean'], s=cross_comparison_group['p', 'percent'] * 1024, alpha=0.5)
+        plt.plot(cross_comparison_group['FSRS_B-W', 'mean'], label='FSRS by SM2')
+
+        cross_comparison_group = cross_comparison.groupby(by='FSRS_bin').agg({'y': ['mean'], 'SM2_B-W': ['mean'], 'sm2_p': ['mean', 'count']})
+        print(f"Universal Metric of SM2: {mean_squared_error(cross_comparison_group['y', 'mean'], cross_comparison_group['sm2_p', 'mean'], sample_weight=cross_comparison_group['sm2_p', 'count'], squared=False):.4f}")
+        cross_comparison_group['sm2_p', 'percent'] = cross_comparison_group['sm2_p', 'count'] / cross_comparison_group['sm2_p', 'count'].sum()
+        plt.scatter(cross_comparison_group.index, cross_comparison_group['SM2_B-W', 'mean'], s=cross_comparison_group['sm2_p', 'percent'] * 1024, alpha=0.5)
+        plt.plot(cross_comparison_group['SM2_B-W', 'mean'], label='SM2 by FSRS')
+
+        plt.legend(loc='lower center')
+        plt.grid(linestyle='--')
+        plt.title("SM2 vs. FSRS")
+        plt.xlabel('Predicted R')
+        plt.ylabel('B-W Metric')
+        plt.xlim(0, 1)
+        plt.xticks(np.arange(0, 1.1, 0.1))
+        plt.show()
+
+# code from https://github.com/papousek/duolingo-halflife-regression/blob/master/evaluation.py
+def load_brier(predictions, real, bins=20):
+    counts = np.zeros(bins)
+    correct = np.zeros(bins)
+    prediction = np.zeros(bins)
+    for p, r in zip(predictions, real):
+        bin = min(int(p * bins), bins - 1)
+        counts[bin] += 1
+        correct[bin] += r
+        prediction[bin] += p
+    np.seterr(invalid='ignore')
+    prediction_means = prediction / counts
+    prediction_means[np.isnan(prediction_means)] = ((np.arange(bins) + 0.5) / bins)[np.isnan(prediction_means)]
+    correct_means = correct / counts
+    correct_means[np.isnan(correct_means)] = 0
+    size = len(predictions)
+    answer_mean = sum(correct) / size
+    return {
+        "reliability": sum(counts * (correct_means - prediction_means) ** 2) / size,
+        "resolution": sum(counts * (correct_means - answer_mean) ** 2) / size,
+        "uncertainty": answer_mean * (1 - answer_mean),
+        "detail": {
+            "bin_count": bins,
+            "bin_counts": list(counts),
+            "bin_prediction_means": list(prediction_means),
+            "bin_correct_means": list(correct_means),
+        }
+    }
+
+def plot_brier(predictions, real, bins=20):
+    brier = load_brier(predictions, real, bins=bins)
+    bin_prediction_means = brier['detail']['bin_prediction_means']
+    bin_correct_means = brier['detail']['bin_correct_means']
+    bin_counts = brier['detail']['bin_counts']
+    r2 = r2_score(bin_correct_means, bin_prediction_means, sample_weight=bin_counts)
+    rmse = np.sqrt(mean_squared_error(bin_correct_means, bin_prediction_means, sample_weight=bin_counts))
+    print(f"R-squared: {r2:.4f}")
+    print(f"RMSE: {rmse:.4f}")
+    plt.figure()
+    ax = plt.gca()
+    ax.set_xlim([0, 1])
+    ax.set_ylim([0, 1])
+    plt.grid(True)
+    fit_wls = sm.WLS(bin_correct_means, sm.add_constant(bin_prediction_means), weights=bin_counts).fit()
+    print(fit_wls.params)
+    y_regression = [fit_wls.params[0] + fit_wls.params[1]*x for x in bin_prediction_means]
+    plt.plot(bin_prediction_means, y_regression, label='Weighted Least Squares Regression', color="green")
+    plt.plot(bin_prediction_means, bin_correct_means, label='Actual Calibration', color="#1f77b4")
+    plt.plot((0, 1), (0, 1), label='Perfect Calibration', color="#ff7f0e")
+    bin_count = brier['detail']['bin_count']
+    counts = np.array(bin_counts)
+    bins = (np.arange(bin_count) + 0.5) / bin_count
+    plt.legend(loc='upper center')
+    plt.xlabel('Predicted R')
+    plt.ylabel('Actual R')
+    plt.twinx()
+    plt.ylabel('Number of reviews')
+    plt.bar(bins, counts, width=(0.8 / bin_count), ec='k', lw=.2, alpha=0.5, label='Number of reviews')
+    plt.legend(loc='lower center')
+
+def sm2(history):
+    ivl = 0
+    ef = 2.5
+    reps = 0
+    for delta_t, rating in history:
+        delta_t = delta_t.item()
+        rating = rating.item() + 1
+        if rating > 2:
+            if reps == 0:
+                ivl = 1
+                reps = 1
+            elif reps == 1:
+                ivl = 6
+                reps = 2
+            else:
+                ivl = ivl * ef
+                reps += 1
+        else:
+            ivl = 1
+            reps = 0
+        ef = max(1.3, ef + (0.1 - (5 - rating) * (0.08 + (5 - rating) * 0.02)))
+        ivl = max(1, round(ivl+0.01))
+    return ivl
