@@ -16,6 +16,7 @@ from torch.utils.data import Dataset, DataLoader, Sampler
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.metrics import mean_squared_error, r2_score
+from itertools import accumulate
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
@@ -40,7 +41,7 @@ class FSRS(nn.Module):
                         torch.pow(state[:,0], self.w[7]) *
                         (torch.exp((1 - r) * self.w[8]) - 1))
         return new_s
-    
+
     def stability_after_failure(self, state, new_d, r):
         new_s = self.w[9] * torch.pow(new_d, self.w[10]) * torch.pow(
             state[:,0], self.w[11]) * torch.exp((1 - r) * self.w[12])
@@ -128,7 +129,7 @@ class RevlogDataset(Dataset):
 
     def __len__(self):
         return len(self.y_train)
-    
+
 class RevlogSampler(Sampler[List[int]]):
     def __init__(self, data_source, batch_size):
         self.data_source = data_source
@@ -277,7 +278,7 @@ class Trainer(object):
             tran_loss = self.loss_fn(retentions, labels)/len(self.train_set)
             self.avg_train_losses.append(tran_loss)
             print(f"Loss in trainset: {tran_loss:.4f}")
-            
+
             sequences, delta_ts, labels, seq_lens = self.test_set.x_train, self.test_set.t_train, self.test_set.y_train, self.test_set.seq_len
             real_batch_size = seq_lens.shape[0]
             outputs, _ = self.model(sequences.transpose(0, 1))
@@ -311,7 +312,7 @@ class Collection:
             line_tensor = lineToTensor(list(zip([t_history], [r_history]))[0]).unsqueeze(1)
             output_t = self.model(line_tensor)
             return output_t[-1][0]
-        
+
     def batch_predict(self, dataset):
         fast_dataset = RevlogDataset(dataset)
         outputs, _ = self.model(fast_dataset.x_train.transpose(0, 1))
@@ -321,6 +322,7 @@ class Collection:
 """Used to store all the results from FSRS related functions"""
 class Optimizer:
     def __init__(self) -> None:
+        notebook.tqdm.pandas()
         pass
 
     @staticmethod
@@ -365,6 +367,7 @@ class Optimizer:
         self.time_sequence = np.array(df['time'])
         df.to_csv("revlog.csv", index=False)
         print("revlog.csv saved.")
+
         df = df[df['type'] != 3].copy()
         df['real_days'] = df['review_date'] - timedelta(hours=int(next_day_starts_at))
         df['real_days'] = pd.DatetimeIndex(df['real_days'].dt.floor('D', ambiguous='infer', nonexistent='shift_forward')).to_julian_date()
@@ -372,46 +375,35 @@ class Optimizer:
         df['delta_t'] = df.real_days.diff()
         df.dropna(inplace=True)
         df['delta_t'] = df['delta_t'].astype(dtype=int)
-        df['i'] = 1
-        df['r_history'] = ""
-        df['t_history'] = ""
-        col_idx = {key: i for i, key in enumerate(df.columns)}
+        df['i'] = df.groupby('cid').cumcount() + 1
+        df.loc[df['i'] == 1, 'delta_t'] = 0
+        df = df.groupby('cid').filter(lambda group: group['type'].iloc[0] == 0)
+        df = df.groupby('cid').filter(lambda group: group['type'].iloc[0] == 0)
+        df['prev_type'] = df.groupby('cid')['type'].shift(1).fillna(0).astype(int)
+        df['helper'] = (df['type'] == 0) & ((df['prev_type'] == 1) | (df['prev_type'] == 2)) & (df['i'] > 1)
+        df['helper'] = df['helper'].astype(int)
+        df['helper'] = df.groupby('cid')['helper'].cumsum()
+        df = df[df['helper'] == 0]
+        del df['prev_type']
+        del df['helper']
 
+        def cum_concat(x):
+            return list(accumulate(x))
 
-        # code from https://github.com/L-M-Sherlock/anki_revlog_analysis/blob/main/revlog_analysis.py
-        def get_feature(x):
-            last_kind = None
-            for idx, log in enumerate(x.itertuples()):
-                if last_kind is not None and last_kind in (1, 2) and log.type == 0:
-                    return x.iloc[:idx]
-                last_kind = log.type
-                if idx == 0:
-                    if log.type != 0:
-                        return x.iloc[:idx]
-                    x.iloc[idx, col_idx['delta_t']] = 0
-                if idx == x.shape[0] - 1:
-                    break
-                x.iloc[idx + 1, col_idx['i']] = x.iloc[idx, col_idx['i']] + 1
-                x.iloc[idx + 1, col_idx['t_history']] = f"{x.iloc[idx, col_idx['t_history']]},{x.iloc[idx, col_idx['delta_t']]}"
-                x.iloc[idx + 1, col_idx['r_history']] = f"{x.iloc[idx, col_idx['r_history']]},{x.iloc[idx, col_idx['r']]}"
-            return x
-
-        notebook.tqdm.pandas()
-        df = df.groupby('cid', as_index=False, group_keys=False).progress_apply(get_feature)
+        t_history = df.groupby('cid', group_keys=False)['delta_t'].apply(lambda x: cum_concat([[i] for i in x]))
+        df['t_history']=[','.join(map(str, item[:-1])) for sublist in t_history for item in sublist]
+        r_history = df.groupby('cid', group_keys=False)['r'].apply(lambda x: cum_concat([[i] for i in x]))
+        df['r_history']=[','.join(map(str, item[:-1])) for sublist in r_history for item in sublist]
         df = df[df['id'] >= time.mktime(datetime.strptime(revlog_start_date, "%Y-%m-%d").timetuple()) * 1000]
-        df["t_history"] = df["t_history"].map(lambda x: x[1:] if len(x) > 1 else x)
-        df["r_history"] = df["r_history"].map(lambda x: x[1:] if len(x) > 1 else x)
+        df['y'] = df['r'].map(lambda x: {1: 0, 2: 1, 3: 1, 4: 1}[x])
         df.to_csv('revlog_history.tsv', sep="\t", index=False)
         print("Trainset saved.")
 
-        def cal_retention(group: pd.DataFrame) -> pd.DataFrame:
-            group['retention'] = round(group['r'].map(lambda x: {1: 0, 2: 1, 3: 1, 4: 1}[x]).mean(), 4)
-            group['total_cnt'] = group.shape[0]
-            return group
-
-        df = df.groupby(by=['r_history', 'delta_t'], group_keys=False).progress_apply(cal_retention)
+        df['retention'] = df.groupby(by=['r_history', 'delta_t'], group_keys=False)['y'].transform('mean')
+        df['total_cnt'] = df.groupby(by=['r_history', 'delta_t'], group_keys=False)['id'].transform('count')
         print("Retention calculated.")
-        df = df.drop(columns=['id', 'cid', 'usn', 'ivl', 'last_lvl', 'factor', 'time', 'type', 'create_date', 'review_date', 'real_days', 'r', 't_history'])
+
+        df = df.drop(columns=['id', 'cid', 'usn', 'ivl', 'last_lvl', 'factor', 'time', 'type', 'create_date', 'review_date', 'real_days', 'r', 't_history', 'y'])
         df.drop_duplicates(inplace=True)
         df['retention'] = df['retention'].map(lambda x: max(min(0.99, x), 0.01))
 
@@ -479,7 +471,6 @@ class Optimizer:
         self.dataset = pd.read_csv("./revlog_history.tsv", sep='\t', index_col=None, dtype={'r_history': str ,'t_history': str} )
         self.dataset = self.dataset[(self.dataset['i'] > 1) & (self.dataset['delta_t'] > 0) & (self.dataset['t_history'].str.count(',0') == 0)]
         self.dataset['tensor'] = self.dataset.progress_apply(lambda x: lineToTensor(list(zip([x['t_history']], [x['r_history']]))[0]), axis=1)
-        self.dataset['y'] = self.dataset['r'].map({1: 0, 2: 1, 3: 1, 4: 1})
         self.dataset['group'] = self.dataset['r_history'] + self.dataset['t_history']
         print("Tensorized!")
 
@@ -781,7 +772,7 @@ class Optimizer:
         bins = len(B_W_Metric)
         B_W_Metric_pivot = B_W_Metric[B_W_Metric_count['p'] > max(50, n / (3 * bins))].pivot(index="s_bin", columns='d_bin', values='B-W')
         return B_W_Metric_pivot.apply(pd.to_numeric).style.background_gradient(cmap='seismic', axis=None, vmin=-0.2, vmax=0.2).format("{:.2%}", na_rep='')
-    
+
     def compare_with_sm2(self):
         self.dataset['sm2_ivl'] = self.dataset['tensor'].map(sm2)
         self.dataset['sm2_p'] = np.exp(np.log(0.9) * self.dataset['delta_t'] / self.dataset['sm2_ivl'])
