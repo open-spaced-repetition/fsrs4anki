@@ -16,9 +16,10 @@ from torch.utils.data import Dataset, DataLoader, Sampler
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn.metrics import mean_squared_error, r2_score
+from tqdm.contrib.concurrent import process_map
+from multiprocessing import cpu_count
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
-from tqdm.contrib.concurrent import process_map
 
 def is_interactive(): # https://stackoverflow.com/questions/15411967/how-can-i-check-if-code-is-executed-in-the-ipython-notebook
     import __main__ as main
@@ -32,7 +33,10 @@ else:
 
 
 def applyParallel(dfGrouped, func):
-    ret_list = process_map(func, [group for name, group in dfGrouped], chunksize=16)
+    chunksize, extra = divmod(len(dfGrouped), (cpu_count() + 4) * 4)
+    if extra:
+        chunksize += 1
+    ret_list = process_map(func, [group for name, group in dfGrouped], chunksize=chunksize)
     return pd.concat(ret_list)
 
 col_idx = {key: i for i, key in enumerate(['id', 'cid', 'usn', 'r', 'ivl', 'last_lvl', 'factor', 'time', 'type',
