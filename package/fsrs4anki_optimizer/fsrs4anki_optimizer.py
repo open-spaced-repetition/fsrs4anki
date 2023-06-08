@@ -201,9 +201,13 @@ class Trainer(object):
 
     def train(self):
         # pretrain
-        self.eval()
-        pbar = notebook.tqdm(desc="pre-train", colour="red", total=len(self.pre_train_data_loader) * self.n_epoch)
+        best_loss = np.inf
+        weighted_loss, w = self.eval()
+        if weighted_loss < best_loss:
+            best_loss = weighted_loss
+            best_w = w
 
+        pbar = notebook.tqdm(desc="pre-train", colour="red", total=len(self.pre_train_data_loader) * self.n_epoch)
         for k in range(self.n_epoch):
             for i, batch in enumerate(self.pre_train_data_loader):
                 self.model.train()
@@ -226,10 +230,12 @@ class Trainer(object):
         epoch_len = len(self.next_train_data_loader)
         pbar = notebook.tqdm(desc="train", colour="red", total=epoch_len*self.n_epoch)
         print_len = max(self.batch_nums*self.n_epoch // 10, 1)
-
-
         for k in range(self.n_epoch):
-            self.eval()
+            weighted_loss, w = self.eval()
+            if weighted_loss < best_loss:
+                best_loss = weighted_loss
+                best_w = w
+
             for i, batch in enumerate(self.next_train_data_loader):
                 self.model.train()
                 self.optimizer.zero_grad()
@@ -252,11 +258,13 @@ class Trainer(object):
                     for name, param in self.model.named_parameters():
                         print(f"{name}: {list(map(lambda x: round(float(x), 4),param))}")
         pbar.close()
-                
-        self.eval()
 
-        w = list(map(lambda x: round(float(x), 4), dict(self.model.named_parameters())['w'].data))
-        return w
+        weighted_loss, w = self.eval()
+        if weighted_loss < best_loss:
+            best_loss = weighted_loss
+            best_w = w
+
+        return best_w
 
     def eval(self):
         self.model.eval()
@@ -266,18 +274,24 @@ class Trainer(object):
             outputs, _ = self.model(sequences.transpose(0, 1))
             stabilities = outputs[seq_lens-1, torch.arange(real_batch_size), 0]
             retentions = torch.exp(np.log(0.9) * delta_ts / stabilities)
-            loss = self.loss_fn(retentions, labels)
-            self.avg_train_losses.append(loss/len(self.train_set))
-            print(f"Loss in trainset: {self.avg_train_losses[-1]:.4f}")
+            tran_loss = self.loss_fn(retentions, labels)/len(self.train_set)
+            self.avg_train_losses.append(tran_loss)
+            print(f"Loss in trainset: {tran_loss:.4f}")
             
             sequences, delta_ts, labels, seq_lens = self.test_set.x_train, self.test_set.t_train, self.test_set.y_train, self.test_set.seq_len
             real_batch_size = seq_lens.shape[0]
             outputs, _ = self.model(sequences.transpose(0, 1))
             stabilities = outputs[seq_lens-1, torch.arange(real_batch_size), 0]
             retentions = torch.exp(np.log(0.9) * delta_ts / stabilities)
-            loss = self.loss_fn(retentions, labels)
-            self.avg_eval_losses.append(loss/len(self.test_set))
-            print(f"Loss in testset: {self.avg_eval_losses[-1]:.4f}")
+            test_loss = self.loss_fn(retentions, labels)/len(self.test_set)
+            self.avg_eval_losses.append(test_loss)
+            print(f"Loss in testset: {test_loss:.4f}")
+
+            w = list(map(lambda x: round(float(x), 4), dict(self.model.named_parameters())['w'].data))
+
+            weighted_loss = (tran_loss * len(self.train_set) + test_loss * len(self.test_set)) / (len(self.train_set) + len(self.test_set))
+
+            return weighted_loss, w
 
     def plot(self):
         plt.plot(self.avg_train_losses, label='train')
