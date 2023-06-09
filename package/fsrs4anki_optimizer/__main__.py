@@ -82,7 +82,7 @@ if __name__ == "__main__":
     )
 
     optimizer.define_model()
-    optimizer.train()
+    optimizer.train(show_graphs)
 
     optimizer.predict_memory_states()
     optimizer.find_optimal_retention(show_graphs)
