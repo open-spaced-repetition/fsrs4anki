@@ -75,17 +75,21 @@ if __name__ == "__main__":
 
     optimizer = fsrs4anki_optimizer.Optimizer()
     optimizer.anki_extract(args.filename)
-    optimizer.create_time_series(
+    analysis = optimizer.create_time_series(
         remembered_fallbacks["timezone"],
         remembered_fallbacks["revlog_start_date"],
         remembered_fallbacks["next_day"]
     )
+    print(analysis)
 
     optimizer.define_model()
     optimizer.train()
 
     optimizer.predict_memory_states()
-    optimizer.find_optimal_retention(show_graphs)
+    figures = optimizer.find_optimal_retention()
+    if show_graphs:
+        for f in figures:
+            f.show()
 
     optimizer.preview(optimizer.optimal_retention)
 
@@ -109,6 +113,9 @@ f"""{{
         with open(args.out, "a+") as f:
             f.write(profile)
 
+    optimizer.evaluate()
     if show_graphs:
-        optimizer.evaluate()
-        optimizer.calibration_graph()
+        for f in optimizer.calibration_graph():
+            f.show()
+        for f in optimizer.compare_with_sm2():
+            f.show()
