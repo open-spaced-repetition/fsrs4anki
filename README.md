@@ -41,6 +41,8 @@ For more detail on the mechanism of the FSRS algorithm, please see my papers: [A
 
 # Tutorial
 
+中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
+
 ## 1 Quick Start
 
 ### 1.1 Enable Anki's V3 Scheduling Algorithm
