@@ -45,7 +45,7 @@ For more detail on the mechanism of the FSRS algorithm, please see my papers: [A
 
 ## 1 Quick Start
 
-### 1.1 Enable Anki's V3 Scheduling Algorithm
+### 1.1 Enable Anki's V3 Scheduler
 
 Preferences > Review > Enable V3 Scheduler
 
@@ -162,7 +162,7 @@ If there are some decks you don't want to use FSRS with, you can add their names
 const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
 ```
 
-## 3 Using the Helper Add-pm
+## 3 Using the Helper Add-on
 
 Please see: [FSRS4Anki Helper](https://github.com/open-spaced-repetition/fsrs4anki-helper)
 
