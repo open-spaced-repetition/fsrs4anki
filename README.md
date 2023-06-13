@@ -109,7 +109,7 @@ Replace the parameters in the FSRS code you copied earlier.
 
 ### 2.2 Deck Parameter Settings
 
-You can also generate different parameters for different decks and configure them separately in the code. In the default configuration, deckParams already contains three sets of parameters.
+You can also generate different parameters for different decks and configure them separately in the code. In the default configuration, `deckParams` already contains three groups of parameters.
 
 The group "global config for FSRS4Anki" is global parameters.
 
@@ -172,7 +172,19 @@ Here collect some questions from issues, forums, and others: [FAQ](https://githu
 
 # Compatibility
 
-Some add-ons modify the scheduling of Anki, which would cause conflict with FSRS4Anki scheduler. Please see [Compatibility](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Compatibility) for more details. I will test these add-ons. Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if I miss any add-ons.
+Some add-ons modify the scheduling of Anki, which would cause conflict with FSRS4Anki scheduler.
+
+| Add-on                                                       | Compatible? | Comment |
+| ------------------------------------------------------------ |-------------------| ------- |
+|[Advanced Review Bottom Bar](https://ankiweb.net/shared/info/1136455830)|Yes✅|Please use the latest version.|
+|[Incremental Reading v4.11.3 (unofficial clone)](https://ankiweb.net/shared/info/999215520)|No❌|It shows the interval given by Anki's built-in scheduler, not the custom scheduler.|
+| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021)|Yes✅|`Ease Factor` doesn't affect the interval given by FSRS.|
+| [Delay siblings](https://ankiweb.net/shared/info/1369579727) |Yes✅|Delay siblings will modify the interval give by FSRS.|
+| [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |Yes✅|`New Interval` doesn't affect the interval given by FSRS.|
+| [Straight Reward](https://ankiweb.net/shared/info/957961234) |Yes✅|`Ease Factor` doesn't affect the interval given by FSRS.|
+| [Pass/Fail](https://ankiweb.net/shared/info/876946123) |Yes✅| `Pass` is the equivalent of `Good`.|
+
+Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if I miss any add-ons.
 
 # Stargazers over time
 
