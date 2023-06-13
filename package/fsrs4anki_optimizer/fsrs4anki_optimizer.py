@@ -199,7 +199,7 @@ class Trainer(object):
             best_loss = weighted_loss
             best_w = w
 
-        pbar = tqdm(desc="pre-train", colour="red", total=len(self.pre_train_data_loader) * self.n_epoch, )
+        pbar = tqdm(desc="pre-train", colour="red", total=len(self.pre_train_data_loader) * self.n_epoch)
         for k in range(self.n_epoch):
             for i, batch in enumerate(self.pre_train_data_loader):
                 self.model.train()
@@ -492,9 +492,9 @@ class Optimizer:
 
     def preview(self, requestRetention: float):
         my_collection = Collection(self.w)
-        print("1:again, 2:hard, 3:good, 4:easy\n")
+        preview_text = "1:again, 2:hard, 3:good, 4:easy\n"
         for first_rating in (1,2,3,4):
-            print(f'first rating: {first_rating}')
+            preview_text += f'\nfirst rating: {first_rating}\n'
             t_history = "0"
             d_history = "0"
             r_history = f"{first_rating}"  # the first rating of the new card
@@ -508,10 +508,10 @@ class Optimizer:
                 t_history += f',{int(next_t)}'
                 d_history += f',{difficulty}'
                 r_history += f",3"
-            print(f"rating history: {r_history}")
-            print("interval history: " + ",".join([f"{ivl}d" if ivl < 30 else f"{ivl / 30:.1f}m" if ivl < 365 else f"{ivl / 365:.1f}y" for ivl in map(int, t_history.split(','))]))
-            print(f"difficulty history: {d_history}")
-            print('')
+            preview_text += f"rating history: {r_history}\n"
+            preview_text += "interval history: " + ",".join([f"{ivl}d" if ivl < 30 else f"{ivl / 30:.1f}m" if ivl < 365 else f"{ivl / 365:.1f}y" for ivl in map(int, t_history.split(','))]) + "\n"
+            preview_text += f"difficulty history: {d_history}\n"
+        return preview_text
 
     def preview_sequence(self, test_rating_sequence: str, requestRetention: float, easyBonus: float, hardInterval: float):
         my_collection = Collection(self.w)
@@ -532,9 +532,10 @@ class Optimizer:
             t_history += f',{int(next_t)}'
             difficulty = round(float(states[1]), 1)
             d_history += f',{difficulty}'
-        print(f"rating history: {test_rating_sequence}")
-        print(f"interval history: {t_history}")
-        print(f"difficulty history: {d_history}")
+        preview_text = f"rating history: {test_rating_sequence}\n"
+        preview_text += f"interval history: {t_history}\n"
+        preview_text += f"difficulty history: {d_history}"
+        return preview_text
 
     def predict_memory_states(self):
         my_collection = Collection(self.w)
@@ -552,11 +553,11 @@ class Optimizer:
         print("prediction.tsv saved.")
         prediction['difficulty'] = prediction['difficulty'].map(lambda x: int(round(x)))
         self.difficulty_distribution = prediction.groupby(by=['difficulty'])['count'].sum() / prediction['count'].sum()
-        print(self.difficulty_distribution)
         self.difficulty_distribution_padding = np.zeros(10)
         for i in range(10):
             if i+1 in self.difficulty_distribution.index:
                 self.difficulty_distribution_padding[i] = self.difficulty_distribution.loc[i+1]
+        return self.difficulty_distribution
     
     def find_optimal_retention(self):
         """should not be called before predict_memory_states"""
@@ -668,7 +669,7 @@ class Optimizer:
         self.dataset['difficulty'] = difficulties
         self.dataset['p'] = np.exp(np.log(0.9) * self.dataset['delta_t'] / self.dataset['stability'])
         self.dataset['log_loss'] = self.dataset.apply(lambda row: - np.log(row['p']) if row['y'] == 1 else - np.log(1 - row['p']), axis=1)
-        print(f"Loss before training: {self.dataset['log_loss'].mean():.4f}")
+        loss_before = self.dataset['log_loss'].mean()
 
         my_collection = Collection(self.w)
         stabilities, difficulties = my_collection.batch_predict(self.dataset)
@@ -676,7 +677,7 @@ class Optimizer:
         self.dataset['difficulty'] = difficulties
         self.dataset['p'] = np.exp(np.log(0.9) * self.dataset['delta_t'] / self.dataset['stability'])
         self.dataset['log_loss'] = self.dataset.apply(lambda row: - np.log(row['p']) if row['y'] == 1 else - np.log(1 - row['p']), axis=1)
-        print(f"Loss after training: {self.dataset['log_loss'].mean():.4f}")
+        loss_after = self.dataset['log_loss'].mean()
 
         tmp = self.dataset.copy()
         tmp['stability'] = tmp['stability'].map(lambda x: round(x, 2))
@@ -686,6 +687,7 @@ class Optimizer:
         tmp.rename(columns={"r": "grade", "p": "retrievability"}, inplace=True)
         tmp[['id', 'cid', 'review_date', 'r_history', 't_history', 'delta_t', 'grade', 'stability', 'difficulty', 'retrievability', 'log_loss']].to_csv("./evaluation.tsv", sep='\t', index=False)
         del tmp
+        return loss_before, loss_after
 
     def calibration_graph(self):
         fig1 = plot_brier(self.dataset['p'], self.dataset['y'], bins=40)
