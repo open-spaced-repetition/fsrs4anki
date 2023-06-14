@@ -107,6 +107,8 @@ def lineToTensor(line):
 
 class RevlogDataset(Dataset):
     def __init__(self, dataframe):
+        if len(dataframe) == 0:
+            raise ValueError('Training data is inadequate.')
         padded = pad_sequence(dataframe['tensor'].to_list(), batch_first=True, padding_value=0)
         self.x_train = padded.int()
         self.t_train = torch.tensor(dataframe['delta_t'].values, dtype=torch.int)
@@ -338,6 +340,8 @@ class Optimizer:
         cur = con.cursor()
         res = cur.execute("SELECT * FROM revlog")
         revlog = res.fetchall()
+        if len(revlog) == 0:
+            raise Exception("No review log found!")
         df = pd.DataFrame(revlog)
         df.columns = ['id', 'cid', 'usn', 'r', 'ivl', 'last_lvl', 'factor', 'time', 'type']
         df = df[(df['cid'] <= time.time() * 1000) &
