@@ -65,8 +65,6 @@ class FSRS(nn.Module):
         '''
         if state is None:
             state = torch.zeros((inputs.shape[1], 2))
-        else:
-            state, = state
         outputs = []
         for X in inputs:
             state = self.step(X, state)
@@ -340,19 +338,15 @@ class Optimizer:
         cur = con.cursor()
         res = cur.execute("SELECT * FROM revlog")
         revlog = res.fetchall()
-
         df = pd.DataFrame(revlog)
-        df.columns = ['id', 'cid', 'usn', 'r', 'ivl',
-                    'last_lvl', 'factor', 'time', 'type']
+        df.columns = ['id', 'cid', 'usn', 'r', 'ivl', 'last_lvl', 'factor', 'time', 'type']
         df = df[(df['cid'] <= time.time() * 1000) &
                 (df['id'] <= time.time() * 1000) &
                 (df['r'] > 0)].copy()
         df['create_date'] = pd.to_datetime(df['cid'] // 1000, unit='s')
-        df['create_date'] = df['create_date'].dt.tz_localize(
-            'UTC').dt.tz_convert(timezone)
+        df['create_date'] = df['create_date'].dt.tz_localize('UTC').dt.tz_convert(timezone)
         df['review_date'] = pd.to_datetime(df['id'] // 1000, unit='s')
-        df['review_date'] = df['review_date'].dt.tz_localize(
-            'UTC').dt.tz_convert(timezone)
+        df['review_date'] = df['review_date'].dt.tz_localize('UTC').dt.tz_convert(timezone)
         df.drop(df[df['review_date'].dt.year < 2006].index, inplace=True)
         df.sort_values(by=['cid', 'id'], inplace=True, ignore_index=True)
         self.type_sequence = np.array(df['type'])
@@ -366,14 +360,11 @@ class Optimizer:
         df.drop_duplicates(['cid', 'real_days'], keep='first', inplace=True)
         df['delta_t'] = df.real_days.diff()
         df.dropna(inplace=True)
-        df['delta_t'] = df['delta_t'].astype(dtype=int)
         df['i'] = df.groupby('cid').cumcount() + 1
         df.loc[df['i'] == 1, 'delta_t'] = 0
         df = df.groupby('cid').filter(lambda group: group['type'].iloc[0] == 0)
-        df = df.groupby('cid').filter(lambda group: group['type'].iloc[0] == 0)
         df['prev_type'] = df.groupby('cid')['type'].shift(1).fillna(0).astype(int)
-        df['helper'] = (df['type'] == 0) & ((df['prev_type'] == 1) | (df['prev_type'] == 2)) & (df['i'] > 1)
-        df['helper'] = df['helper'].astype(int)
+        df['helper'] = ((df['type'] == 0) & ((df['prev_type'] == 1) | (df['prev_type'] == 2)) & (df['i'] > 1)).astype(int)
         df['helper'] = df.groupby('cid')['helper'].cumsum()
         df = df[df['helper'] == 0]
         del df['prev_type']
@@ -382,7 +373,7 @@ class Optimizer:
         def cum_concat(x):
             return list(accumulate(x))
 
-        t_history = df.groupby('cid', group_keys=False)['delta_t'].apply(lambda x: cum_concat([[i] for i in x]))
+        t_history = df.groupby('cid', group_keys=False)['delta_t'].apply(lambda x: cum_concat([[int(i)] for i in x]))
         df['t_history']=[','.join(map(str, item[:-1])) for sublist in t_history for item in sublist]
         r_history = df.groupby('cid', group_keys=False)['r'].apply(lambda x: cum_concat([[i] for i in x]))
         df['r_history']=[','.join(map(str, item[:-1])) for sublist in r_history for item in sublist]
