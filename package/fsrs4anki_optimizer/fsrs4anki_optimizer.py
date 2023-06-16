@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import torch
 from torch import nn
+from torch import Tensor
 from torch.utils.data import Dataset, DataLoader, Sampler
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 from sklearn.model_selection import StratifiedGroupKFold
@@ -22,23 +23,23 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
 class FSRS(nn.Module):
-    def __init__(self, w):
+    def __init__(self, w: nn.Parameter):
         super(FSRS, self).__init__()
         self.w = nn.Parameter(torch.tensor(w, dtype=torch.float32))
 
-    def stability_after_success(self, state, new_d, r):
+    def stability_after_success(self, state: Tensor, new_d: Tensor, r: Tensor) -> Tensor:
         new_s = state[:,0] * (1 + torch.exp(self.w[6]) *
                         (11 - new_d) *
                         torch.pow(state[:,0], self.w[7]) *
                         (torch.exp((1 - r) * self.w[8]) - 1))
         return new_s
 
-    def stability_after_failure(self, state, new_d, r):
+    def stability_after_failure(self, state: Tensor, new_d: Tensor, r: Tensor) -> Tensor:
         new_s = self.w[9] * torch.pow(new_d, self.w[10]) * torch.pow(
             state[:,0], self.w[11]) * torch.exp((1 - r) * self.w[12])
         return new_s
 
-    def step(self, X, state):
+    def step(self, X: Tensor, state: Tensor) -> Tensor:
         '''
         :param X: shape[batch_size, 2], X[:,0] is elapsed time, X[:,1] is rating
         :param state: shape[batch_size, 2], state[:,0] is stability, state[:,1] is difficulty
@@ -59,7 +60,7 @@ class FSRS(nn.Module):
         new_s = new_s.clamp(0.1, 36500)
         return torch.stack([new_s, new_d], dim=1)
 
-    def forward(self, inputs, state=None):
+    def forward(self, inputs: Tensor, state: Tensor=None) -> Tensor:
         '''
         :param inputs: shape[seq_len, batch_size, 2]
         '''
@@ -73,11 +74,11 @@ class FSRS(nn.Module):
             outputs.append(state)
         return torch.stack(outputs), state
 
-    def mean_reversion(self, init, current):
+    def mean_reversion(self, init: Tensor, current: Tensor) -> Tensor:
         return self.w[5] * init + (1-self.w[5]) * current
 
-class WeightClipper(object):
-    def __init__(self, frequency=1):
+class WeightClipper:
+    def __init__(self, frequency: int=1):
         self.frequency = frequency
 
     def __call__(self, module):
@@ -98,7 +99,7 @@ class WeightClipper(object):
             w[12] = w[12].clamp(0.01, 2)
             module.w.data = w
 
-def lineToTensor(line):
+def lineToTensor(line: str) -> Tensor:
     ivl = line[0].split(',')
     response = line[1].split(',')
     tensor = torch.zeros(len(response), 2)
@@ -108,7 +109,7 @@ def lineToTensor(line):
     return tensor
 
 class RevlogDataset(Dataset):
-    def __init__(self, dataframe):
+    def __init__(self, dataframe: pd.DataFrame):
         padded = pad_sequence(dataframe['tensor'].to_list(), batch_first=True, padding_value=0)
         self.x_train = padded.int()
         self.t_train = torch.tensor(dataframe['delta_t'].values, dtype=torch.int)
@@ -122,7 +123,7 @@ class RevlogDataset(Dataset):
         return len(self.y_train)
 
 class RevlogSampler(Sampler[List[int]]):
-    def __init__(self, data_source, batch_size):
+    def __init__(self, data_source, batch_size: int):
         self.data_source = data_source
         self.batch_size = batch_size
         lengths = np.array(data_source.seq_len)
@@ -157,8 +158,8 @@ def collate_fn(batch):
     labels = torch.as_tensor(labels)
     return sequences_padded, delta_ts, labels, seq_lens
 
-class Trainer(object):
-    def __init__(self, train_set, test_set, init_w, n_epoch=1, lr=1e-2, batch_size=256) -> None:
+class Trainer:
+    def __init__(self, train_set, test_set, init_w, n_epoch: int=1, lr: float=1e-2, batch_size: int=256) -> None:
         self.model = FSRS(init_w)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=lr)
         self.clipper = WeightClipper()
