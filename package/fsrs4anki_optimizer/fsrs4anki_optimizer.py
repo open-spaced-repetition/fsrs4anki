@@ -106,7 +106,7 @@ def lineToTensor(line: str) -> Tensor:
         tensor[li][1] = int(response)
     return tensor
 
-class RevlogDataset(Dataset
+class RevlogDataset(Dataset):
     def __init__(self, dataframe: pd.DataFrame):
         if len(dataframe) == 0:
             raise ValueError('Training data is inadequate.')
