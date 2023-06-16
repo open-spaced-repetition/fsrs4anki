@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import os
 import math
-from typing import List
+from typing import List, Optional
 from datetime import timedelta, datetime
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
@@ -23,7 +23,7 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
 class FSRS(nn.Module):
-    def __init__(self, w: nn.Parameter):
+    def __init__(self, w: List[float]):
         super(FSRS, self).__init__()
         self.w = nn.Parameter(torch.tensor(w, dtype=torch.float32))
 
@@ -60,7 +60,7 @@ class FSRS(nn.Module):
         new_s = new_s.clamp(0.1, 36500)
         return torch.stack([new_s, new_d], dim=1)
 
-    def forward(self, inputs: Tensor, state: Tensor=None) -> Tensor:
+    def forward(self, inputs: Tensor, state: Optional[Tensor]=None) -> Tensor:
         '''
         :param inputs: shape[seq_len, batch_size, 2]
         '''
@@ -123,7 +123,7 @@ class RevlogDataset(Dataset):
         return len(self.y_train)
 
 class RevlogSampler(Sampler[List[int]]):
-    def __init__(self, data_source, batch_size: int):
+    def __init__(self, data_source: RevlogDataset, batch_size: int):
         self.data_source = data_source
         self.batch_size = batch_size
         lengths = np.array(data_source.seq_len)
@@ -159,7 +159,7 @@ def collate_fn(batch):
     return sequences_padded, delta_ts, labels, seq_lens
 
 class Trainer:
-    def __init__(self, train_set, test_set, init_w, n_epoch: int=1, lr: float=1e-2, batch_size: int=256) -> None:
+    def __init__(self, train_set: pd.DataFrame, test_set: pd.DataFrame, init_w: List[float], n_epoch: int=1, lr: float=1e-2, batch_size: int=256) -> None:
         self.model = FSRS(init_w)
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=lr)
         self.clipper = WeightClipper()
@@ -172,7 +172,7 @@ class Trainer:
         self.avg_eval_losses = []
         self.loss_fn = nn.BCELoss(reduction='sum')
 
-    def build_dataset(self, train_set, test_set):
+    def build_dataset(self, train_set: pd.DataFrame, test_set: pd.DataFrame):
         pre_train_set = train_set[train_set['i'] == 2]
         self.pre_train_set = RevlogDataset(pre_train_set)
         sampler = RevlogSampler(self.pre_train_set, batch_size=self.batch_size)
@@ -297,11 +297,11 @@ class Trainer:
         return fig
 
 class Collection:
-    def __init__(self, w):
+    def __init__(self, w: List[float]) -> None:
         self.model = FSRS(w)
         self.model.eval()
 
-    def predict(self, t_history, r_history):
+    def predict(self, t_history: str, r_history: str):
         with torch.no_grad():
             line_tensor = lineToTensor(list(zip([t_history], [r_history]))[0]).unsqueeze(1)
             output_t = self.model(line_tensor)
