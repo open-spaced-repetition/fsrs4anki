@@ -455,7 +455,7 @@ class Optimizer:
         https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
         '''
 
-    def train(self, lr: float = 4e-2, n_epoch: int = 3, n_splits: int = 3, batch_size: int = 512):
+    def train(self, lr: float = 4e-2, n_epoch: int = 3, n_splits: int = 3, batch_size: int = 512, verbose: bool = True):
         """Step 4"""
         self.dataset = pd.read_csv("./revlog_history.tsv", sep='\t', index_col=None, dtype={'r_history': str ,'t_history': str} )
         self.dataset = self.dataset[(self.dataset['i'] > 1) & (self.dataset['delta_t'] > 0) & (self.dataset['t_history'].str.count(',0') == 0)]
@@ -472,11 +472,11 @@ class Optimizer:
                 train_set = self.dataset.iloc[train_index].copy()
                 test_set = self.dataset.iloc[test_index].copy()
                 trainer = Trainer(train_set, test_set, self.init_w, n_epoch=n_epoch, lr=lr, batch_size=batch_size)
-                w.append(trainer.train())
+                w.append(trainer.train(verbose=verbose))
                 plots.append(trainer.plot())
         else:
             trainer = Trainer(self.dataset, self.dataset, self.init_w, n_epoch=n_epoch, lr=lr, batch_size=batch_size)
-            w.append(trainer.train())
+            w.append(trainer.train(verbose=verbose))
             plots.append(trainer.plot())
 
         w = np.array(w)
