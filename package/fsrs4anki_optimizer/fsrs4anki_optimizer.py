@@ -192,7 +192,7 @@ class Trainer:
         self.test_data_loader = DataLoader(self.test_set, batch_sampler=sampler, collate_fn=collate_fn)
         print("dataset built")
 
-    def train(self):
+    def train(self, verbose: bool=True):
         # pretrain
         best_loss = np.inf
         weighted_loss, w = self.eval()
@@ -218,7 +218,7 @@ class Trainer:
 
         pbar.close()
         for name, param in self.model.named_parameters():
-            print(f"{name}: {list(map(lambda x: round(float(x), 4),param))}")
+            tqdm.write(f"{name}: {list(map(lambda x: round(float(x), 4),param))}")
 
         epoch_len = len(self.next_train_data_loader)
         pbar = tqdm(desc="train", colour="red", total=epoch_len*self.n_epoch)
@@ -246,7 +246,7 @@ class Trainer:
                 self.model.apply(self.clipper)
                 pbar.update(real_batch_size)
 
-                if (k * self.batch_nums + i + 1) % print_len == 0:
+                if verbose and (k * self.batch_nums + i + 1) % print_len == 0:
                     tqdm.write(f"iteration: {k * epoch_len + (i + 1) * self.batch_size}")
                     for name, param in self.model.named_parameters():
                         tqdm.write(f"{name}: {list(map(lambda x: round(float(x), 4),param))}")
@@ -420,7 +420,7 @@ class Optimizer:
         df.sort_values(by=['r_history'], inplace=True, ignore_index=True)
 
         if df.shape[0] > 0:
-            for idx in tqdm(df.index):
+            for idx in tqdm(df.index, desc="analysis"):
                 item = df.loc[idx]
                 index = df[(df['i'] == item['i'] + 1) & (df['r_history'].str.startswith(item['r_history']))].index
                 df.loc[index, 'last_stability'] = item['stability']
@@ -606,7 +606,7 @@ class Optimizer:
         print(f"terminal stability: {stability_list.max(): .2f}")
         df = pd.DataFrame(columns=["retention", "difficulty", "time"])
 
-        for percentage in tqdm(range(96, 66, -2)):
+        for percentage in tqdm(range(96, 66, -2), desc="find optimal retention"):
             recall = percentage / 100
             time_list = np.zeros((d_range, index_len))
             time_list[:,:-1] = max_time
