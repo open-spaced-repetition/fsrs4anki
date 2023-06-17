@@ -142,7 +142,7 @@ class RevlogSampler(Sampler[List[int]]):
         self.generator.manual_seed(seed)
 
     def __iter__(self):
-        yield from [self.batch_indices[idx] for idx in torch.randperm(self.batch_nums, generator=self.generator).tolist()]
+        yield from (self.batch_indices[idx] for idx in torch.randperm(self.batch_nums, generator=self.generator).tolist())
 
     def __len__(self):
         return len(self.data_source)
