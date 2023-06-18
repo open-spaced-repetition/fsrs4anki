@@ -52,7 +52,7 @@ const enable_fuzz = true;
 
 // FSRS supports displaying memory states of cards.
 // Enable it for debugging if you encounter something wrong.
-const display_memory_state = false;
+const display_memory_state = true;
 
 // Configuration End
 
