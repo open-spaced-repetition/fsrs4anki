@@ -465,6 +465,11 @@ class Optimizer:
         self.dataset['tensor'] = self.dataset.progress_apply(lambda x: lineToTensor(list(zip([x['t_history']], [x['r_history']]))[0]), axis=1)
         self.dataset['group'] = self.dataset['r_history'] + self.dataset['t_history']
         print("Tensorized!")
+        
+        n_pre_train_groups = len(self.dataset[self.dataset['i'] == 2]['group'].unique())
+        if n_pre_train_groups < n_splits:
+            print("Not enough groups for pre-training. Splitting into {} folds.".format(n_pre_train_groups))
+            n_splits = n_pre_train_groups
 
         w = []
         plots = []
