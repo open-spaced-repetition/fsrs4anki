@@ -130,10 +130,13 @@ class RevlogSampler(Sampler[List[int]]):
         indices = np.argsort(lengths)
         full_batches, remainder = divmod(indices.size, self.batch_size)
         if full_batches > 0:
-            self.batch_indices = np.split(indices[:-remainder], full_batches)
+            if remainder == 0:
+                self.batch_indices = np.split(indices, full_batches)
+            else:
+                self.batch_indices = np.split(indices[:-remainder], full_batches)
         else:
             self.batch_indices = []
-        if remainder:
+        if remainder > 0:
             self.batch_indices.append(indices[-remainder:])
         self.batch_nums = len(self.batch_indices)
         # seed = int(torch.empty((), dtype=torch.int64).random_().item())
