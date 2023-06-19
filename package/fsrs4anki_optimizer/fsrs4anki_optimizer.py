@@ -614,7 +614,9 @@ class Optimizer:
                 s0 = init_stability(d)
                 s0_index = stability2index(s0)
                 diff = max_time
-                while diff > 1:
+                iteration = 0
+                while diff > 1 and iteration < 2e5:
+                    iteration += 1
                     total_time = time_list[d - 1].sum()
                     s_indices = np.arange(index_len - 2, -1, -1)
                     stabilities = stability_list[s_indices]
