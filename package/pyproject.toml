@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fsrs4anki_optimizer"
-version = "3.25.4"
+version = "3.25.5"
 readme = "README.md"
 dependencies = [
     "matplotlib>=3.7.0",
-    "numpy~=1.22.4",
+    "numpy>=1.22.4",
     "pandas>=1.5.3",
-    "pytz>=2023.3",
+    "pytz>=2022.7.1",
     "scikit_learn>=1.2.2",
     "torch>=1.13.1",
     "tqdm>=4.64.1",
