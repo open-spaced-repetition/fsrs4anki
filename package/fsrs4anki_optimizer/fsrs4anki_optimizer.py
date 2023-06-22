@@ -567,8 +567,8 @@ class Optimizer:
         """should not be called before predict_memory_states"""
 
         base = 1.01
-        index_len = 664
-        index_offset = 200
+        minimum_stability = 0.1
+        index_offset = -(np.log(minimum_stability) / np.log(base)).round().astype(int)
         d_range = 10
         d_offset = 1
         r_time = 8
@@ -609,7 +609,10 @@ class Optimizer:
             else:
                 return self.w[9] * np.power(d, self.w[10]) * np.power(s, self.w[11]) * np.exp((1 - r) * self.w[12])
 
-
+        terminal_stability = minimum_stability
+        for _ in range(128):
+            terminal_stability = cal_next_recall_stability(terminal_stability, 0.96, d_range, 1)
+        index_len = stability2index(terminal_stability)
         stability_list = np.array([np.power(base, i - index_offset) for i in range(index_len)])
         print(f"terminal stability: {stability_list.max(): .2f}")
         df = pd.DataFrame(columns=["retention", "difficulty", "time"])
