@@ -8,7 +8,7 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1],
+    "w": [1.4725, 2.5129, 4.0713, -1.6732, -1.5052, 0.05, 1.2618, -0.1503, 0.8265, 1.7898, -0.5355, 0.5913, 1.3007],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
