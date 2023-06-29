@@ -342,7 +342,15 @@ class Optimizer:
         else:
             raise Exception("Collection not exist!")
         cur = con.cursor()
-        res = cur.execute("SELECT * FROM revlog")
+        res = cur.execute("""
+        SELECT *
+        FROM revlog
+        WHERE cid IN (
+            SELECT id
+            FROM cards
+        )
+        """
+        )
         revlog = res.fetchall()
         if len(revlog) == 0:
             raise Exception("No review log found!")
