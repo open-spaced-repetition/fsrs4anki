@@ -329,7 +329,7 @@ class Optimizer:
             zip_ref.extractall('./')
             print("Deck file extracted successfully!")
 
-    def create_time_series(self, timezone: str, revlog_start_date: str, next_day_starts_at: int):
+    def create_time_series(self, timezone: str, revlog_start_date: str, next_day_starts_at: int, filter_out_suspended_cards: bool = False):
         """Step 2"""
         if os.path.isfile("collection.anki21b"):
             os.remove("collection.anki21b")
@@ -342,12 +342,13 @@ class Optimizer:
         else:
             raise Exception("Collection not exist!")
         cur = con.cursor()
-        res = cur.execute("""
+        res = cur.execute(f"""
         SELECT *
         FROM revlog
         WHERE cid IN (
             SELECT id
             FROM cards
+            {"WHERE queue != -1" if filter_out_suspended_cards else ""}
         )
         """
         )
