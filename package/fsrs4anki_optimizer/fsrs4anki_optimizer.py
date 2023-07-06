@@ -312,9 +312,10 @@ class Collection:
 
     def batch_predict(self, dataset):
         fast_dataset = RevlogDataset(dataset)
-        outputs, _ = self.model(fast_dataset.x_train.transpose(0, 1))
-        stabilities, difficulties = outputs[fast_dataset.seq_len-1, torch.arange(len(fast_dataset))].transpose(0, 1)
-        return stabilities.tolist(), difficulties.tolist()
+        with torch.no_grad():
+            outputs, _ = self.model(fast_dataset.x_train.transpose(0, 1))
+            stabilities, difficulties = outputs[fast_dataset.seq_len-1, torch.arange(len(fast_dataset))].transpose(0, 1)
+            return stabilities.tolist(), difficulties.tolist()
 
 """Used to store all the results from FSRS related functions"""
 class Optimizer:
