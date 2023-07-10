@@ -37,7 +37,7 @@ class FSRS(nn.Module):
     def stability_after_failure(self, state: Tensor, new_d: Tensor, r: Tensor) -> Tensor:
         new_s = self.w[9] * torch.pow(new_d, self.w[10]) * torch.pow(
             state[:,0], self.w[11]) * torch.exp((1 - r) * self.w[12])
-        return new_s
+        return new_s.clamp(max=state[:,0])
 
     def step(self, X: Tensor, state: Tensor) -> Tensor:
         '''
@@ -632,7 +632,7 @@ class Optimizer:
             if response == 1:
                 return s * (1 + np.exp(self.w[6]) * (11 - d) * np.power(s, self.w[7]) * (np.exp((1 - r) * self.w[8]) - 1))
             else:
-                return self.w[9] * np.power(d, self.w[10]) * np.power(s, self.w[11]) * np.exp((1 - r) * self.w[12])
+                return np.minimum(self.w[9] * np.power(d, self.w[10]) * np.power(s, self.w[11]) * np.exp((1 - r) * self.w[12]), s)
 
         terminal_stability = minimum_stability
         for _ in range(128):
