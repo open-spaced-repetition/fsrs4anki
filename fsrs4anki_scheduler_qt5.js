@@ -1,4 +1,4 @@
-// FSRS4Anki v3.20.0 Scheduler Qt5
+// FSRS4Anki v3.26.2 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -180,7 +180,7 @@ if (is_new()) {
   }
 }
 function constrain_difficulty(difficulty) {
-  return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
+  return Math.min(Math.max(+difficulty.toFixed(2), 1), 10);
 }
 function apply_fuzz(ivl) {
   if (!enable_fuzz || ivl < 2.5) return ivl;
@@ -207,10 +207,15 @@ function mean_reversion(init, current) {
   return w[5] * init + (1 - w[5]) * current;
 }
 function next_recall_stability(d, s, r) {
-  return +(s * (1 + Math.exp(w[6]) * (11 - d) * Math.pow(s, w[7]) * (Math.exp((1 - r) * w[8]) - 1))).toFixed(2);
+  return +(s * (1 + Math.exp(w[6]) *
+    (11 - d) *
+    Math.pow(s, w[7]) *
+    (Math.exp((1 - r) * w[8]) - 1))).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
-  return +(w[9] * Math.pow(d, w[10]) * Math.pow(s, w[11]) * Math.exp((1 - r) * w[12])).toFixed(2);
+  return +Math.min(w[9] * Math.pow(d, w[10]) * 
+    Math.pow(s, w[11]) * 
+    Math.exp((1 - r) * w[12]), s).toFixed(2);
 }
 function init_states() {
   customData.again.d = init_difficulty("again");
@@ -306,7 +311,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v3.20.0";
+  const version = "v3.26.2";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
