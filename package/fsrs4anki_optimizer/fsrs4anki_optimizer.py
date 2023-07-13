@@ -357,7 +357,6 @@ class Optimizer:
 
         df['create_date'] = pd.to_datetime(df['cid'] // 1000, unit='s')
         df['create_date'] = df['create_date'].dt.tz_localize('UTC').dt.tz_convert(timezone)
-        df.drop(df[df['create_date'].dt.year < 2006].index, inplace=True)
         df['review_date'] = pd.to_datetime(df['id'] // 1000, unit='s')
         df['review_date'] = df['review_date'].dt.tz_localize('UTC').dt.tz_convert(timezone)
         df.drop(df[df['review_date'].dt.year < 2006].index, inplace=True)
@@ -488,6 +487,7 @@ class Optimizer:
             recall = group['y']['mean']
             count = group['y']['count']
             if sum(count) < 100:
+                print(f'Not enough data for first rating {first_rating}. Expected at least 100, got {sum(count)}.')
                 continue
             params, covs = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (3650)))
             rating_stability[int(first_rating)] = params[0]
@@ -511,11 +511,13 @@ class Optimizer:
             plt.show()
 
         print(rating_stability)
+        if len(rating_stability) < 2:
+            raise Exception("Not enough data for pretraining!")
 
         def S0_rating_curve(rating, a, b, c):
             return np.exp(a + b * rating) + c
 
-        params, covs = curve_fit(S0_rating_curve, list(rating_stability.keys()), list(rating_stability.values()), sigma=1/np.sqrt(list(rating_count.values())), method='dogbox', bounds=((-15, 0.03, 0), (15, 7, 30)))
+        params, covs = curve_fit(S0_rating_curve, list(rating_stability.keys()), list(rating_stability.values()), sigma=1/np.sqrt(list(rating_count.values())), method='dogbox', bounds=((-15, 0.03, -5), (15, 7, 30)))
         print('Weighted fit parameters:', params)
         predict_stability = S0_rating_curve(np.array(list(rating_stability.keys())), *params)
         print("Fit stability:", predict_stability)
