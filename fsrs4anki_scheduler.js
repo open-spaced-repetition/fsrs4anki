@@ -1,4 +1,4 @@
-// FSRS4Anki v3.26.2 Scheduler Qt6
+// FSRS4Anki v4.0.0 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
 
@@ -8,14 +8,12 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1],
+    "w": [1, 2, 3, 4, 5, 0.5, 0.5, 0.2, 1.4, 0.2, 0.8, 2, 0.2, 0.2, 1, 0.5, 2],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
     "requestRetention": 0.9, // recommended setting: 0.8 ~ 0.9
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
   },
@@ -23,21 +21,17 @@ const deckParams = [
     // Example 1: User's custom parameters for this deck and its sub-decks.
     // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
     "deckName": "ALL::Learning::English::Reading",
-    "w": [1.1475, 1.401, 5.1483, -1.4221, -1.2282, 0.035, 1.4668, -0.1286, 0.7539, 1.9671, -0.2307, 0.32, 0.9451],
+    "w": [1.2, 2.4, 3.6, 4.8, 5.1483, 1.4221, 1.2282, 0.035, 1.4668, 0.1286, 0.7539, 1.9671, 0.2307, 0.32, 0.9451, 0.5, 2],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
   },
   {
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
     "deckName": "ALL::Archive",
-    "w": [1.2879, 0.5135, 4.9532, -1.502, -1.0922, 0.0081, 1.3771, -0.0294, 0.6718, 1.8335, -0.4066, 0.7291, 0.5517],
+    "w": [1.3, 1.8, 2.3, 2.8, 4.9532, 1.502, 1.0922, 0.0081, 1.3771, 0.0294, 0.6718, 1.8335, 0.4066, 0.7291, 0.5517, 0.5, 2],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
   }
 ];
 
@@ -102,10 +96,8 @@ if (Object.keys(params).length === 0) {
 var w = params["w"];
 var requestRetention = params["requestRetention"];
 var maximumInterval = params["maximumInterval"];
-var easyBonus = params["easyBonus"];
-var hardInterval = params["hardInterval"];
 // auto-calculate intervalModifier
-const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
+const intervalModifier = 9 * (1 / requestRetention - 1);
 // global fuzz factor for all ratings.
 const fuzz_factor = set_fuzz_factor();
 const ratings = {
@@ -118,7 +110,7 @@ const ratings = {
 if (is_new()) {
   init_states();
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+  const easy_interval = Math.max(next_interval(customData.easy.s), good_interval + 1);
   if (states.good.normal?.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -132,7 +124,7 @@ if (is_new()) {
     init_states();
   }
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+  const easy_interval = Math.max(next_interval(customData.easy.s), good_interval + 1);
   if (states.good.normal?.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -148,21 +140,21 @@ if (is_new()) {
   const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
   const last_d = customData.again.d;
   const last_s = customData.again.s;
-  const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
+  const retrievability = Math.pow(1 + interval / (9 * last_s), -1)
   if (display_memory_state) {
     fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
   }
   customData.again.d = next_difficulty(last_d, "again");
   customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
   customData.hard.d = next_difficulty(last_d, "hard");
-  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability);
+  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability, "hard");
   customData.good.d = next_difficulty(last_d, "good");
-  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability);
+  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability, "good");
   customData.easy.d = next_difficulty(last_d, "easy");
-  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
-  let hard_interval = next_interval(last_s * hardInterval);
+  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability, "easy");
+  let hard_interval = next_interval(customData.hard.s);
   let good_interval = next_interval(customData.good.s);
-  let easy_interval = next_interval(customData.easy.s * easyBonus)
+  let easy_interval = next_interval(customData.easy.s);
   hard_interval = Math.min(hard_interval, good_interval)
   good_interval = Math.max(good_interval, hard_interval + 1);
   easy_interval = Math.max(easy_interval, good_interval + 1);
@@ -197,22 +189,27 @@ function next_interval(stability) {
   return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 function next_difficulty(d, rating) {
-  let next_d = d + w[4] * (ratings[rating] - 3);
-  return constrain_difficulty(mean_reversion(w[2], next_d));
+  let next_d = d - w[6] * (ratings[rating] - 3);
+  return constrain_difficulty(mean_reversion(w[4], next_d));
 }
 function mean_reversion(init, current) {
-  return w[5] * init + (1 - w[5]) * current;
+  return w[7] * init + (1 - w[7]) * current;
 }
-function next_recall_stability(d, s, r) {
-  return +(s * (1 + Math.exp(w[6]) *
+function next_recall_stability(d, s, r, rating) {
+  let hardPenalty = rating === "hard" ? w[15] : 1;
+  let easyBonus = rating === "easy" ? w[16] : 1;
+  return +(s * (1 + Math.exp(w[8]) *
     (11 - d) *
-    Math.pow(s, w[7]) *
-    (Math.exp((1 - r) * w[8]) - 1))).toFixed(2);
+    Math.pow(s, -w[9]) *
+    (Math.exp((1 - r) * w[10]) - 1) *
+    hardPenalty *
+    easyBonus)).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
-  return +Math.min(w[9] * Math.pow(d, w[10]) * 
-    Math.pow(s, w[11]) * 
-    Math.exp((1 - r) * w[12]), s).toFixed(2);
+  return +Math.min(w[11] * 
+    Math.pow(d, -w[12]) * 
+    (Math.pow(s + 1, w[13]) - 1) * 
+    Math.exp((1 - r) * w[14]), s).toFixed(2);
 }
 function init_states() {
   customData.again.d = init_difficulty("again");
@@ -225,16 +222,16 @@ function init_states() {
   customData.easy.s = init_stability("easy");
 }
 function init_difficulty(rating) {
-  return +constrain_difficulty(w[2] + w[3] * (ratings[rating] - 3)).toFixed(2);
+  return +constrain_difficulty(w[4] - w[5] * (ratings[rating] - 3)).toFixed(2);
 }
 function init_stability(rating) {
-  return +Math.max(w[0] + w[1] * (ratings[rating] - 1), 0.1).toFixed(2);
+  return +Math.max(w[ratings[rating] - 1], 0.1).toFixed(2);
 }
 function convert_states() {
   const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
   const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
   const old_s = +Math.max(scheduledDays, 0.1).toFixed(2);
-  const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[6]) * Math.pow(old_s, w[7]) * (Math.exp(0.1 * w[8]) - 1)));
+  const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(-w[6]) * Math.pow(old_s, -w[9]) * (Math.exp(0.1 * w[10]) - 1)));
   customData.again.d = old_d;
   customData.again.s = old_s;
   customData.hard.d = old_d;
@@ -297,7 +294,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v3.26.2";
+  const version = "v4.0.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
