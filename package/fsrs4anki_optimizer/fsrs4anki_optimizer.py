@@ -35,12 +35,14 @@ class FSRS(nn.Module):
         self.w = nn.Parameter(torch.tensor(w, dtype=torch.float32))
 
     def stability_after_success(self, state: Tensor, new_d: Tensor, r: Tensor, rating: Tensor) -> Tensor:
-        hard_bonus = torch.where(rating == 2, self.w[15], 1)
+        hard_penalty = torch.where(rating == 2, self.w[15], 1)
         easy_bonus = torch.where(rating == 4, self.w[16], 1)
         new_s = state[:,0] * (1 + torch.exp(self.w[8]) *
                         (11 - new_d) *
                         torch.pow(state[:,0], -self.w[9]) *
-                        (torch.exp((1 - r) * self.w[10]) - 1) * hard_bonus * easy_bonus)
+                        (torch.exp((1 - r) * self.w[10]) - 1) * 
+                        hard_penalty * 
+                        easy_bonus)
         return new_s
 
     def stability_after_failure(self, state: Tensor, new_d: Tensor, r: Tensor) -> Tensor:
