@@ -79,7 +79,7 @@ This shows that your FSRS is running normally. You can then change the code back
 
 ### 2.1 Generate Personalized Parameters
 
-Open the [optimizer's notebook](https://www.github.com/open-spaced-repetition/fsrs4anki/blob/main/fsrs4anki_optimizer.ipynb) and click on Open in Colab to run the optimizer on Google Colab. You don't need to configure the coding environment yourself and you can use Google's machines for free (you'll need to register a Google account):
+Open the [optimizer's notebook](https://github.com/open-spaced-repetition/fsrs4anki/releases/latest) and click on Open in Colab to run the optimizer on Google Colab. You don't need to configure the coding environment yourself and you can use Google's machines for free (you'll need to register a Google account):
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/5f5af21b-583d-496c-9bad-0eef0b1fb7a6)
 
