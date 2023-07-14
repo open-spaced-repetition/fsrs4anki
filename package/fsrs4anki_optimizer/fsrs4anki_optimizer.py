@@ -512,6 +512,11 @@ class Optimizer:
 
         if len(rating_stability) < 2:
             raise Exception("Not enough data for pretraining!")
+        elif len(rating_stability) == 4:
+            for rating, stability in rating_stability.items():
+                self.init_w[rating-1] = round(stability, 2)
+            tqdm.write(f"Pretrain finished!")
+            return
 
         def S0_rating_curve(rating, a, b, c):
             return np.exp(a + b * rating) + c
@@ -576,11 +581,13 @@ class Optimizer:
                 test_set = self.dataset.iloc[test_index].copy()
                 trainer = Trainer(train_set, test_set, self.init_w, n_epoch=n_epoch, lr=lr, batch_size=batch_size)
                 w.append(trainer.train(verbose=verbose))
-                plots.append(trainer.plot())
+                if verbose:
+                    plots.append(trainer.plot())
         else:
             trainer = Trainer(self.dataset, self.dataset, self.init_w, n_epoch=n_epoch, lr=lr, batch_size=batch_size)
             w.append(trainer.train(verbose=verbose))
-            plots.append(trainer.plot())
+            if verbose:
+                plots.append(trainer.plot())
 
         w = np.array(w)
         avg_w = np.round(np.mean(w, axis=0), 4)
