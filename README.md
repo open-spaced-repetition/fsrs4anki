@@ -16,7 +16,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
   <a href="https://raw.githubusercontent.com/open-spaced-repetition/fsrs4anki/main/LICENSE">
     <img src="https://img.shields.io/github/license/open-spaced-repetition/fsrs4anki" alt="license">
   </a>
-  <a href="https://github.com/open-spaced-repetition/fsrs4anki/releases">
+  <a href="https://github.com/open-spaced-repetition/fsrs4anki/releases/latest">
     <img src="https://img.shields.io/github/v/release/open-spaced-repetition/fsrs4anki?color=blueviolet" alt="release">
   </a>
 </p>
