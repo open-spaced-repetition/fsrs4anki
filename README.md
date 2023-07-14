@@ -17,7 +17,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
     <img src="https://img.shields.io/github/license/open-spaced-repetition/fsrs4anki" alt="license">
   </a>
   <a href="https://github.com/open-spaced-repetition/fsrs4anki/releases">
-    <img src="https://img.shields.io/github/v/release/open-spaced-repetition/fsrs4anki?color=blueviolet&include_prereleases" alt="release">
+    <img src="https://img.shields.io/github/v/release/open-spaced-repetition/fsrs4anki?color=blueviolet" alt="release">
   </a>
 </p>
 
@@ -53,7 +53,7 @@ Preferences > Review > Enable V3 Scheduler
 
 ### 1.2 Paste FSRS Scheduler Code
 
-In the deck options, find the Advanced Settings column, and paste the code in [fsrs4anki_scheduler.js](https://www.github.com/open-spaced-repetition/fsrs4anki/blob/main/fsrs4anki_scheduler.js) into the Custom Scheduling field:
+In the deck options, find the Advanced Settings column, and paste the code in [fsrs4anki_scheduler.js](https://github.com/open-spaced-repetition/fsrs4anki/releases/latest) into the Custom Scheduling field:
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/5c292f91-8845-4f8c-ac42-55f9a0f2946e)
 
