@@ -404,6 +404,7 @@ class Optimizer:
 
         S0_dataset = df[df['i'] == 2]
         self.S0_dataset_group = S0_dataset.groupby(by=['r_history', 'delta_t'], group_keys=False).agg({'y': ['mean', 'count']}).reset_index()
+        self.S0_dataset_group.to_csv('stability_for_pretrain.tsv', sep='\t', index=None)
 
         df['retention'] = df.groupby(by=['r_history', 'delta_t'], group_keys=False)['y'].transform('mean')
         df['total_cnt'] = df.groupby(by=['r_history', 'delta_t'], group_keys=False)['id'].transform('count')
@@ -488,7 +489,7 @@ class Optimizer:
             if total_count < 100:
                 tqdm.write(f'Not enough data for first rating {first_rating}. Expected at least 100, got {total_count}.')
                 continue
-            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (365)))
+            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (60 if total_count < 1000 else 365)))
             stability = params[0]
             rating_stability[int(first_rating)] = stability
             rating_count[int(first_rating)] = total_count
@@ -537,7 +538,7 @@ class Optimizer:
             plt.show()
 
         for rating in (1, 2, 3, 4):
-            again_extrap = max(min(S0_rating_curve(1, *params), 365), 0.1)
+            again_extrap = max(min(S0_rating_curve(1, *params), 60), 0.1)
             # if there isn't enough data to calculate the value for "Again" exactly
             if 1 not in rating_stability:
                 # then check if there exists an exact value for "Hard"
@@ -554,7 +555,7 @@ class Optimizer:
                 else:
                     rating_stability[1] = again_extrap
             elif rating not in rating_stability:
-                rating_stability[rating] = max(min(S0_rating_curve(rating, *params), 365), 0.1)
+                rating_stability[rating] = max(min(S0_rating_curve(rating, *params), 60), 0.1)
 
         rating_stability = {k: round(v, 2) for k, v in sorted(rating_stability.items(), key=lambda item: item[0])}
         for rating, stability in rating_stability.items():
