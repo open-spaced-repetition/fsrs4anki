@@ -83,6 +83,7 @@ if __name__ == "__main__":
     print(analysis)
 
     optimizer.define_model()
+    optimizer.pretrain()
     optimizer.train()
 
     optimizer.predict_memory_states()
