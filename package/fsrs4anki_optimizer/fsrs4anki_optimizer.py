@@ -494,7 +494,7 @@ class Optimizer:
             if total_count < 100:
                 tqdm.write(f'Not enough data for first rating {first_rating}. Expected at least 100, got {total_count}.')
                 continue
-            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (60 if total_count < 1000 else 365)))
+            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/count, bounds=((0.1), (60 if total_count < 1000 else 365)))
             stability = params[0]
             rating_stability[int(first_rating)] = stability
             rating_count[int(first_rating)] = total_count
@@ -527,7 +527,7 @@ class Optimizer:
         def S0_rating_curve(rating, a, b, c):
             return np.exp(a + b * rating) + c
 
-        params, covs = curve_fit(S0_rating_curve, list(rating_stability.keys()), list(rating_stability.values()), sigma=1/np.sqrt(list(rating_count.values())), method='dogbox', bounds=((-15, 0.03, -5), (15, 7, 30)))
+        params, covs = curve_fit(S0_rating_curve, list(rating_stability.keys()), list(rating_stability.values()), sigma=1/np.array(list(rating_count.values())), method='dogbox', bounds=((-15, 0.03, -5), (15, 7, 30)))
         if verbose:
             tqdm.write(f'Weighted fit parameters: {params}')
             predict_stability = S0_rating_curve(np.array(list(rating_stability.keys())), *params)
