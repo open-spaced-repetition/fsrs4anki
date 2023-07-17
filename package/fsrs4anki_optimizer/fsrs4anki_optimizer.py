@@ -475,15 +475,20 @@ class Optimizer:
         '''
 
     def pretrain(self, verbose=True):
+        self.dataset = pd.read_csv("./revlog_history.tsv", sep='\t', index_col=None, dtype={'r_history': str ,'t_history': str} )
+        self.dataset = self.dataset[(self.dataset['i'] > 1) & (self.dataset['delta_t'] > 0) & (self.dataset['t_history'].str.count(',0') == 0)]
+        if self.dataset.empty:
+            raise ValueError('Training data is inadequate.')
         rating_stability = {}
         rating_count = {}
+        average_recall = self.dataset['y'].mean()
 
         for first_rating in ("1", "2", "3", "4"):
             group = self.S0_dataset_group[self.S0_dataset_group['r_history'] == first_rating]
             if group.empty:
                 continue
             delta_t = group['delta_t']
-            recall = group['y']['mean']
+            recall = (group['y']['mean'] * group['y']['count'] + average_recall * 1) / (group['y']['count'] + 1)
             count = group['y']['count']
             total_count = sum(count)
             if total_count < 100:
@@ -564,10 +569,6 @@ class Optimizer:
 
     def train(self, lr: float = 4e-2, n_epoch: int = 5, n_splits: int = 5, batch_size: int = 512, verbose: bool = True):
         """Step 4"""
-        self.dataset = pd.read_csv("./revlog_history.tsv", sep='\t', index_col=None, dtype={'r_history': str ,'t_history': str} )
-        self.dataset = self.dataset[(self.dataset['i'] > 1) & (self.dataset['delta_t'] > 0) & (self.dataset['t_history'].str.count(',0') == 0)]
-        if self.dataset.empty:
-            raise ValueError('Training data is inadequate.')
         self.dataset['tensor'] = self.dataset.progress_apply(lambda x: lineToTensor(list(zip([x['t_history']], [x['r_history']]))[0]), axis=1)
         self.dataset['group'] = self.dataset['r_history'] + self.dataset['t_history']
         tqdm.write("Tensorized!")
