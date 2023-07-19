@@ -166,7 +166,7 @@ Please pay attention to the popup.
 After that has downloaded and installed you should be able to run the optimizer from within anki.
 Press the cog next to any given deck and hit the optimize option.  
 ![image](https://user-images.githubusercontent.com/63685643/236647245-757ca803-b8cf-41cd-a1ae-8ed9af852ad8.png)  
-Anki may then hang a small while while anki loads the optimizer.
+Anki may then hang a small while while it loads the optimizer.
 
 ![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/e160e5ba-c51f-46a9-9813-9dceb18e47ff)  
 Hit yes to find the optimum retention, Hit no to not or hit cancel to pick a different deck. 
