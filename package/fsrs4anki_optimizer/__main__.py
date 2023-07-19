@@ -83,15 +83,12 @@ def process(filename):
     profile = \
     f"""{{
     // Generated, Optimized anki deck settings
-    // Need to add <div id=deck deck_name="{{{{Deck}}}}"></div> to your card's front template's first line.
-    "deckName": "{filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
+    "deckName": "{args.filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
     "w": {optimizer.w},
     "requestRetention": {optimizer.optimal_retention},
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
-    }},
-    """
+}},
+"""
 
     print("Paste this into your scheduling code")
     print(profile)
