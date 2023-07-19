@@ -153,6 +153,34 @@ Please note that this does not support multiple files in one command / wildcards
 ![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/ac2e8ae0-726c-46fd-b110-0701fa87cb66)
 ![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/1fe8b0bb-7ac0-4a31-b594-465239ea3a1e)
 
+### 2.1d Anki Addon **EXPERIMENTAL**
+
+Download and install [This](https://github.com/Luc-mcgrady/fsrs4anki-helper/tree/optimizer) version of the anki helper addon either by git cloning it or extracting the zip into the anki addons folder.
+
+Install the optimizer locally.  
+![image](https://user-images.githubusercontent.com/63685643/236647263-b1e57db1-4ad0-441b-9abe-91cbd36c13b0.png)  
+Please pay attention to the popup.  
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/ebe42eb4-f63d-4e58-b593-c173891dd29c)
+
+
+After that has downloaded and installed you should be able to run the optimizer from within anki.
+Press the cog next to any given deck and hit the optimize option.  
+![image](https://user-images.githubusercontent.com/63685643/236647245-757ca803-b8cf-41cd-a1ae-8ed9af852ad8.png)  
+Anki may then hang a small while while anki loads the optimizer.
+
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/e160e5ba-c51f-46a9-9813-9dceb18e47ff)  
+Hit yes to find the optimum retention, Hit no to not or hit cancel to pick a different deck. 
+
+If all is well you should then get a toolbar popup which tells you the progress of the optimization.
+![image](https://user-images.githubusercontent.com/63685643/236647707-38101c10-ccd2-4417-aa3f-f2e4e10bb4c3.png)
+
+You should then get the stats in a format which is easy to copy into the javascript scheduler.
+![image](https://user-images.githubusercontent.com/63685643/236647716-bfd8099a-6e7f-46e7-bce8-e18e75e75d46.png)  
+These values are saved in the addons config file which can be found and edited in anki if you want to change the retention manually for example.
+![image](https://user-images.githubusercontent.com/63685643/236647915-7a865bb0-f057-4404-af0f-27c81be99082.png)
+
+If there are any issues with this please mention them on this pull request [here](https://github.com/open-spaced-repetition/fsrs4anki-helper/pull/91).
+
 ### 2.2 Deck Parameter Settings
 
 You can also generate different parameters for different decks and configure them separately in the code. In the default configuration, `deckParams` already contains three groups of parameters.
