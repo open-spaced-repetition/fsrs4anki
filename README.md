@@ -114,8 +114,11 @@ Replace the parameters in the FSRS code you copied earlier.
 
 ### 2.1b Website
 
-Simply upload your exported decks to this website and it will optimise it for you.
+Simply upload your exported decks to this website and it will optimise it for you.  
 https://huggingface.co/spaces/open-spaced-repetition/fsrs4anki_app
+
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/a03217f0-6627-4854-971f-f2bc9d14da5c)
+
 
 ### 2.1c Command Line 
 
@@ -144,6 +147,11 @@ options:
 ```
 
 Please note that this does not support multiple files in one command / wildcards so for that functionality use a for loop.
+
+#### Expected Functionality:
+
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/ac2e8ae0-726c-46fd-b110-0701fa87cb66)
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/1fe8b0bb-7ac0-4a31-b594-465239ea3a1e)
 
 ### 2.2 Deck Parameter Settings
 
