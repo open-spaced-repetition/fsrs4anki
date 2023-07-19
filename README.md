@@ -79,6 +79,11 @@ This shows that your FSRS is running normally. You can then change the code back
 
 ### 2.1 Generate Personalized Parameters
 
+You can generate parameters in a variety of ways depending on which method you prefer.  
+For the most up to date methods please check the [releases](https://github.com/open-spaced-repetition/fsrs4anki/releases/tag/v3.26.2).
+
+### 2.1a Google Colab
+
 Open the [optimizer's notebook](https://github.com/open-spaced-repetition/fsrs4anki/releases/latest) and click on Open in Colab to run the optimizer on Google Colab. You don't need to configure the coding environment yourself and you can use Google's machines for free (you'll need to register a Google account):
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/5f5af21b-583d-496c-9bad-0eef0b1fb7a6)
@@ -106,6 +111,39 @@ Replace the parameters in the FSRS code you copied earlier.
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/70b3b45a-f014-4574-81eb-cad6d19f93d9)
 
 ⚠️Note: when replacing these parameters, be sure not to delete the comma at the end.
+
+### 2.1b Website
+
+Simply upload your exported decks to this website and it will optimise it for you.
+https://huggingface.co/spaces/open-spaced-repetition/fsrs4anki_app
+
+### 2.1c Command Line 
+
+There is a python package for the optimizer. This package has torch as a dependency so note it might take about half a gigabyte of space.
+
+Install this package with the command:
+
+```
+python -m pip install fsrs4anki_optimizer
+```
+
+Export your deck and cd into the folder in which you exported it.  
+Then you can run:
+
+```
+python -m fsrs4anki_optimizer "package.(colpkg/apkg)"
+```
+
+There are certain options which are as follows
+
+```
+options:
+  -h, --help           show this help message and exit
+  -y, --yes, --no-yes  If set automatically defaults on all stdin settings.
+  -o OUT, --out OUT    File to APPEND the automatically generated profile to.
+```
+
+Please note that this does not support multiple files in one command / wildcards so for that functionality use a for loop.
 
 ### 2.2 Deck Parameter Settings
 
