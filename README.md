@@ -155,7 +155,7 @@ Please note that this does not support multiple files in one command / wildcards
 
 ### 2.1d Anki Addon **EXPERIMENTAL**
 
-Download and install [This](https://github.com/Luc-mcgrady/fsrs4anki-helper/tree/optimizer) version of the anki helper addon either by git cloning it or extracting the zip into the anki addons folder.
+Download and install [this](https://github.com/Luc-mcgrady/fsrs4anki-helper/tree/optimizer) version of the anki helper addon either by git cloning it into the anki addons folder or [downloading it as a zip](https://github.com/Luc-mcgrady/fsrs4anki-helper/archive/refs/heads/optimizer.zip) and extracting the zip into the anki addons folder.
 
 Install the optimizer locally.  
 ![image](https://user-images.githubusercontent.com/63685643/236647263-b1e57db1-4ad0-441b-9abe-91cbd36c13b0.png)  
