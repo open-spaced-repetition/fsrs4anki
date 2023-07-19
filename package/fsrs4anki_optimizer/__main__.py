@@ -97,13 +97,10 @@ if __name__ == "__main__":
     profile = \
 f"""{{
     // Generated, Optimized anki deck settings
-    // Need to add <div id=deck deck_name="{{{{Deck}}}}"></div> to your card's front template's first line.
     "deckName": "{args.filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
     "w": {optimizer.w},
     "requestRetention": {optimizer.optimal_retention},
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
 }},
 """
 
