@@ -27,7 +27,8 @@ def process(filename):
             "timezone": None, # Timezone starts with no default
             "next_day": 4,
             "revlog_start_date": "2006-10-05",
-            "preview": "y"
+            "preview": "y",
+            "filter_out_suspended_cards": "n"
         }
 
     # Prompts the user with the key and then falls back on the last answer given.
@@ -46,6 +47,7 @@ def process(filename):
 
         remembered_fallback_prompt("next_day", "used next day start hour")
         remembered_fallback_prompt("revlog_start_date", "the date at which before reviews will be ignored")
+        remembered_fallback_prompt("filter_out_suspended_cards", "filter out suspended cards? (y/n)")
         
         graphs_input = prompt("View graphs? (y/n)" , remembered_fallbacks["preview"])
     else:
@@ -64,13 +66,14 @@ def process(filename):
     analysis = optimizer.create_time_series(
         remembered_fallbacks["timezone"],
         remembered_fallbacks["revlog_start_date"],
-        remembered_fallbacks["next_day"]
+        remembered_fallbacks["next_day"],
+        remembered_fallbacks["filter_out_suspended_cards"] == "y"
     )
     print(analysis)
 
     optimizer.define_model()
-    optimizer.pretrain()
-    optimizer.train()
+    optimizer.pretrain(verbose=show_graphs)
+    optimizer.train(verbose=show_graphs)
 
     optimizer.predict_memory_states()
     figures = optimizer.find_optimal_retention()
