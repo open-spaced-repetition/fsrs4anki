@@ -18,21 +18,7 @@ def prompt(msg: str, fallback):
             raise Exception("You failed to enter a required parameter")
     return response
 
-if __name__ == "__main__":
-
-    config_save = os.path.expanduser("~/.fsrs4anki_optimizer")
-
-    parser = argparse.ArgumentParser()
-    parser.add_argument("filename")
-    parser.add_argument("-y","--yes",
-                        action=argparse.BooleanOptionalAction,
-                        help="If set automatically defaults on all stdin settings."
-                        )
-    parser.add_argument("-o","--out",
-                        help="File to APPEND the automatically generated profile to."
-                        )
-    args = parser.parse_args()
-
+def process(filename):
     try: # Try and remember the last values inputted.
         with open(config_save, "r") as f:
             remembered_fallbacks = json.load(f)
@@ -51,7 +37,7 @@ if __name__ == "__main__":
         remembered_fallbacks[key] = prompt(f"input {pretty}", remembered_fallbacks[key])
 
     print("The defaults will switch to whatever you entered last.\n")
-    
+
     if not args.yes:
         print("Timezone list: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568")
         remembered_fallback_prompt("timezone", "used timezone")
@@ -64,7 +50,7 @@ if __name__ == "__main__":
         graphs_input = prompt("View graphs? (y/n)" , remembered_fallbacks["preview"])
     else:
         graphs_input = remembered_fallbacks["preview"]
-    
+
     if graphs_input.lower() != 'y':
         remembered_fallbacks["preview"] = "n"
 
@@ -74,7 +60,7 @@ if __name__ == "__main__":
     show_graphs = graphs_input != "n"
 
     optimizer = fsrs4anki_optimizer.Optimizer()
-    optimizer.anki_extract(args.filename)
+    optimizer.anki_extract(filename)
     analysis = optimizer.create_time_series(
         remembered_fallbacks["timezone"],
         remembered_fallbacks["revlog_start_date"],
@@ -95,21 +81,21 @@ if __name__ == "__main__":
     optimizer.preview(optimizer.optimal_retention)
 
     profile = \
-f"""{{
+    f"""{{
     // Generated, Optimized anki deck settings
     // Need to add <div id=deck deck_name="{{{{Deck}}}}"></div> to your card's front template's first line.
-    "deckName": "{args.filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
+    "deckName": "{filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
     "w": {optimizer.w},
     "requestRetention": {optimizer.optimal_retention},
     "maximumInterval": 36500,
     "easyBonus": 1.3,
     "hardInterval": 1.2,
-}},
-"""
+    }},
+    """
 
     print("Paste this into your scheduling code")
     print(profile)
-    
+
     if args.out:
         with open(args.out, "a+") as f:
             f.write(profile)
@@ -120,3 +106,28 @@ f"""{{
             f.show()
         for f in optimizer.compare_with_sm2():
             f.show()
+
+if __name__ == "__main__":
+
+    config_save = os.path.expanduser(".fsrs4anki_optimizer")
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename")
+    parser.add_argument("-y","--yes",
+                        action=argparse.BooleanOptionalAction,
+                        help="If set automatically defaults on all stdin settings."
+                        )
+    parser.add_argument("-o","--out",
+                        help="File to APPEND the automatically generated profile to."
+                        )
+    args = parser.parse_args()
+
+
+    if os.path.isdir(args.filename):
+        files = [f for f in os.listdir(args.filename) if f.lower().endswith('.apkg')]
+        files = [os.path.join(args.filename, f) for f in files]
+        for file_path in files:
+            process(file_path)
+    else:
+        process(args.filename)
+
