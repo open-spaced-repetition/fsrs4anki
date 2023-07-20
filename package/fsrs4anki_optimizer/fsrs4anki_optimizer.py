@@ -407,7 +407,7 @@ class Optimizer:
             Q3 = group['delta_t'].quantile(0.75)
             IQR = Q3 - Q1
             threshold = Q3 + 1.5 * IQR
-            group = group[group['delta_t'] < threshold]
+            group = group[group['delta_t'] <= threshold]
             return group
 
         df[df['i'] == 2] = df[df['i'] == 2].groupby(by=['r_history', 't_history'], as_index=False, group_keys=False).apply(remove_outliers)
