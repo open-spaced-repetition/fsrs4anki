@@ -1,6 +1,6 @@
-// FSRS4Anki v4.0.0 Scheduler Qt5
+// FSRS4Anki v4.3.0 Scheduler Qt5
 set_version();
-// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
+// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
 // Configuration Start
 
@@ -8,9 +8,9 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1, 2, 3, 4, 5, 0.5, 0.5, 0.2, 1.4, 0.2, 0.8, 2, 0.2, 0.2, 1, 0.5, 2],
+    "w": [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61],
     // The above parameters can be optimized via FSRS4Anki optimizer.
-    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
+    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
     "requestRetention": 0.9, // recommended setting: 0.8 ~ 0.9
     "maximumInterval": 36500,
@@ -19,26 +19,24 @@ const deckParams = [
   }, 
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
-    // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "ALL::Learning::English::Reading",
-    "w": [1.2, 2.4, 3.6, 4.8, 5.1483, 1.4221, 1.2282, 0.035, 1.4668, 0.1286, 0.7539, 1.9671, 0.2307, 0.32, 0.9451, 0.5, 2],
+    "deckName": "MainDeck1::SubDeck::SubSubDeck",
+    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   }, 
   {
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
-    "deckName": "ALL::Archive",
-    "w": [1.3, 1.8, 2.3, 2.8, 4.9532, 1.502, 1.0922, 0.0081, 1.3771, 0.0294, 0.6718, 1.8335, 0.4066, 0.7291, 0.5517, 0.5, 2],
+    "deckName": "MainDeck2::SubDeck::SubSubDeck",
+    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   }
 ];
 
 // To turn off FSRS in specific decks, fill them into the skip_decks list below.
-// And add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
 // Please don't remove it even if you don't need it.
-const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
+const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
 
 // "Fuzz" is a small random delay applied to new intervals to prevent cards from
 // sticking together and always coming up for review on the same day
@@ -303,7 +301,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v4.0.0";
+  const version = "v4.3.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
