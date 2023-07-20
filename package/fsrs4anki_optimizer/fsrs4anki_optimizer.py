@@ -400,23 +400,27 @@ class Optimizer:
         df = df.groupby('cid').filter(lambda group: group['id'].min() > time.mktime(datetime.strptime(revlog_start_date, "%Y-%m-%d").timetuple()) * 1000)
         df['y'] = df['r'].map(lambda x: {1: 0, 2: 1, 3: 1, 4: 1}[x])
 
-        # def remove_outliers(group: pd.DataFrame) -> pd.DataFrame:
-        #     threshold = np.mean(group['delta_t']) * 1.5
-        #     # threshold = group['delta_t'].quantile(0.95)
-        #     group = group[group['delta_t'] < threshold]
-        #     return group
+        def remove_outliers(group: pd.DataFrame) -> pd.DataFrame:
+            # threshold = np.mean(group['delta_t']) * 1.5
+            # threshold = group['delta_t'].quantile(0.95)
+            Q1 = group['delta_t'].quantile(0.25)
+            Q3 = group['delta_t'].quantile(0.75)
+            IQR = Q3 - Q1
+            threshold = Q3 + 1.5 * IQR
+            group = group[group['delta_t'] < threshold]
+            return group
 
-        # df = df.groupby(by=['r_history', 't_history'], as_index=False, group_keys=False).apply(remove_outliers)
+        df[df['i'] == 2] = df[df['i'] == 2].groupby(by=['r_history', 't_history'], as_index=False, group_keys=False).apply(remove_outliers)
 
-        # def remove_non_continuous_rows(group):
-        #     discontinuity = group['i'].diff().fillna(1).ne(1)
-        #     if not discontinuity.any():
-        #         return group
-        #     else:
-        #         first_non_continuous_index = discontinuity.idxmax()
-        #         return group.loc[:first_non_continuous_index-1]
+        def remove_non_continuous_rows(group):
+            discontinuity = group['i'].diff().fillna(1).ne(1)
+            if not discontinuity.any():
+                return group
+            else:
+                first_non_continuous_index = discontinuity.idxmax()
+                return group.loc[:first_non_continuous_index-1]
 
-        # df = df.groupby('cid', as_index=False, group_keys=False).progress_apply(remove_non_continuous_rows)
+        df = df.groupby('cid', as_index=False, group_keys=False).progress_apply(remove_non_continuous_rows)
 
         df.to_csv('revlog_history.tsv', sep="\t", index=False)
         tqdm.write("Trainset saved.")
