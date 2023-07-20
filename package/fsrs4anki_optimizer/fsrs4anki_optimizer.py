@@ -16,7 +16,7 @@ from torch import Tensor
 from torch.utils.data import Dataset, DataLoader, Sampler
 from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence, pad_packed_sequence
 from sklearn.model_selection import StratifiedGroupKFold
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from scipy.optimize import curve_fit
 from itertools import accumulate
 from tqdm.auto import tqdm
@@ -399,6 +399,25 @@ class Optimizer:
         df['r_history']=[','.join(map(str, item[:-1])) for sublist in r_history for item in sublist]
         df = df.groupby('cid').filter(lambda group: group['id'].min() > time.mktime(datetime.strptime(revlog_start_date, "%Y-%m-%d").timetuple()) * 1000)
         df['y'] = df['r'].map(lambda x: {1: 0, 2: 1, 3: 1, 4: 1}[x])
+
+        # def remove_outliers(group: pd.DataFrame) -> pd.DataFrame:
+        #     threshold = np.mean(group['delta_t']) * 1.5
+        #     # threshold = group['delta_t'].quantile(0.95)
+        #     group = group[group['delta_t'] < threshold]
+        #     return group
+
+        # df = df.groupby(by=['r_history', 't_history'], as_index=False, group_keys=False).apply(remove_outliers)
+
+        # def remove_non_continuous_rows(group):
+        #     discontinuity = group['i'].diff().fillna(1).ne(1)
+        #     if not discontinuity.any():
+        #         return group
+        #     else:
+        #         first_non_continuous_index = discontinuity.idxmax()
+        #         return group.loc[:first_non_continuous_index-1]
+
+        # df = df.groupby('cid', as_index=False, group_keys=False).progress_apply(remove_non_continuous_rows)
+
         df.to_csv('revlog_history.tsv', sep="\t", index=False)
         tqdm.write("Trainset saved.")
 
@@ -487,10 +506,6 @@ class Optimizer:
             group = self.S0_dataset_group[self.S0_dataset_group['r_history'] == first_rating]
             if group.empty:
                 continue
-            total_count_95_percent = group['y']['count'].sum() * 0.95
-            cumulative_counts = group['y']['count'].cumsum()
-            cut_off_index = cumulative_counts[cumulative_counts >= total_count_95_percent].index[0]
-            group = group.loc[group.index <= cut_off_index]
             delta_t = group['delta_t']
             recall = (group['y']['mean'] * group['y']['count'] + average_recall * 1) / (group['y']['count'] + 1)
             count = group['y']['count']
@@ -940,7 +955,7 @@ def load_brier(predictions, real, bins=20):
     prediction_means = prediction / counts
     prediction_means[np.isnan(prediction_means)] = ((np.arange(bins) + 0.5) / bins)[np.isnan(prediction_means)]
     correct_means = correct / counts
-    correct_means[np.isnan(correct_means)] = 0
+    correct_means[np.isnan(correct_means)] = ((np.arange(bins) + 0.5) / bins)[np.isnan(correct_means)]
     size = len(predictions)
     answer_mean = sum(correct) / size
     return {
@@ -961,9 +976,11 @@ def plot_brier(predictions, real, bins=20, ax=None, title=None):
     bin_correct_means = brier['detail']['bin_correct_means']
     bin_counts = brier['detail']['bin_counts']
     r2 = r2_score(bin_correct_means, bin_prediction_means, sample_weight=bin_counts)
-    rmse = np.sqrt(mean_squared_error(bin_correct_means, bin_prediction_means, sample_weight=bin_counts))
+    rmse = mean_squared_error(bin_correct_means, bin_prediction_means, sample_weight=bin_counts, squared=False)
+    mae = mean_absolute_error(bin_correct_means, bin_prediction_means, sample_weight=bin_counts)
     tqdm.write(f"R-squared: {r2:.4f}")
     tqdm.write(f"RMSE: {rmse:.4f}")
+    tqdm.write(f"MAE: {mae:.4f}")
     ax.set_xlim([0, 1])
     ax.set_ylim([0, 1])
     ax.grid(True)
