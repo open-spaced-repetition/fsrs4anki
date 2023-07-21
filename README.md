@@ -21,6 +21,26 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
   </a>
 </p>
 
+# Table of contents
+
+- [FSRS4Anki](#fsrs4anki)
+- [Introduction](#introduction)
+- [1 Quick Start](#1-quick-start)
+  - [1.1 Enable Anki's V3 Scheduler](#11-enable-ankis-v3-scheduler)
+  - [1.2 Paste FSRS Scheduler Code](#12-paste-fsrs-scheduler-code)
+- [2 Advanced Usage](#2-advanced-usage)
+  - [2.1 Generate Personalized Parameters](#21-generate-personalized-parameters)
+    - [2.1a Google Colab](#21a-google-colab)
+    - [2.1b Website](#21b-website)
+    - [2.1c Command Line](#21c-command-line)
+    - [2.1d Anki Addon](#21d-anki-addon-experimental) **EXPERIMENTAL**
+  - [2.2 Deck Parameter Settings](#22-deck-parameter-settings)
+- [3 Using the Helper Add-on](#3-using-the-helper-add-on)
+- [FAQ](#faq)
+- [Compatibility](#compatibility)
+- [Contribute](#contribute)
+- [Stargazers over time](#stargazers-over-time)
+
 # Introduction
 
 FSRS4Anki consists of two main parts: scheduler and optimizer.
@@ -79,6 +99,11 @@ This shows that your FSRS is running normally. You can then change the code back
 
 ### 2.1 Generate Personalized Parameters
 
+You can generate parameters in a variety of ways depending on which method you prefer.  
+For the most up to date methods please check the [releases](https://github.com/open-spaced-repetition/fsrs4anki/releases/tag/v3.26.2).
+
+### 2.1a Google Colab
+
 Open the [optimizer's notebook](https://github.com/open-spaced-repetition/fsrs4anki/releases/latest) and click on Open in Colab to run the optimizer on Google Colab. You don't need to configure the coding environment yourself and you can use Google's machines for free (you'll need to register a Google account):
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/5f5af21b-583d-496c-9bad-0eef0b1fb7a6)
@@ -106,6 +131,75 @@ Replace the parameters in the FSRS code you copied earlier.
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/70b3b45a-f014-4574-81eb-cad6d19f93d9)
 
 ⚠️Note: when replacing these parameters, be sure not to delete the comma at the end.
+
+### 2.1b Website
+
+Simply upload your exported decks to this website and it will optimise it for you.  
+https://huggingface.co/spaces/open-spaced-repetition/fsrs4anki_app
+
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/a03217f0-6627-4854-971f-f2bc9d14da5c)
+
+
+### 2.1c Command Line 
+
+There is a python package for the optimizer. This package has torch as a dependency so note it might take about half a gigabyte of space.
+
+Install this package with the command:
+
+```
+python -m pip install fsrs4anki_optimizer
+```
+
+Export your deck and cd into the folder in which you exported it.  
+Then you can run:
+
+```
+python -m fsrs4anki_optimizer "package.(colpkg/apkg)"
+```
+
+There are certain options which are as follows
+
+```
+options:
+  -h, --help           show this help message and exit
+  -y, --yes, --no-yes  If set automatically defaults on all stdin settings.
+  -o OUT, --out OUT    File to APPEND the automatically generated profile to.
+```
+
+Please note that this does not support multiple files in one command / wildcards so for that functionality use a for loop.
+
+#### Expected Functionality:
+
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/ac2e8ae0-726c-46fd-b110-0701fa87cb66)
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/1fe8b0bb-7ac0-4a31-b594-465239ea3a1e)
+
+### 2.1d Anki Addon **EXPERIMENTAL**
+
+Download and install [this](https://github.com/Luc-mcgrady/fsrs4anki-helper/tree/optimizer) version of the anki helper addon either by git cloning it into the anki addons folder or [downloading it as a zip](https://github.com/Luc-mcgrady/fsrs4anki-helper/archive/refs/heads/optimizer.zip) and extracting the zip into the anki addons folder.
+
+Install the optimizer locally.  
+![image](https://user-images.githubusercontent.com/63685643/236647263-b1e57db1-4ad0-441b-9abe-91cbd36c13b0.png)  
+Please pay attention to the popup.  
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/ebe42eb4-f63d-4e58-b593-c173891dd29c)
+
+
+After that has downloaded and installed you should be able to run the optimizer from within anki.
+Press the cog next to any given deck and hit the optimize option.  
+![image](https://user-images.githubusercontent.com/63685643/236647245-757ca803-b8cf-41cd-a1ae-8ed9af852ad8.png)  
+Anki may then hang a small while while it loads the optimizer.
+
+![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/e160e5ba-c51f-46a9-9813-9dceb18e47ff)  
+Hit yes to find the optimum retention, Hit no to not or hit cancel to pick a different deck. 
+
+If all is well you should then get a toolbar popup which tells you the progress of the optimization.
+![image](https://user-images.githubusercontent.com/63685643/236647707-38101c10-ccd2-4417-aa3f-f2e4e10bb4c3.png)
+
+You should then get the stats in a format which is easy to copy into the javascript scheduler.
+![image](https://user-images.githubusercontent.com/63685643/236647716-bfd8099a-6e7f-46e7-bce8-e18e75e75d46.png)  
+These values are saved in the addons config file which can be found and edited in anki if you want to change the retention manually for example.
+![image](https://user-images.githubusercontent.com/63685643/236647915-7a865bb0-f057-4404-af0f-27c81be99082.png)
+
+If there are any issues with this please mention them on this pull request [here](https://github.com/open-spaced-repetition/fsrs4anki-helper/pull/91).
 
 ### 2.2 Deck Parameter Settings
 
