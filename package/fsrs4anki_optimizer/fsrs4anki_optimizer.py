@@ -505,7 +505,7 @@ class Optimizer:
             if total_count < 100:
                 tqdm.write(f'Not enough data for first rating {first_rating}. Expected at least 100, got {total_count}.')
                 continue
-            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (15 if total_count < 1000 else 365)))
+            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (30 if total_count < 1000 else 365)))
             stability = params[0]
             rating_stability[int(first_rating)] = stability
             rating_count[int(first_rating)] = total_count
@@ -549,7 +549,9 @@ class Optimizer:
             tqdm.write(f"Fit stability: {predict_stability}")
             tqdm.write(f'RMSE: {mean_squared_error(list(rating_stability.values()), predict_stability, sample_weight=list(rating_count.values()), squared=False):.4f}')
             plt.plot(list(rating_stability.keys()), list(rating_stability.values()), label='Exact')
-            plt.plot(list(rating_stability.keys()), predict_stability, label='Weighted fit')
+            plt.plot(np.linspace(1, 4), S0_rating_curve(np.linspace(1, 4), *params), label='Weighted fit')
+            scatter_size = np.array([x/sum(rating_count.values()) for x in rating_count.values()]) * 1000
+            plt.scatter(list(rating_stability.keys()), list(rating_stability.values()), scatter_size, label='Exact', alpha=0.5)
             plt.legend(loc='upper right', fancybox=True, shadow=False)
             plt.grid(True)
             plt.xlabel('First rating')
@@ -558,7 +560,7 @@ class Optimizer:
             plt.show()
 
         for rating in (1, 2, 3, 4):
-            again_extrap = max(min(S0_rating_curve(1, *params), 15), 0.1)
+            again_extrap = max(min(S0_rating_curve(1, *params), 30), 0.1)
             # if there isn't enough data to calculate the value for "Again" exactly
             if 1 not in rating_stability:
                 # then check if there exists an exact value for "Hard"
@@ -575,7 +577,7 @@ class Optimizer:
                 else:
                     rating_stability[1] = again_extrap
             elif rating not in rating_stability:
-                rating_stability[rating] = max(min(S0_rating_curve(rating, *params), 15), 0.1)
+                rating_stability[rating] = max(min(S0_rating_curve(rating, *params), 30), 0.1)
 
         rating_stability = {k: round(v, 2) for k, v in sorted(rating_stability.items(), key=lambda item: item[0])}
         for rating, stability in rating_stability.items():
