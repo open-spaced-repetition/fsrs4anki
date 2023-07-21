@@ -19,7 +19,7 @@ const deckParams = [
   },
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
-    "deckName": "MainDeck1::SubDeck::SubSubDeck",
+    "deckName": "MainDeck1",
     "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
