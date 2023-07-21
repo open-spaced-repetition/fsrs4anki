@@ -49,7 +49,7 @@ The scheduler is based on a variant of the DSR (Difficulty, Stability, Retrievab
 
 The optimizer applies *Maximum Likelihood Estimation* and *Backpropagation Through Time* to estimate the stability of memory and learn the laws of memory from time-series review logs. Then, it can find the optimal retention to minimize the repetitions via the stochastic shortest path algorithm.
 
-For more detail on the mechanism of the FSRS algorithm, please see my papers: [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://www.maimemo.com/paper/) and [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://doi.org/10.1109/TKDE.2023.3251721).
+For more detail on the mechanism of the FSRS algorithm, please see my papers: [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling (free access)](https://www.maimemo.com/paper/) and [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory (submit request)](https://www.researchgate.net/publication/369045947_Optimizing_Spaced_Repetition_Schedule_by_Capturing_the_Dynamics_of_Memory).
 
 [FSRS4Anki Helper](https://github.com/open-spaced-repetition/fsrs4anki-helper) is an Anki add-on that supports the FSRS4Anki Scheduler. It has six features:
 1. **Reschedule** cards based on their entire review histories.
@@ -207,45 +207,38 @@ You can also generate different parameters for different decks and configure the
 
 The group "global config for FSRS4Anki" is global parameters.
 
-The group "ALL::Learning::English::Reading" are the parameters applied to the deck "ALL::Learning::English::Reading" and its sub-decks.
+The group "MainDeck1" are the parameters applied to the deck "MainDeck1" and its sub-decks.
 
-Similarly, the third group is the parameters applied to the deck "ALL::Archive" and its sub-decks. You can replace these with the decks you want to configure. If you need more, feel free to copy and add them.
+Similarly, the third group is the parameters applied to the deck "MainDeck2::SubDeck::SubSubDeck" and its sub-decks. You can replace these with the decks you want to configure. If you need more, feel free to copy and add them.
 
 ```javascript
 const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1],
+    "w": [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61],
     // The above parameters can be optimized via FSRS4Anki optimizer.
-    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
+    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
     "requestRetention": 0.9, // recommended setting: 0.8 ~ 0.9
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
   },
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
-    // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "ALL::Learning::English::Reading",
-    "w": [1.1475, 1.401, 5.1483, -1.4221, -1.2282, 0.035, 1.4668, -0.1286, 0.7539, 1.9671, -0.2307, 0.32, 0.9451],
+    "deckName": "MainDeck1",
+    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
   },
   {
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
-    "deckName": "ALL::Archive",
-    "w": [1.2879, 0.5135, 4.9532, -1.502, -1.0922, 0.0081, 1.3771, -0.0294, 0.6718, 1.8335, -0.4066, 0.7291, 0.5517],
+    "deckName": "MainDeck2::SubDeck::SubSubDeck",
+    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
   }
 ];
 ```
@@ -253,7 +246,7 @@ const deckParams = [
 If there are some decks you don't want to use FSRS with, you can add their names to the `skip_decks` list.
 
 ```javascript
-const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
+const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
 ```
 
 ## 3 Using the Helper Add-on

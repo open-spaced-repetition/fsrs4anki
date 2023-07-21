@@ -478,23 +478,10 @@ class Optimizer:
 
     def define_model(self):
         """Step 3"""
-        self.init_w = [1, 2, 3, 4, 5, 0.5, 0.5, 0.2, 1.4, 0.2, 0.8, 2, 0.2, 0.2, 1, 0.5, 2]
+        self.init_w = [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61]
         '''
-        w[0]: initial_stability_for_again_answer
-        w[1]: initial_stability_step_per_rating
-        w[2]: initial_difficulty_for_good_answer
-        w[3]: initial_difficulty_step_per_rating
-        w[4]: next_difficulty_step_per_rating
-        w[5]: next_difficulty_reversion_to_mean_speed (used to avoid ease hell)
-        w[6]: next_stability_factor_after_success
-        w[7]: next_stability_stabilization_decay_after_success
-        w[8]: next_stability_retrievability_gain_after_success
-        w[9]: next_stability_factor_after_failure
-        w[10]: next_stability_difficulty_decay_after_success
-        w[11]: next_stability_stability_gain_after_failure
-        w[12]: next_stability_retrievability_gain_after_failure
-        For more details about the parameters, please see: 
-        https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
+        For details about the parameters, please see: 
+        https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
         '''
 
     def pretrain(self, verbose=True):
