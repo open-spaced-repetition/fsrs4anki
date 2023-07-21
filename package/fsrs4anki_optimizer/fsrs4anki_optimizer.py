@@ -496,6 +496,7 @@ class Optimizer:
         for first_rating in ("1", "2", "3", "4"):
             group = self.S0_dataset_group[self.S0_dataset_group['r_history'] == first_rating]
             if group.empty:
+                tqdm.write(f'Not enough data for first rating {first_rating}. Expected at least 100, got 0.')
                 continue
             delta_t = group['delta_t']
             recall = (group['y']['mean'] * group['y']['count'] + average_recall * 1) / (group['y']['count'] + 1)
@@ -504,7 +505,7 @@ class Optimizer:
             if total_count < 100:
                 tqdm.write(f'Not enough data for first rating {first_rating}. Expected at least 100, got {total_count}.')
                 continue
-            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (60 if total_count < 1000 else 365)))
+            params, _ = curve_fit(power_forgetting_curve, delta_t, recall, sigma=1/np.sqrt(count), bounds=((0.1), (15 if total_count < 1000 else 365)))
             stability = params[0]
             rating_stability[int(first_rating)] = stability
             rating_count[int(first_rating)] = total_count
@@ -526,8 +527,12 @@ class Optimizer:
                 plt.show()
                 tqdm.write(str(rating_stability))
 
-        if len(rating_stability) < 2:
+        if len(rating_stability) == 0:
             raise Exception("Not enough data for pretraining!")
+        elif len(rating_stability) == 1:
+            init_stability = round(list(rating_stability.values())[0], 2)
+            for i in (0, 1, 2, 3):
+                self.init_w[i] = init_stability
         elif len(rating_stability) == 4:
             for rating, stability in rating_stability.items():
                 self.init_w[rating-1] = round(stability, 2)
@@ -553,7 +558,7 @@ class Optimizer:
             plt.show()
 
         for rating in (1, 2, 3, 4):
-            again_extrap = max(min(S0_rating_curve(1, *params), 60), 0.1)
+            again_extrap = max(min(S0_rating_curve(1, *params), 15), 0.1)
             # if there isn't enough data to calculate the value for "Again" exactly
             if 1 not in rating_stability:
                 # then check if there exists an exact value for "Hard"
@@ -570,7 +575,7 @@ class Optimizer:
                 else:
                     rating_stability[1] = again_extrap
             elif rating not in rating_stability:
-                rating_stability[rating] = max(min(S0_rating_curve(rating, *params), 60), 0.1)
+                rating_stability[rating] = max(min(S0_rating_curve(rating, *params), 15), 0.1)
 
         rating_stability = {k: round(v, 2) for k, v in sorted(rating_stability.items(), key=lambda item: item[0])}
         for rating, stability in rating_stability.items():
