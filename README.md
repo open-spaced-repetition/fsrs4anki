@@ -166,8 +166,6 @@ options:
   -o OUT, --out OUT    File to APPEND the automatically generated profile to.
 ```
 
-Please note that this does not support multiple files in one command / wildcards so for that functionality use a for loop.
-
 #### Expected Functionality:
 
 ![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/ac2e8ae0-726c-46fd-b110-0701fa87cb66)

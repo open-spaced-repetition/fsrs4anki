@@ -1,4 +1,3 @@
-# python fsrs4anki_optimizer_cmd.py <filename.apkg|filename.colpkg>
 import fsrs4anki_optimizer
 import argparse
 import json
@@ -86,7 +85,7 @@ def process(filename):
     profile = \
     f"""{{
     // Generated, Optimized anki deck settings
-    "deckName": "{args.filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
+    "deckName": "{filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
     "w": {optimizer.w},
     "requestRetention": {optimizer.optimal_retention},
     "maximumInterval": 36500,
@@ -112,7 +111,7 @@ if __name__ == "__main__":
     config_save = os.path.expanduser(".fsrs4anki_optimizer")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("filename")
+    parser.add_argument("filenames", nargs='+')
     parser.add_argument("-y","--yes",
                         action=argparse.BooleanOptionalAction,
                         help="If set automatically defaults on all stdin settings."
@@ -122,13 +121,12 @@ if __name__ == "__main__":
                         )
     args = parser.parse_args()
 
-
-    if os.path.isdir(args.filename):
-        files = [f for f in os.listdir(args.filename) if f.lower().endswith('.apkg')]
-        files = [os.path.join(args.filename, f) for f in files]
-        for file_path in files:
-            args.filename = file_path
-            process(file_path)
-    else:
-        process(args.filename)
+    for filename in args.filenames:
+        if os.path.isdir(filename):
+            files = [f for f in os.listdir(filename) if f.lower().endswith('.apkg')]
+            files = [os.path.join(filename, f) for f in files]
+            for file_path in files:
+                process(file_path)
+        else:
+            process(filename)
 
