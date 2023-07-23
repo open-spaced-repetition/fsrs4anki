@@ -123,7 +123,7 @@ if __name__ == "__main__":
 
     for filename in args.filenames:
         if os.path.isdir(filename):
-            files = [f for f in os.listdir(args.filename) if f.lower().endswith('.apkg')]
+            files = [f for f in os.listdir(filename) if f.lower().endswith('.apkg')]
             files = [os.path.join(filename, f) for f in files]
             for file_path in files:
                 process(file_path)
