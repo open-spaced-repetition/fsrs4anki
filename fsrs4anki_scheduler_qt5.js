@@ -1,6 +1,6 @@
-// FSRS4Anki v3.20.0 Scheduler Qt5
+// FSRS4Anki v4.3.0 Scheduler Qt5
 set_version();
-// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
+// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
 // Configuration Start
 
@@ -8,43 +8,35 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1, 1, 5, -0.5, -0.5, 0.2, 1.4, -0.12, 0.8, 2, -0.2, 0.2, 1],
+    "w": [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61],
     // The above parameters can be optimized via FSRS4Anki optimizer.
-    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
+    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
     "requestRetention": 0.9, // recommended setting: 0.8 ~ 0.9
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
   },
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
-    // Need to add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
-    "deckName": "ALL::Learning::English::Reading",
-    "w": [1.1475, 1.401, 5.1483, -1.4221, -1.2282, 0.035, 1.4668, -0.1286, 0.7539, 1.9671, -0.2307, 0.32, 0.9451],
+    "deckName": "MainDeck1",
+    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
   },
   {
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
-    "deckName": "ALL::Archive",
-    "w": [1.2879, 0.5135, 4.9532, -1.502, -1.0922, 0.0081, 1.3771, -0.0294, 0.6718, 1.8335, -0.4066, 0.7291, 0.5517],
+    "deckName": "MainDeck2::SubDeck::SubSubDeck",
+    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
   }
 ];
 
 // To turn off FSRS in specific decks, fill them into the skip_decks list below.
-// And add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
 // Please don't remove it even if you don't need it.
-const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
+const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
 
 // "Fuzz" is a small random delay applied to new intervals to prevent cards from
 // sticking together and always coming up for review on the same day
@@ -61,7 +53,9 @@ debugger;
 // display if FSRS is enabled
 if (display_memory_state) {
   const prev = document.getElementById('FSRS_status');
-  if (prev) {prev.remove();}
+  if (prev) {
+    prev.remove();
+  }
   var fsrs_status = document.createElement('span');
   fsrs_status.innerHTML = "<br>FSRS enabled";
   fsrs_status.id = "FSRS_status";
@@ -82,7 +76,7 @@ if (deck_name = get_deckname()) {
     }
   }
   // Arrange the deckParams of sub-decks in front of their parent decks.
-  deckParams.sort(function(a, b) {
+  deckParams.sort(function (a, b) {
     return -a.deckName.localeCompare(b.deckName);
   });
   for (let i = 0; i < deckParams.length; i++) {
@@ -102,10 +96,8 @@ if (Object.keys(params).length === 0) {
 const w = params["w"];
 const requestRetention = params["requestRetention"];
 const maximumInterval = params["maximumInterval"];
-const easyBonus = params["easyBonus"];
-const hardInterval = params["hardInterval"];
 // auto-calculate intervalModifier
-const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
+const intervalModifier = 9 * (1 / requestRetention - 1);
 // global fuzz factor for all ratings.
 const fuzz_factor = set_fuzz_factor();
 const ratings = {
@@ -119,7 +111,7 @@ if (is_new()) {
   var _states$good$normal, _states$easy$normal;
   init_states();
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+  const easy_interval = Math.max(next_interval(customData.easy.s), good_interval + 1);
   if ((_states$good$normal = states.good.normal) !== null && _states$good$normal !== void 0 && _states$good$normal.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -134,7 +126,7 @@ if (is_new()) {
     init_states();
   }
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+  const easy_interval = Math.max(next_interval(customData.easy.s), good_interval + 1);
   if ((_states$good$normal2 = states.good.normal) !== null && _states$good$normal2 !== void 0 && _states$good$normal2.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -143,7 +135,7 @@ if (is_new()) {
   }
   // For review cards
 } else if (is_review()) {
-  var _states$current$norma, _states$again$normal, _states$hard$normal, _states$good$normal3, _states$easy$normal3;
+  var _states$current$norma, _states$hard$normal, _states$good$normal3, _states$easy$normal3;
   // Convert the interval and factor to stability and difficulty if the card didn't contain customData
   if (is_empty()) {
     convert_states();
@@ -151,21 +143,21 @@ if (is_new()) {
   const interval = (_states$current$norma = states.current.normal) !== null && _states$current$norma !== void 0 && _states$current$norma.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
   const last_d = customData.again.d;
   const last_s = customData.again.s;
-  const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
+  const retrievability = Math.pow(1 + interval / (9 * last_s), -1);
   if (display_memory_state) {
     fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
   }
   customData.again.d = next_difficulty(last_d, "again");
   customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
   customData.hard.d = next_difficulty(last_d, "hard");
-  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability);
+  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability, "hard");
   customData.good.d = next_difficulty(last_d, "good");
-  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability);
+  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability, "good");
   customData.easy.d = next_difficulty(last_d, "easy");
-  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
-  let hard_interval = next_interval(last_s * hardInterval);
+  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability, "easy");
+  let hard_interval = next_interval(customData.hard.s);
   let good_interval = next_interval(customData.good.s);
-  let easy_interval = next_interval(customData.easy.s * easyBonus);
+  let easy_interval = next_interval(customData.easy.s);
   hard_interval = Math.min(hard_interval, good_interval);
   good_interval = Math.max(good_interval, hard_interval + 1);
   easy_interval = Math.max(easy_interval, good_interval + 1);
@@ -180,7 +172,7 @@ if (is_new()) {
   }
 }
 function constrain_difficulty(difficulty) {
-  return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
+  return Math.min(Math.max(+difficulty.toFixed(2), 1), 10);
 }
 function apply_fuzz(ivl) {
   if (!enable_fuzz || ivl < 2.5) return ivl;
@@ -188,7 +180,8 @@ function apply_fuzz(ivl) {
   let min_ivl = Math.max(2, Math.round(ivl * 0.95 - 1));
   let max_ivl = Math.round(ivl * 1.05 + 1);
   if (is_review()) {
-    const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
+    var _states$current$norma2;
+    const scheduledDays = (_states$current$norma2 = states.current.normal) !== null && _states$current$norma2 !== void 0 && _states$current$norma2.review.scheduledDays ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
     if (ivl > scheduledDays) {
       min_ivl = Math.max(min_ivl, scheduledDays + 1);
     }
@@ -200,17 +193,19 @@ function next_interval(stability) {
   return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 function next_difficulty(d, rating) {
-  let next_d = d + w[4] * (ratings[rating] - 3);
-  return constrain_difficulty(mean_reversion(w[2], next_d));
+  let next_d = d - w[6] * (ratings[rating] - 3);
+  return constrain_difficulty(mean_reversion(w[4], next_d));
 }
 function mean_reversion(init, current) {
-  return w[5] * init + (1 - w[5]) * current;
+  return w[7] * init + (1 - w[7]) * current;
 }
-function next_recall_stability(d, s, r) {
-  return +(s * (1 + Math.exp(w[6]) * (11 - d) * Math.pow(s, w[7]) * (Math.exp((1 - r) * w[8]) - 1))).toFixed(2);
+function next_recall_stability(d, s, r, rating) {
+  let hardPenalty = rating === "hard" ? w[15] : 1;
+  let easyBonus = rating === "easy" ? w[16] : 1;
+  return +(s * (1 + Math.exp(w[8]) * (11 - d) * Math.pow(s, -w[9]) * (Math.exp((1 - r) * w[10]) - 1) * hardPenalty * easyBonus)).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
-  return +(w[9] * Math.pow(d, w[10]) * Math.pow(s, w[11]) * Math.exp((1 - r) * w[12])).toFixed(2);
+  return +Math.min(w[11] * Math.pow(d, -w[12]) * (Math.pow(s + 1, w[13]) - 1) * Math.exp((1 - r) * w[14]), s).toFixed(2);
 }
 function init_states() {
   customData.again.d = init_difficulty("again");
@@ -223,16 +218,16 @@ function init_states() {
   customData.easy.s = init_stability("easy");
 }
 function init_difficulty(rating) {
-  return +constrain_difficulty(w[2] + w[3] * (ratings[rating] - 3)).toFixed(2);
+  return +constrain_difficulty(w[4] - w[5] * (ratings[rating] - 3)).toFixed(2);
 }
 function init_stability(rating) {
-  return +Math.max(w[0] + w[1] * (ratings[rating] - 1), 0.1).toFixed(2);
+  return +Math.max(w[ratings[rating] - 1], 0.1).toFixed(2);
 }
 function convert_states() {
   const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
   const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
   const old_s = +Math.max(scheduledDays, 0.1).toFixed(2);
-  const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[6]) * Math.pow(old_s, w[7]) * (Math.exp(0.1 * w[8]) - 1)));
+  const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[8]) * Math.pow(old_s, -w[9]) * (Math.exp(0.1 * w[10]) - 1)));
   customData.again.d = old_d;
   customData.again.s = old_s;
   customData.hard.d = old_d;
@@ -243,60 +238,60 @@ function convert_states() {
   customData.easy.s = old_s;
 }
 function is_new() {
-  var _states$current$norma2, _states$current$filte, _states$current$filte2;
-  if (((_states$current$norma2 = states.current.normal) === null || _states$current$norma2 === void 0 ? void 0 : _states$current$norma2.new) !== undefined) {
-    var _states$current$norma3;
-    if (((_states$current$norma3 = states.current.normal) === null || _states$current$norma3 === void 0 ? void 0 : _states$current$norma3.new) !== null) {
+  var _states$current$norma3, _states$current$filte;
+  if (((_states$current$norma3 = states.current.normal) === null || _states$current$norma3 === void 0 ? void 0 : _states$current$norma3.new) !== undefined) {
+    var _states$current$norma4;
+    if (((_states$current$norma4 = states.current.normal) === null || _states$current$norma4 === void 0 ? void 0 : _states$current$norma4.new) !== null) {
       return true;
     }
   }
-  if (((_states$current$filte = states.current.filtered) === null || _states$current$filte === void 0 ? void 0 : (_states$current$filte2 = _states$current$filte.rescheduling) === null || _states$current$filte2 === void 0 ? void 0 : _states$current$filte2.originalState) !== undefined) {
-    var _states$current$filte3, _states$current$filte4;
-    if ((_states$current$filte3 = states.current.filtered) !== null && _states$current$filte3 !== void 0 && (_states$current$filte4 = _states$current$filte3.rescheduling) !== null && _states$current$filte4 !== void 0 && _states$current$filte4.originalState.hasOwnProperty('new')) {
+  if (((_states$current$filte = states.current.filtered) === null || _states$current$filte === void 0 || (_states$current$filte = _states$current$filte.rescheduling) === null || _states$current$filte === void 0 ? void 0 : _states$current$filte.originalState) !== undefined) {
+    var _states$current$filte2;
+    if (Object.hasOwn((_states$current$filte2 = states.current.filtered) === null || _states$current$filte2 === void 0 || (_states$current$filte2 = _states$current$filte2.rescheduling) === null || _states$current$filte2 === void 0 ? void 0 : _states$current$filte2.originalState, 'new')) {
       return true;
     }
   }
   return false;
 }
 function is_learning() {
-  var _states$current$norma4, _states$current$filte5, _states$current$filte6, _states$current$norma6, _states$current$filte9, _states$current$filte10;
-  if (((_states$current$norma4 = states.current.normal) === null || _states$current$norma4 === void 0 ? void 0 : _states$current$norma4.learning) !== undefined) {
-    var _states$current$norma5;
-    if (((_states$current$norma5 = states.current.normal) === null || _states$current$norma5 === void 0 ? void 0 : _states$current$norma5.learning) !== null) {
+  var _states$current$norma5, _states$current$filte3, _states$current$norma7, _states$current$filte5;
+  if (((_states$current$norma5 = states.current.normal) === null || _states$current$norma5 === void 0 ? void 0 : _states$current$norma5.learning) !== undefined) {
+    var _states$current$norma6;
+    if (((_states$current$norma6 = states.current.normal) === null || _states$current$norma6 === void 0 ? void 0 : _states$current$norma6.learning) !== null) {
       return true;
     }
   }
-  if (((_states$current$filte5 = states.current.filtered) === null || _states$current$filte5 === void 0 ? void 0 : (_states$current$filte6 = _states$current$filte5.rescheduling) === null || _states$current$filte6 === void 0 ? void 0 : _states$current$filte6.originalState) !== undefined) {
-    var _states$current$filte7, _states$current$filte8;
-    if ((_states$current$filte7 = states.current.filtered) !== null && _states$current$filte7 !== void 0 && (_states$current$filte8 = _states$current$filte7.rescheduling) !== null && _states$current$filte8 !== void 0 && _states$current$filte8.originalState.hasOwnProperty('learning')) {
+  if (((_states$current$filte3 = states.current.filtered) === null || _states$current$filte3 === void 0 || (_states$current$filte3 = _states$current$filte3.rescheduling) === null || _states$current$filte3 === void 0 ? void 0 : _states$current$filte3.originalState) !== undefined) {
+    var _states$current$filte4;
+    if (Object.hasOwn((_states$current$filte4 = states.current.filtered) === null || _states$current$filte4 === void 0 || (_states$current$filte4 = _states$current$filte4.rescheduling) === null || _states$current$filte4 === void 0 ? void 0 : _states$current$filte4.originalState, 'learning')) {
       return true;
     }
   }
-  if (((_states$current$norma6 = states.current.normal) === null || _states$current$norma6 === void 0 ? void 0 : _states$current$norma6.relearning) !== undefined) {
-    var _states$current$norma7;
-    if (((_states$current$norma7 = states.current.normal) === null || _states$current$norma7 === void 0 ? void 0 : _states$current$norma7.relearning) !== null) {
+  if (((_states$current$norma7 = states.current.normal) === null || _states$current$norma7 === void 0 ? void 0 : _states$current$norma7.relearning) !== undefined) {
+    var _states$current$norma8;
+    if (((_states$current$norma8 = states.current.normal) === null || _states$current$norma8 === void 0 ? void 0 : _states$current$norma8.relearning) !== null) {
       return true;
     }
   }
-  if (((_states$current$filte9 = states.current.filtered) === null || _states$current$filte9 === void 0 ? void 0 : (_states$current$filte10 = _states$current$filte9.rescheduling) === null || _states$current$filte10 === void 0 ? void 0 : _states$current$filte10.originalState) !== undefined) {
-    var _states$current$filte11, _states$current$filte12;
-    if ((_states$current$filte11 = states.current.filtered) !== null && _states$current$filte11 !== void 0 && (_states$current$filte12 = _states$current$filte11.rescheduling) !== null && _states$current$filte12 !== void 0 && _states$current$filte12.originalState.hasOwnProperty('relearning')) {
+  if (((_states$current$filte5 = states.current.filtered) === null || _states$current$filte5 === void 0 || (_states$current$filte5 = _states$current$filte5.rescheduling) === null || _states$current$filte5 === void 0 ? void 0 : _states$current$filte5.originalState) !== undefined) {
+    var _states$current$filte6;
+    if (Object.hasOwn((_states$current$filte6 = states.current.filtered) === null || _states$current$filte6 === void 0 || (_states$current$filte6 = _states$current$filte6.rescheduling) === null || _states$current$filte6 === void 0 ? void 0 : _states$current$filte6.originalState, 'relearning')) {
       return true;
     }
   }
   return false;
 }
 function is_review() {
-  var _states$current$norma8, _states$current$filte13, _states$current$filte14;
-  if (((_states$current$norma8 = states.current.normal) === null || _states$current$norma8 === void 0 ? void 0 : _states$current$norma8.review) !== undefined) {
-    var _states$current$norma9;
-    if (((_states$current$norma9 = states.current.normal) === null || _states$current$norma9 === void 0 ? void 0 : _states$current$norma9.review) !== null) {
+  var _states$current$norma9, _states$current$filte7;
+  if (((_states$current$norma9 = states.current.normal) === null || _states$current$norma9 === void 0 ? void 0 : _states$current$norma9.review) !== undefined) {
+    var _states$current$norma10;
+    if (((_states$current$norma10 = states.current.normal) === null || _states$current$norma10 === void 0 ? void 0 : _states$current$norma10.review) !== null) {
       return true;
     }
   }
-  if (((_states$current$filte13 = states.current.filtered) === null || _states$current$filte13 === void 0 ? void 0 : (_states$current$filte14 = _states$current$filte13.rescheduling) === null || _states$current$filte14 === void 0 ? void 0 : _states$current$filte14.originalState) !== undefined) {
-    var _states$current$filte15, _states$current$filte16;
-    if ((_states$current$filte15 = states.current.filtered) !== null && _states$current$filte15 !== void 0 && (_states$current$filte16 = _states$current$filte15.rescheduling) !== null && _states$current$filte16 !== void 0 && _states$current$filte16.originalState.hasOwnProperty('review')) {
+  if (((_states$current$filte7 = states.current.filtered) === null || _states$current$filte7 === void 0 || (_states$current$filte7 = _states$current$filte7.rescheduling) === null || _states$current$filte7 === void 0 ? void 0 : _states$current$filte7.originalState) !== undefined) {
+    var _states$current$filte8;
+    if (Object.hasOwn((_states$current$filte8 = states.current.filtered) === null || _states$current$filte8 === void 0 || (_states$current$filte8 = _states$current$filte8.rescheduling) === null || _states$current$filte8 === void 0 ? void 0 : _states$current$filte8.originalState, 'review')) {
       return true;
     }
   }
@@ -306,7 +301,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v3.20.0";
+  const version = "v4.3.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;

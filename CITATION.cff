@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Ye"
+  given-names: "Junyao"
+  orcid: "https://orcid.org/0000-0001-7475-0718"
+title: "FSRS4Anki"
+version: 1.0.0
+doi: 10.5281/zenodo.8103692
+date-released: 2023-07-01
+url: "https://github.com/open-spaced-repetition/fsrs4anki"
+preferred-citation:
+  type: conference
+  authors:
+  - family-names: "Ye"
+    given-names: "Junyao"
+    orcid: "https://orcid.org/0000-0001-7475-0718"
+  - family-names: "Su"
+    given-names: "Jingyong"
+    orcid: "https://orcid.org/0000-0003-3216-7027"
+  - family-names: "Cao"
+    given-names: "Yilong"
+    orcid: "https://orcid.org/0009-0006-5605-0092"
+  doi: "10.1145/3534678.3539081"
+  booktitle: "Proceedings of the 28th ACM SIGKDD Conference on Knowledge Discovery and Data Mining"
+  start: 4381 # First page number
+  end: 4390 # Last page number
+  title: "A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling"
+  year: 2022
