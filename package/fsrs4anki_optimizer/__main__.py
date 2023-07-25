@@ -85,7 +85,7 @@ def process(filename):
     profile = \
     f"""{{
     // Generated, Optimized anki deck settings
-    "deckName": "{filename}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
+    "deckName": "{os.path.splitext(os.path.basename(filename))[0]}",// PLEASE CHANGE THIS TO THE DECKS PROPER NAME
     "w": {optimizer.w},
     "requestRetention": {optimizer.optimal_retention},
     "maximumInterval": 36500,
