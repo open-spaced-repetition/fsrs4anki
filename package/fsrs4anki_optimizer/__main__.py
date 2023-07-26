@@ -126,7 +126,11 @@ if __name__ == "__main__":
             files = [f for f in os.listdir(filename) if f.lower().endswith('.apkg')]
             files = [os.path.join(filename, f) for f in files]
             for file_path in files:
-                process(file_path)
+                try:
+                    process(file_path)
+                except Exception as e:
+                    print(f"Failed to process {file_path}")
+                    continue
         else:
             process(filename)
 
