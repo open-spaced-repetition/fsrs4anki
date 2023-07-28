@@ -147,14 +147,14 @@ There is a python package for the optimizer. This package has torch as a depende
 Install this package with the command:
 
 ```
-python -m pip install fsrs4anki_optimizer
+python -m pip install FSRS-Optimizer
 ```
 
 Export your deck and cd into the folder in which you exported it.  
 Then you can run:
 
 ```
-python -m fsrs4anki_optimizer "package.(colpkg/apkg)"
+python -m fsrs_optimizer "package.(colpkg/apkg)"
 ```
 
 There are certain options which are as follows
