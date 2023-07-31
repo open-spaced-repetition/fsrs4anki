@@ -142,22 +142,44 @@ https://huggingface.co/spaces/open-spaced-repetition/fsrs4anki_app
 
 ### 2.1c Command Line 
 
-There is a python package for the optimizer. This package has torch as a dependency so note it might take about half a gigabyte of space.
+There is a python package for the optimizer. This package has torch as a dependency, so note it might take about half a gigabyte of space.
 
-Install this package with the command:
+#### Installation
+
+Install the package with the command:
 
 ```
 python -m pip install FSRS-Optimizer
 ```
 
-Export your deck and cd into the folder in which you exported it.  
+You should upgrade regularly to make sure you have the most recent version of FSRS-Optimizer:
+
+```
+python -m pip install fsrs4anki-optimizer --upgrade
+```
+
+#### Usage
+
+Export your deck and cd into the folder to which you exported it.  
 Then you can run:
 
 ```
 python -m fsrs_optimizer "package.(colpkg/apkg)"
 ```
 
-There are certain options which are as follows
+You can also list multiple files, e.g.:
+
+```
+python -m fsrs4_optimizer "file1.akpg" "file2.apkg"
+```
+
+Wildcards are supported:
+
+```
+python -m fsrs4_optimizer *.apkg
+```
+
+There are certain options which are as follows:
 
 ```
 options:
@@ -166,7 +188,7 @@ options:
   -o OUT, --out OUT    File to APPEND the automatically generated profile to.
 ```
 
-#### Expected Functionality:
+#### Expected Functionality
 
 ![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/ac2e8ae0-726c-46fd-b110-0701fa87cb66)
 ![image](https://github.com/Luc-mcgrady/fsrs4anki/assets/63685643/1fe8b0bb-7ac0-4a31-b594-465239ea3a1e)
