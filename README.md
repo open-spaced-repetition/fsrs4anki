@@ -149,13 +149,13 @@ There is a python package for the optimizer. This package has torch as a depende
 Install the package with the command:
 
 ```
-python -m pip install FSRS-Optimizer
+python -m pip install fsrs-optimizer
 ```
 
 You should upgrade regularly to make sure you have the most recent version of FSRS-Optimizer:
 
 ```
-python -m pip install fsrs4anki-optimizer --upgrade
+python -m pip install fsrs-optimizer --upgrade
 ```
 
 #### Usage
@@ -164,19 +164,19 @@ Export your deck and cd into the folder to which you exported it.
 Then you can run:
 
 ```
-python -m fsrs_optimizer "package.(colpkg/apkg)"
+python -m fsrs-optimizer "package.(colpkg/apkg)"
 ```
 
 You can also list multiple files, e.g.:
 
 ```
-python -m fsrs4_optimizer "file1.akpg" "file2.apkg"
+python -m fsrs-optimizer "file1.akpg" "file2.apkg"
 ```
 
 Wildcards are supported:
 
 ```
-python -m fsrs4_optimizer *.apkg
+python -m fsrs-optimizer *.apkg
 ```
 
 There are certain options which are as follows:
