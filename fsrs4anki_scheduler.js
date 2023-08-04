@@ -1,6 +1,14 @@
-// FSRS4Anki v4.3.0 Scheduler Qt6
+// FSRS4Anki v3.20.0 Scheduler Qt6
 set_version();
-// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
+// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
+
+// REVERSE ENGINEERING START
+// print the existing states
+console.log(ctx);
+console.log(get_tags());
+// load the debugger if the web inspector is open
+debugger;
+// REVERSE ENGINEERING END
 
 // Configuration Start
 
@@ -8,35 +16,78 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61],
+    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
     // The above parameters can be optimized via FSRS4Anki optimizer.
-    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
+    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
     // User's custom parameters for global
-    "requestRetention": 0.9, // recommended setting: 0.8 ~ 0.9
-    "maximumInterval": 36500,
+    "requestRetention": 0.95, // recommended setting: 0.8 ~ 0.9
+    "maximumInterval": 35565,
+    "easyBonus": 1.5,
+    "hardInterval": 1.2,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
   },
   {
-    // Example 1: User's custom parameters for this deck and its sub-decks.
-    "deckName": "MainDeck1",
-    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
-    "requestRetention": 0.9,
-    "maximumInterval": 36500,
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​Easy",
+    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
+    "requestRetention": 0.75,
+    "maximumInterval": 240,
+    "easyBonus": 1.5,
+    "hardInterval": 1.0,
   },
   {
-    // Example 2: User's custom parameters for this deck and its sub-decks.
-    // Don't omit any keys.
-    "deckName": "MainDeck2::SubDeck::SubSubDeck",
-    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
-    "requestRetention": 0.9,
-    "maximumInterval": 36500,
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Medium",
+    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
+    "requestRetention": 0.75,
+    "maximumInterval": 180,
+    "easyBonus": 1.5,
+    "hardInterval": 1.0,
+  },
+  {
+    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Hard",
+    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
+    "requestRetention": 0.6,
+    "maximumInterval": 120,
+    "easyBonus": 1.5,
+    "hardInterval": 1.0,
+  },
+  {
+    "deckName": "Numbers You Should Know",
+    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
+    "requestRetention": 0.95,
+    "maximumInterval": 60,
+    "easyBonus": 1.3,
+    "hardInterval": 1.2,
+  },
+  {
+    "deckName": "Personal",
+    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
+    "requestRetention": 0.90,
+    "maximumInterval": 35565,
+    "easyBonus": 1.3,
+    "hardInterval": 1.2,
   }
 ];
 
+// you can add multiple shared configs too
+const decks_with_shared_config = {
+  "config to be shared among several decks": [
+    "example::deck::name1",
+    "example::deck::name2",
+    "example::deck::name3",
+  ],
+  "other config to be shared among several decks": [
+    "example::deck::name1",
+    "example::deck::name2",
+    "example::deck::name3",
+  ],
+};
+
+
 // To turn off FSRS in specific decks, fill them into the skip_decks list below.
+// And add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
 // Please don't remove it even if you don't need it.
-const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
+const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
 
 // "Fuzz" is a small random delay applied to new intervals to prevent cards from
 // sticking together and always coming up for review on the same day
@@ -44,7 +95,7 @@ const enable_fuzz = true;
 
 // FSRS supports displaying memory states of cards.
 // Enable it for debugging if you encounter something wrong.
-const display_memory_state = false;
+const display_memory_state = true;
 
 // Configuration End
 
@@ -61,6 +112,31 @@ if (display_memory_state) {
   document.body.appendChild(fsrs_status);
   document.getElementById("qa").style.cssText += "min-height:50vh;";
 }
+
+// add decks with shared config to deck parameters
+for (const deck_config_name in decks_with_shared_config) {
+  const deck_names = decks_with_shared_config[deck_config_name];
+  for (const deck_name of deck_names) {
+    const deck_param = Object.assign({}, deckParams.find(dp => dp.deckName === deck_config_name));
+    if (Object.keys(deck_param).length === 0) {
+      // I did not find the the deck config in deckParams, TODO give some warning to the user
+      continue;
+    };
+    deck_param.deckName = deck_name;
+    deckParams.push(deck_param);
+  };
+};
+
+// remove placeholders for shared deck configs
+for (const deck_name_to_remove in decks_with_shared_config) {
+  const deck_param_index = deckParams.findIndex(dp => dp.deckName == deck_name_to_remove);
+  if (deck_param_index > -1) {
+    deckParams.splice(deck_param_index, 1);
+  };
+};
+
+
+
 let params = {};
 // get the name of the card's deck
 if (deck_name = get_deckname()) {
@@ -68,7 +144,7 @@ if (deck_name = get_deckname()) {
     fsrs_status.innerHTML += "<br>Deck name: " + deck_name;
   }
   for (const i of skip_decks) {
-    if (deck_name.startsWith(i)) {
+    if (deck_name.includes(i)) {
       fsrs_status.innerHTML = fsrs_status.innerHTML.replace("FSRS enabled", "FSRS disabled");
       return;
     }
@@ -78,7 +154,9 @@ if (deck_name = get_deckname()) {
     return -a.deckName.localeCompare(b.deckName);
   });
   for (let i = 0; i < deckParams.length; i++) {
-    if (deck_name.startsWith(deckParams[i]["deckName"])) {
+    console.log("checking if " + deck_name + " includes " + deckParams[i]["deckName"])
+    if (deck_name.includes(deckParams[i]["deckName"])) {
+      console.log("deck name: " + deck_name + ", params: " + deckParams[i])
       params = deckParams[i];
       break;
     }
@@ -92,10 +170,13 @@ if (Object.keys(params).length === 0) {
   params = deckParams.find(deck => deck.deckName === "global config for FSRS4Anki");
 }
 var w = params["w"];
+console.log("Using deck settings: " + params["deckName"])
 var requestRetention = params["requestRetention"];
 var maximumInterval = params["maximumInterval"];
+var easyBonus = params["easyBonus"];
+var hardInterval = params["hardInterval"];
 // auto-calculate intervalModifier
-const intervalModifier = 9 * (1 / requestRetention - 1);
+const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
 // global fuzz factor for all ratings.
 const fuzz_factor = set_fuzz_factor();
 const ratings = {
@@ -108,7 +189,7 @@ const ratings = {
 if (is_new()) {
   init_states();
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s), good_interval + 1);
+  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
   if (states.good.normal?.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -122,7 +203,7 @@ if (is_new()) {
     init_states();
   }
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s), good_interval + 1);
+  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
   if (states.good.normal?.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -138,21 +219,23 @@ if (is_new()) {
   const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
   const last_d = customData.again.d;
   const last_s = customData.again.s;
-  const retrievability = Math.pow(1 + interval / (9 * last_s), -1)
+  const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
   if (display_memory_state) {
-    fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
+    const color = (retrievability * 100 > 80) ? "green" : "red";
+    const prompt = (retrievability * 100 > 80) ? "" : "<h2>Recommended to flag this card. Retention low.</h2>";
+    fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: <span style='color: " + color + "'>" + (retrievability * 100).toFixed(2) + "%. " + prompt + "</span>";
   }
   customData.again.d = next_difficulty(last_d, "again");
   customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
   customData.hard.d = next_difficulty(last_d, "hard");
-  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability, "hard");
+  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability);
   customData.good.d = next_difficulty(last_d, "good");
-  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability, "good");
+  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability);
   customData.easy.d = next_difficulty(last_d, "easy");
-  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability, "easy");
-  let hard_interval = next_interval(customData.hard.s);
+  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
+  let hard_interval = next_interval(last_s * hardInterval);
   let good_interval = next_interval(customData.good.s);
-  let easy_interval = next_interval(customData.easy.s);
+  let easy_interval = next_interval(customData.easy.s * easyBonus)
   hard_interval = Math.min(hard_interval, good_interval)
   good_interval = Math.max(good_interval, hard_interval + 1);
   easy_interval = Math.max(easy_interval, good_interval + 1);
@@ -167,7 +250,7 @@ if (is_new()) {
   }
 }
 function constrain_difficulty(difficulty) {
-  return Math.min(Math.max(+difficulty.toFixed(2), 1), 10);
+  return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
 }
 function apply_fuzz(ivl) {
   if (!enable_fuzz || ivl < 2.5) return ivl;
@@ -187,27 +270,21 @@ function next_interval(stability) {
   return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 function next_difficulty(d, rating) {
-  let next_d = d - w[6] * (ratings[rating] - 3);
-  return constrain_difficulty(mean_reversion(w[4], next_d));
+  let next_d = d + w[4] * (ratings[rating] - 3);
+  return constrain_difficulty(mean_reversion(w[2], next_d));
 }
 function mean_reversion(init, current) {
-  return w[7] * init + (1 - w[7]) * current;
+  return w[5] * init + (1 - w[5]) * current;
 }
-function next_recall_stability(d, s, r, rating) {
-  let hardPenalty = rating === "hard" ? w[15] : 1;
-  let easyBonus = rating === "easy" ? w[16] : 1;
-  return +(s * (1 + Math.exp(w[8]) *
+function next_recall_stability(d, s, r) {
+  return +(s * (1 + Math.exp(w[6]) *
     (11 - d) *
-    Math.pow(s, -w[9]) *
-    (Math.exp((1 - r) * w[10]) - 1) *
-    hardPenalty *
-    easyBonus)).toFixed(2);
+    Math.pow(s, w[7]) *
+    (Math.exp((1 - r) * w[8]) - 1))).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
-  return +Math.min(w[11] * 
-    Math.pow(d, -w[12]) * 
-    (Math.pow(s + 1, w[13]) - 1) * 
-    Math.exp((1 - r) * w[14]), s).toFixed(2);
+  return +(w[9] * Math.pow(d, w[10]) * Math.pow(
+    s, w[11]) * Math.exp((1 - r) * w[12])).toFixed(2);
 }
 function init_states() {
   customData.again.d = init_difficulty("again");
@@ -220,16 +297,16 @@ function init_states() {
   customData.easy.s = init_stability("easy");
 }
 function init_difficulty(rating) {
-  return +constrain_difficulty(w[4] - w[5] * (ratings[rating] - 3)).toFixed(2);
+  return +constrain_difficulty(w[2] + w[3] * (ratings[rating] - 3)).toFixed(2);
 }
 function init_stability(rating) {
-  return +Math.max(w[ratings[rating] - 1], 0.1).toFixed(2);
+  return +Math.max(w[0] + w[1] * (ratings[rating] - 1), 0.1).toFixed(2);
 }
 function convert_states() {
   const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
   const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
   const old_s = +Math.max(scheduledDays, 0.1).toFixed(2);
-  const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[8]) * Math.pow(old_s, -w[9]) * (Math.exp(0.1 * w[10]) - 1)));
+  const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[6]) * Math.pow(old_s, w[7]) * (Math.exp(0.1 * w[8]) - 1)));
   customData.again.d = old_d;
   customData.again.s = old_s;
   customData.hard.d = old_d;
@@ -292,7 +369,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v4.3.0";
+  const version = "v4.0.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
@@ -306,6 +383,19 @@ function get_deckname() {
   } else {
     return null;
   }
+}
+function get_tags() {
+  var tags = [];
+  if (document.getElementsByClassName("tags") !== []) {
+    var children = document.getElementsByClassName("tags")[0]?.children;
+    if(children === undefined || children === null){
+      return tags;
+    }
+    for(var i = 0; i < children.length; i++) {
+      tags.push(children[i].innerText);
+    }
+  }
+  return tags;
 }
 function get_seed() {
   if (!customData.again.seed | !customData.hard.seed | !customData.good.seed | !customData.easy.seed) {
