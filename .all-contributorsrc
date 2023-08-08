@@ -1,0 +1,30 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "user1823",
+      "name": "user1823",
+      "avatar_url": "https://avatars.githubusercontent.com/u/92206575?v=4",
+      "profile": "https://github.com/user1823",
+      "contributions": [
+        "test",
+        "doc",
+        "data",
+        "ideas",
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "fsrs4anki",
+  "projectOwner": "open-spaced-repetition"
+}
