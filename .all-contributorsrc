@@ -1,0 +1,30 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "Expertium",
+      "name": "Expertium",
+      "avatar_url": "https://avatars.githubusercontent.com/u/83031600?v=4",
+      "profile": "https://github.com/Expertium",
+      "contributions": [
+        "test",
+        "doc",
+        "data",
+        "ideas",
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "fsrs4anki",
+  "projectOwner": "open-spaced-repetition"
+}
