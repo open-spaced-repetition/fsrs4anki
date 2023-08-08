@@ -39,6 +39,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 - [FAQ](#faq)
 - [Compatibility](#compatibility)
 - [Contribute](#contribute)
+  - [Contributors](#contributors)
 - [Stargazers over time](#stargazers-over-time)
 
 # Introduction
@@ -296,6 +297,17 @@ Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/iss
 # Contribute
 
 You can contribute to FSRS4Anki by beta testing, submitting code, or sharing your data. If you want to share your data with me, please fill this form: https://forms.gle/KaojsBbhMCytaA7h8
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 # Stargazers over time
 
