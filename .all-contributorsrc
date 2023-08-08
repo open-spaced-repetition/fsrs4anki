@@ -8,6 +8,19 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "Expertium",
+      "name": "Expertium",
+      "avatar_url": "https://avatars.githubusercontent.com/u/83031600?v=4",
+      "profile": "https://github.com/Expertium",
+      "contributions": [
+        "test",
+        "doc",
+        "data",
+        "ideas",
+        "bug"
+      ]
+    },
+    {
       "login": "user1823",
       "name": "user1823",
       "avatar_url": "https://avatars.githubusercontent.com/u/92206575?v=4",
