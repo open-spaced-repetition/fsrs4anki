@@ -25,17 +25,13 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 - [FSRS4Anki](#fsrs4anki)
 - [Introduction](#introduction)
-- [1 Quick Start](#1-quick-start)
-  - [1.1 Enable Anki's V3 Scheduler](#11-enable-ankis-v3-scheduler)
-  - [1.2 Paste FSRS Scheduler Code](#12-paste-fsrs-scheduler-code)
-- [2 Advanced Usage](#2-advanced-usage)
-  - [2.1 Generate Personalized Parameters](#21-generate-personalized-parameters)
-    - [2.1a Google Colab](#21a-google-colab)
-    - [2.1b Website](#21b-website)
-    - [2.1c Command Line](#21c-command-line)
-    - [2.1d Anki Addon](#21d-anki-addon-experimental) **EXPERIMENTAL**
-  - [2.2 Deck Parameter Settings](#22-deck-parameter-settings)
-- [3 Using the Helper Add-on](#3-using-the-helper-add-on)
+- [How to Get Started?](#how-to-get-started)
+  - [Step 1: Enabling the FSRS Scheduler](#step-1-enabling-the-fsrs-scheduler)
+  - [Step 2: Training FSRS Parameters for Your Collection](#step-2-training-fsrs-parameters-for-your-collection)
+    - [Training using Google Colab](#training-using-google-colab)
+    - [Training using Hugging Face](#training-using-hugging-face)
+- [Configuring Different Parameters for Different Decks](#configuring-different-parameters-for-different-decks)
+- [Using the Helper Add-on](#using-the-helper-add-on)
 - [FAQ](#faq)
 - [Compatibility](#compatibility)
 - [Contribute](#contribute)
@@ -198,7 +194,7 @@ If there are some decks you don't want to use FSRS with, you can add their names
 const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
 ```
 
-## 3 Using the Helper Add-on
+## Using the Helper Add-on
 
 Please see: [FSRS4Anki Helper](https://github.com/open-spaced-repetition/fsrs4anki-helper)
 
