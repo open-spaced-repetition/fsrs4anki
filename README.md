@@ -27,7 +27,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 - [Introduction](#Introduction)
 - [Installation](#Installation)
   - [1 Enable the V3 scheduler in Anki](#1-Enable-the-V3-scheduler-in-Anki)
-  - [2 Export your deck/collection](#2-Export-your-deck/collection)
+  - [2 Export your deck or collection](#2-Export-your-deck-or-collection)
   - [3 Go to the optimizer page and run the optimizer](#3-Go-to-the-optimizer-page-and-run-the-optimizer)
   - [4 Copy the optimal parameters](#4-Copy-the-optimal-parameters)
   - [5 Copy the scheduler code, paste it into Anki, and then paste the optimal parameters into it](#5-Copy-the-scheduler-code,-paste-it-into-Anki,-and-then-paste-the-optimal-parameters-into-it)
@@ -64,7 +64,7 @@ Go to Tools > Preferences > Review > Enable V3 Scheduler.
 
 ![1](https://github.com/Expertium/fsrs4anki/assets/83031600/ecf7d77e-1244-4a0a-8cfd-22a5b76e0fe1)
 
-## 2 Export your deck/collection
+## 2 Export your deck or collection
 
 Make sure to select “Include scheduling information” and “Support older Anki versions”.
 
