@@ -31,7 +31,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
   - [4. Copy the optimal parameters](#4-Copy-the-optimal-parameters)
   - [5. Copy the scheduler code, paste it into Anki, and then paste the optimal parameters into it](#5-Copy-the-scheduler-code,-paste-it-into-Anki,-and-then-paste-the-optimal-parameters-into-it)
   - [6. Use the helper add-on to reschedule all cards](#6-Use-the-helper-add-on-to-reschedule-all-cards)
-  - [7. Extra features](#7-Extra-features)
+  - [7. Extra](#7-Extra)
 - [Advanced featues](#Advanced-features)
   - [Using different parameters for different decks](#Using-different-parameters-for-different-decks)
 - [FAQ](#faq)
@@ -83,6 +83,14 @@ To run the optimizer, either press Ctrl+F9 or go to Runtime > Run all.
 
 ![5](https://github.com/Expertium/fsrs4anki/assets/83031600/2476c8bc-a327-4a4a-8de2-96efbd9da60d)
 
+Additionally, if you are worried about privacy and don’t trust Google Collab, you can do the following before running the optimizer: 
+Go to Browse > Notes > Find and Replace. Type (.|\n)* in the Find field and keep the Replace With field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
+
+![14](https://github.com/Expertium/fsrs4anki/assets/83031600/a8be6994-c8b0-4df3-868f-e566f04a5f12)
+
+**This will make all fields blank. PLEASE MAKE A BACKUP BEFORE DOING THIS!**
+Then export your collection with blanked out fields. Again, this is not necessary, just an extra measure for those few people who are worried about privacy.
+
 ## 4. Copy the optimal parameters
 
 Go to section 2.2 (Result), the optimal parameters will be available there. Copy them and paste them somewhere temporarily.
@@ -121,7 +129,7 @@ Go to Tools > FSRS4Anki Helper > Reschedule all cards.
 
 After rescheduling, you will likely see a lot of due cards, several times more than you are used to. This is typical. You can use the Postpone feature of the add-on to help you deal with the backlog. Read more about add-on features here: https://github.com/open-spaced-repetition/fsrs4anki-helper#overview
 
-## 7. Extra features
+## 7. Extra
 
 To check that FSRS in enabled, change this line of code:
 
@@ -136,15 +144,6 @@ If you don’t see D, S and R, and only see “FSRS enabled”, that means the c
 You can check some interesting FSRS statistics after installing the add-on and then pressing Shift+Left Mouse Button on Stats.
 
 ![15](https://github.com/Expertium/fsrs4anki/assets/83031600/83712376-418c-473e-93f5-0364862c3654)
-
-Additionally, if you are worried about privacy and don’t trust Google Collab, you can do the following before running the optimizer: 
-Go to Browse > Notes > Find and Replace. Type (.|\n)* in the Find field and keep the Replace With field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
-
-![14](https://github.com/Expertium/fsrs4anki/assets/83031600/a8be6994-c8b0-4df3-868f-e566f04a5f12)
-
-**This will make all fields blank. PLEASE MAKE A BACKUP BEFORE DOING THIS!**
-Then export your collection with blanked out fields. Again, this is not necessary, just an extra measure for those few people who are worried about privacy.
-
 
 # Advanced features
 
