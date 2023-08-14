@@ -136,7 +136,7 @@ To check that FSRS in enabled, change this line of code:
 
 ![12](https://github.com/Expertium/fsrs4anki/assets/83031600/73872c2c-6753-4c2d-915e-e8c06c352539)
 
-If const display_memory_state = true; then you should be able to see something similar to this when reviewing a card:
+If `const display_memory_state = true;` then you should be able to see something similar to this when reviewing a card:
 
 ![13](https://github.com/Expertium/fsrs4anki/assets/83031600/9a172be7-64c8-427d-b949-219752511607)
 
