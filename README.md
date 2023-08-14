@@ -96,7 +96,7 @@ If you don’t see D, S and R, and only see “FSRS enabled”, this means that 
 
 This shows that the FSRS scheduler is running normally. You can then change the code back and the message will no longer display.
 
-### Step 2: Personalizing FSRS
+## Step 2: Personalizing FSRS
 
 To ensure that FSRS suits your learning needs, you'll need to follow a two-step process.
 
@@ -105,7 +105,7 @@ To ensure that FSRS suits your learning needs, you'll need to follow a two-step 
 
 Let's now discuss both of these steps in detail.
 
-#### Step 2.1 Training the FSRS Parameters
+### Step 2.1 Training the FSRS Parameters
 
 For most users, it is advisable to use one of the following two methods (Google Colab and Hugging Face) for training the parameters. Advanced users can explore other options mentioned here (provide link).
 
@@ -156,7 +156,7 @@ After training the parameters by either of the methods above, replace the parame
 
 ⚠️Note: when replacing these parameters, make sure that you don't accidentally erase the square brackets or the comma after the closing bracket. The code will break without them.
 
-#### Step 2.2: Choosing the desired retention rate and maximum interval
+### Step 2.2: Choosing the desired retention rate and maximum interval
 
 Now, you need to choose your `requestRetention`, which denotes the retention rate (i.e. the fraction of the cards recalled successfully) that FSRS will try to achieve. 
 
