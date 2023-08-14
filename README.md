@@ -69,6 +69,14 @@ Make sure to select “Include scheduling information” and “Support older An
 
 ![2](https://github.com/Expertium/fsrs4anki/assets/83031600/66eb57b6-81ca-4ba5-a0d8-bada9daf9a59)
 
+Additionally, if you are worried about privacy and don’t trust Google Collab, you can do the following before running the optimizer: 
+Go to Browse > Notes > Find and Replace. Type (.|\n)* in the "Find" field and keep the "Replace With" field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
+
+![14](https://github.com/Expertium/fsrs4anki/assets/83031600/a8be6994-c8b0-4df3-868f-e566f04a5f12)
+
+**This will make all fields blank. PLEASE MAKE A BACKUP BEFORE DOING THIS!**
+Then export your collection with blanked out fields. Again, this is not necessary, just an extra measure for those few people who are worried about privacy.
+
 ## 3. Go to the optimizer page and run the optimizer
 
 Replace "collection-2022-09-18@13-21-58.colpkg" with the name of your deck/collection. Collections have .colpkg at the end of the filename, and decks have .apkg. Replace ‘Asia/Shanghai’ with your timezone, there is a link to the list of timezones.
@@ -83,13 +91,6 @@ To run the optimizer, either press Ctrl+F9 or go to Runtime > Run all.
 
 ![5](https://github.com/Expertium/fsrs4anki/assets/83031600/2476c8bc-a327-4a4a-8de2-96efbd9da60d)
 
-Additionally, if you are worried about privacy and don’t trust Google Collab, you can do the following before running the optimizer: 
-Go to Browse > Notes > Find and Replace. Type (.|\n)* in the "Find" field and keep the "Replace With" field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
-
-![14](https://github.com/Expertium/fsrs4anki/assets/83031600/a8be6994-c8b0-4df3-868f-e566f04a5f12)
-
-**This will make all fields blank. PLEASE MAKE A BACKUP BEFORE DOING THIS!**
-Then export your collection with blanked out fields. Again, this is not necessary, just an extra measure for those few people who are worried about privacy.
 
 ## 4. Copy the optimal parameters
 
