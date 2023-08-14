@@ -58,19 +58,19 @@ For more detail on the mechanism of the FSRS algorithm, please see my papers: [A
 中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
 
 
-## 1. Enable the V3 scheduler in Anki
+## 1 Enable the V3 scheduler in Anki
 
 Go to Tools > Preferences > Review > Enable V3 Scheduler.
 
 ![1](https://github.com/Expertium/fsrs4anki/assets/83031600/ecf7d77e-1244-4a0a-8cfd-22a5b76e0fe1)
 
-## 2. Export your deck/collection
+## 2 Export your deck/collection
 
 Make sure to select “Include scheduling information” and “Support older Anki versions”.
 
 ![2](https://github.com/Expertium/fsrs4anki/assets/83031600/66eb57b6-81ca-4ba5-a0d8-bada9daf9a59)
 
-## 3. Go to the optimizer page and run the optimizer
+## 3 Go to the optimizer page and run the optimizer
 
 Replace "collection-2022-09-18@13-21-58.colpkg" with the name of your deck/collection. Collections have .colpkg at the end of the filename, and decks have .apkg. Replace ‘Asia/Shanghai’ with your timezone, there is a link to the list of timezones.
 
@@ -84,13 +84,13 @@ To run the optimizer, either press Ctrl+F9 or go to Runtime > Run all.
 
 ![5](https://github.com/Expertium/fsrs4anki/assets/83031600/2476c8bc-a327-4a4a-8de2-96efbd9da60d)
 
-## 4. Copy the optimal parameters
+## 4 Copy the optimal parameters
 
 Go to section 2.2 (Result), the optimal parameters will be available there. Copy them and paste them somewhere temporarily.
 
 ![6](https://github.com/Expertium/fsrs4anki/assets/83031600/469abd9b-9032-4208-ae52-0aba1d44e213)
 
-## 5. Copy the scheduler code, paste it into Anki, and then paste the optimal parameters into it
+## 5 Copy the scheduler code, paste it into Anki, and then paste the optimal parameters into it
 
 Go to this page: https://github.com/open-spaced-repetition/fsrs4anki/blob/main/fsrs4anki_scheduler.js
 
@@ -114,7 +114,7 @@ Ensure that your learning and re-learning steps are **no longer than 1 day** for
 
 ![10](https://github.com/Expertium/fsrs4anki/assets/83031600/8e3b6901-fae9-4a5d-bd32-4bd8da46c856)
 
-## 6. Use the helper add-on to reschedule all cards
+## 6 Use the helper add-on to reschedule all cards
 
 Go to Tools > FSRS4Anki Helper > Reschedule all cards.
 
@@ -122,7 +122,7 @@ Go to Tools > FSRS4Anki Helper > Reschedule all cards.
 
 After rescheduling, you will likely see a lot of due cards, several times more than you are used to. This is typical. You can use the Postpone feature of the add-on to help you deal with the backlog. Read more about add-on features here: https://github.com/open-spaced-repetition/fsrs4anki-helper#overview
 
-## 7. Extra features
+## 7 Extra features
 
 To check that FSRS in enabled, change this line of code:
 
