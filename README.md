@@ -30,7 +30,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
   - [2 Export your deck/collection](#2-Export-your-deck/collection)
   - [3 Go to the optimizer page and run the optimizer](#3-Go-to-the-optimizer-page-and-run-the-optimizer)
   - [4 Copy the optimal parameters](#4-Copy-the-optimal-parameters)
-  - [5 Copy the scheduler code, paste it into Anki, and then paste the optimal parameters into it](#5-Copy-the-scheduler-code-paste-it-into-Anki-and-then-paste-the-optimal-parameters-into-it)
+  - [5 Copy the scheduler code, paste it into Anki, and then paste the optimal parameters into it](#5-Copy-the-scheduler-code,-paste-it-into-Anki,-and-then-paste-the-optimal-parameters-into-it)
   - [6 Use the helper add-on to reschedule all cards](#6-Use-the-helper-add-on-to-reschedule-all-cards)
   - [7 Extra features](#7-Extra-features)
 - [Advanced featues](#Advanced-features)
