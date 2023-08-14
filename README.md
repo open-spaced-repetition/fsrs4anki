@@ -58,7 +58,7 @@ For more detail on the mechanism of the FSRS algorithm, please see my papers: [A
 中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
 
 
-## 1. Enable the V3 scheduler in Anki
+## 1 Enable the V3 scheduler in Anki
 
 Go to Tools > Preferences > Review > Enable V3 Scheduler.
 
