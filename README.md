@@ -101,13 +101,15 @@ This shows that the FSRS scheduler is running normally. You can then change the 
 To ensure that FSRS suits your learning needs, you'll need to follow a two-step process.
 
 - First, you'll need to train the FSRS parameters for your collection, tailoring the algorithm to your learning patterns..
-- Next, you'll need to choose the desired retention rate.
+- Next, you'll need to choose the desired retention rate and maximum interval.
 
 Let's now discuss both of these steps in detail.
 
 #### Step 2.1 Training the FSRS Parameters
 
 For most users, it is advisable to use one of the following two methods (Google Colab and Hugging Face) for training the parameters. Advanced users can explore other options mentioned here (provide link).
+
+However, the FSRS optimizer requires a minimum of 2000 reviews to produce accurate results. If you don't have enough data, you can skip this step and use the default parameters, which are already entered in the scheduler code.
 
 <details>
   <summary>Method 1: Training using Google Colab</summary>
