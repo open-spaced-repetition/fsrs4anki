@@ -24,16 +24,16 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 # Table of contents
 
 - [FSRS4Anki](#fsrs4anki)
-- [Introduction](#introduction)
-- [1 Quick Start](#1-quick-start)
-  - [1.1 Enable Anki's V3 Scheduler](#11-enable-ankis-v3-scheduler)
-  - [1.2 Paste FSRS Scheduler Code](#12-paste-fsrs-scheduler-code)
+- [Introduction](#Introduction)
+- [Installation ](#Installation)
+  - [1 Enable the V3 scheduler in Anki](#1-Enable-the-V3-scheduler-in-Anki)
+  - [2 Export your deck/collection](#2-Export-your-deck/collection)
+  - [3 Go to the optimizer page and run the optimizer](#3-Go-to-the-optimizer-page-and-run-the-optimizer)
 - [2 Advanced Usage](#2-advanced-usage)
   - [2.1 Generate Personalized Parameters](#21-generate-personalized-parameters)
     - [2.1a Google Colab](#21a-google-colab)
     - [2.1b Website](#21b-website)
     - [2.1c Command Line](#21c-command-line)
-    - [2.1d Anki Addon](#21d-anki-addon-experimental) **EXPERIMENTAL**
   - [2.2 Deck Parameter Settings](#22-deck-parameter-settings)
 - [3 Using the Helper Add-on](#3-using-the-helper-add-on)
 - [FAQ](#faq)
