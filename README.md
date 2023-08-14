@@ -23,7 +23,6 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 # Table of contents
 
-- [FSRS4Anki](#fsrs4anki)
 - [Introduction](#Introduction)
 - [Installation](#Installation)
   - [1. Enable the V3 scheduler in Anki](#1-Enable-the-V3-scheduler-in-Anki)
