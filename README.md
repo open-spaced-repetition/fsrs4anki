@@ -84,7 +84,7 @@ To run the optimizer, either press Ctrl+F9 or go to Runtime > Run all.
 ![5](https://github.com/Expertium/fsrs4anki/assets/83031600/2476c8bc-a327-4a4a-8de2-96efbd9da60d)
 
 Additionally, if you are worried about privacy and don’t trust Google Collab, you can do the following before running the optimizer: 
-Go to Browse > Notes > Find and Replace. Type (.|\n)* in the Find field and keep the Replace With field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
+Go to Browse > Notes > Find and Replace. Type (.|\n)* in the "Find" field and keep the "Replace With" field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
 
 ![14](https://github.com/Expertium/fsrs4anki/assets/83031600/a8be6994-c8b0-4df3-868f-e566f04a5f12)
 
