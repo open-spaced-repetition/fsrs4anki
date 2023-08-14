@@ -74,7 +74,7 @@ Go to Browse > Notes > Find and Replace. Type (.|\n)* in the "Find" field and ke
 
 ![14](https://github.com/Expertium/fsrs4anki/assets/83031600/a8be6994-c8b0-4df3-868f-e566f04a5f12)
 
-**This will make all fields in all your notes blank. PLEASE MAKE A BACKUP BEFORE DOING THIS!**
+**This will make all fields in all your notes blank. PLEASE CREATE A BACKUP BEFORE DOING THIS!**
 Then export your collection with blanked out fields. Again, this is not necessary, just an extra measure for those who are worried about privacy.
 
 ## 3. Go to the optimizer page and run the optimizer
