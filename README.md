@@ -26,7 +26,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 - [FSRS4Anki](#fsrs4anki)
 - [Introduction](#Introduction)
 - [Installation](#Installation)
-  - [1. Enable the V3 scheduler in Anki](#1.-Enable-the-V3-scheduler-in-Anki)
+  - [1 Enable the V3 scheduler in Anki](#1-Enable-the-V3-scheduler-in-Anki)
   - [2 Export your deck/collection](#2-Export-your-deck/collection)
   - [3 Go to the optimizer page and run the optimizer](#3-Go-to-the-optimizer-page-and-run-the-optimizer)
   - [4 Copy the optimal parameters](#4-Copy-the-optimal-parameters)
