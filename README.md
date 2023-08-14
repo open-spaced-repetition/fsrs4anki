@@ -135,7 +135,7 @@ If you don’t see D, S and R, and only see “FSRS enabled”, that means the c
 
 You can check some interesting FSRS statistics after installing the add-on and then pressing Shift+Left Mouse Button on Stats.
 
-![15](https://github.com/Expertium/fsrs4anki/assets/83031600/8930a547-b22f-42ab-929c-90602feeac82)
+![15](https://github.com/Expertium/fsrs4anki/assets/83031600/83712376-418c-473e-93f5-0364862c3654)
 
 Additionally, if you are worried about privacy and don’t trust Google Collab, you can do the following before running the optimizer: 
 Go to Browse > Notes > Find and Replace. Type (.|\n)* in the Find field and keep the Replace With field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
