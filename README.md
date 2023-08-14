@@ -107,7 +107,7 @@ Choose your requested retention and max. interval:
 
 ![9](https://github.com/Expertium/fsrs4anki/assets/83031600/168248f8-bee3-4f7d-bb55-20aa0f07e9c1)
 
-Higher requested retention leads to more reviews/day. FSRS’s Maximum interval overrides Anki’s built in maximum interval.
+Higher requested retention leads to more reviews/day. FSRS’s "Maximum interval" overrides Anki’s built in maximum interval.
 
 Ensure that your learning and re-learning steps are **no longer than 1 day** for every single deck. Other settings, such as “Graduating interval” and “Easy interval”, don’t matter. For more details about which Anki settings matter and which are obsolete, see FAQ: https://github.com/open-spaced-repetition/fsrs4anki/wiki/FAQ
 
