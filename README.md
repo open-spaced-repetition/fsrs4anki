@@ -69,13 +69,13 @@ Make sure to select “Include scheduling information” and “Support older An
 
 ![2](https://github.com/Expertium/fsrs4anki/assets/83031600/66eb57b6-81ca-4ba5-a0d8-bada9daf9a59)
 
-Additionally, if you are worried about privacy and don’t trust Google Collab or L-M-Sherlock, you can do the following before running the optimizer: 
+Additionally, if you are worried about privacy, you can do the following before running the optimizer: 
 Go to Browse > Notes > Find and Replace. Type (.|\n)* in the "Find" field and keep the "Replace With" field empty. Be sure to check (✓) the "Treat input as regular expression" option. Uncheck “Selected notes only” if you want to apply this to all notes.
 
 ![14](https://github.com/Expertium/fsrs4anki/assets/83031600/a8be6994-c8b0-4df3-868f-e566f04a5f12)
 
 **This will make all fields in all your notes blank. PLEASE CREATE A BACKUP BEFORE DOING THIS!**
-Then export your collection with blanked out fields. Again, this is not necessary, and I don't see a good reason to distrust Sherlock or Google Collab. This is just an extra measure in case you are paranoid about privacy.
+Then export your collection with blanked out fields. Again, this is not necessary, this is just an extra measure in case you are worried about privacy.
 
 ## 3. Go to the optimizer page and run the optimizer
 
