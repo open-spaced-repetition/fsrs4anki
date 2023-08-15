@@ -40,11 +40,11 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 FSRS4Anki consists of two main parts: scheduler and optimizer.
 
-The scheduler is based on a variant of the DSR (Difficulty, Stability, Retrievability) model, which is used to predict memory states. The scheduler aims to achieve the requested retention for each card and each review.
+The scheduler replaces the Anki's built-in scheduler and schedules the cards according to the FSRS algorithm.
 
-The optimizer applies *Maximum Likelihood Estimation* and *Backpropagation Through Time* to estimate the stability of memory and learn the laws of memory from time-series review logs. Then, it can find the optimal retention to minimize the repetitions via the stochastic shortest path algorithm.
+The optimizer uses machine learning to learn your memory patterns and finds parameters that provide the best fit to your review history.
 
-For more detail on the mechanism of the FSRS algorithm, please see my papers:
+For more details about the FSRS algorithm, please read the [Wiki](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm). If you are interested, you can also read my papers:
 - [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://www.maimemo.com/paper/) (free access), and
 - [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://www.researchgate.net/publication/369045947_Optimizing_Spaced_Repetition_Schedule_by_Capturing_the_Dynamics_of_Memory) (submit request).
 
@@ -94,15 +94,15 @@ Then open any deck for review and you'll see the following message:
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/0a5d4561-6052-45f3-91a5-5f21dd6497b9)
 
-If you don’t see D, S and R, and only see “FSRS enabled”, it means that the card is in the “learning” or “relearning” stage, not in the “review” stage.
+This shows that the FSRS scheduler is running normally. If you don’t see D, S and R, and only see “FSRS enabled”, it means that the card is in the “learning” or “relearning” stage, not in the “review” stage.
 
-This shows that the FSRS scheduler is running normally. You can then change the code back and the message will no longer display.
+You can then change the code back and the message will no longer display.
 
 ## Step 2: Personalizing FSRS
 
-To ensure that FSRS suits your learning needs, you'll need to follow a two-step process.
+Personalizing FSRS for your learning needs involves a two-step process.
 
-- First, you'll need to train the FSRS parameters for your collection, tailoring the algorithm to your learning patterns..
+- First, you'll need to train the FSRS parameters for your collection using the FSRS optimizer, tailoring the algorithm to your learning patterns.
 - Next, you'll need to choose the desired retention rate and maximum interval.
 
 Let's now discuss both of these steps in detail.
@@ -111,7 +111,7 @@ Let's now discuss both of these steps in detail.
 
 For most users, it is advisable to use one of the following two methods (Google Colab and Hugging Face) for training the parameters. Advanced users can explore other options mentioned here (provide link).
 
-However, the FSRS optimizer requires a minimum of 2000 reviews to produce accurate results. If you don't have enough data, you can skip this step and use the default parameters, which are already entered in the scheduler code.
+Note that the FSRS optimizer requires a minimum of 2000 reviews to produce accurate results. If you don't have enough data, you can skip this step and use the default parameters instead, which are already entered into the scheduler code.
 
 <details>
   <summary>Method 1: Training using Google Colab</summary>
@@ -168,13 +168,13 @@ As an aid in deciding this value, you can view your past retention rate in Anki 
 
 You can set a higher `requestRetention` but keep in mind that as you increase the `requestRetention` above 0.90, the review load (reviews/day) would increase very rapidly. For the same reason, it is not advisable to use a `requestRetention` greater than 0.97.
 
-After deciding the value of requestRetention, put this into the scheduler code. At the same time, decide the value of `maximumInterval`, which is the maximum interval any card is allowed to attain. The value in the FSRS scheduler code overrides the value set in Anki's deck options.
+After deciding the value of `requestRetention`, put this into the scheduler code. At the same time, decide the value of `maximumInterval`, which is the maximum interval any card is allowed to attain. The value in the FSRS scheduler code overrides the value set in Anki's deck options.
 
 ![ Add screenshot ]
 
 After performing the above steps, you are ready to start using FSRS. Just start reviewing and FSRS will do its work.
 
-For better results, you are advised to reschedule your existing cards using the FSRS4Anki Helper add-on. This is a one-time measure to reschedule the cards that were previously scheduled according to Anki's built-in algorithm.
+However, for better results, you are advised to reschedule your existing cards using the FSRS4Anki Helper add-on. This is a one-time measure to reschedule the cards that were previously scheduled according to Anki's built-in algorithm.
 
 Read about the add-on here: https://github.com/open-spaced-repetition/fsrs4anki-helper
 
@@ -225,10 +225,6 @@ If there are some decks you don't want to use FSRS with, you can add their names
 ```javascript
 const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
 ```
-
-## Using the Helper Add-on
-
-Please see: [FSRS4Anki Helper](https://github.com/open-spaced-repetition/fsrs4anki-helper)
 
 # FAQ
 
