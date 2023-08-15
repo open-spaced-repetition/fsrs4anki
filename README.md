@@ -83,7 +83,7 @@ Replace `collection-2022-09-18@13-21-58.colpkg` with the name of your deck/colle
 
 ![3](https://github.com/Expertium/fsrs4anki/assets/83031600/0b163c3e-f6e2-458b-a4a5-f73492f22da2)
 
-Go to Tools > Preferences > Review > Next day starts at to find out your value for next_day_starts_at.
+Go to Tools > Preferences > Review > Next day starts at to find out your value of `next_day_starts_at`.
 
 ![4](https://github.com/Expertium/fsrs4anki/assets/83031600/36cfd965-c7b1-4824-9000-c9c36feee0c3)
 
