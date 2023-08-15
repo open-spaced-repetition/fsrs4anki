@@ -81,6 +81,10 @@ Then export your collection with blanked out fields. Again, this is not necessar
 
 https://colab.research.google.com/github/open-spaced-repetition/fsrs4anki/blob/v4.5.3/fsrs4anki_optimizer.ipynb
 
+Click here to upload your deck/collection: 
+
+![16](https://github.com/Expertium/fsrs4anki/assets/83031600/9df93a36-ba1c-4403-bf79-ebc0e63a98cc)
+
 Replace `collection-2022-09-18@13-21-58.colpkg` with the name of your deck/collection. Collections have .colpkg at the end of the filename, and decks have .apkg. Replace ‘Asia/Shanghai’ with your timezone, there is a link to the list of timezones.
 
 ![3](https://github.com/Expertium/fsrs4anki/assets/83031600/0b163c3e-f6e2-458b-a4a5-f73492f22da2)
