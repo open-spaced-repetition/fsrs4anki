@@ -94,7 +94,7 @@ Then open any deck for review and you'll see the following message:
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/0a5d4561-6052-45f3-91a5-5f21dd6497b9)
 
-If you don’t see D, S and R, and only see “FSRS enabled”, this means that the card is in the “learning” or “relearning” stage, not in the “review” stage.
+If you don’t see D, S and R, and only see “FSRS enabled”, it means that the card is in the “learning” or “relearning” stage, not in the “review” stage.
 
 This shows that the FSRS scheduler is running normally. You can then change the code back and the message will no longer display.
 
@@ -242,7 +242,7 @@ Some add-ons modify the scheduling of Anki, which would cause conflict with FSRS
 | ------------------------------------------------------------ |-------------------| ------- |
 |[Advanced Review Bottom Bar](https://ankiweb.net/shared/info/1136455830)|Yes✅|Please use the latest version.|
 |[Incremental Reading v4.11.3 (unofficial clone)](https://ankiweb.net/shared/info/999215520)|No❌|It shows the interval given by Anki's built-in scheduler, not the custom scheduler.|
-| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021)|Yes✅|`Ease Factor` doesn't affect the interval given by FSRS.|
+| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021)|No❌|`Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
 | [Delay siblings](https://ankiweb.net/shared/info/1369579727) |No❌|Delay siblings will modify the intervals given by FSRS. However, FSRS4Anki Helper add-on has a similar feature that works better with FSRS. So, you should use the FSRS4Anki Helper add-on instead.|
 | [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |Yes✅|`New Interval` doesn't affect the interval given by FSRS.|
 | [Straight Reward](https://ankiweb.net/shared/info/957961234) |No❌|`Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
