@@ -23,13 +23,11 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 # Table of contents
 
-- [FSRS4Anki](#fsrs4anki)
 - [Introduction](#introduction)
 - [How to Get Started?](#how-to-get-started)
   - [Step 1: Enabling the FSRS Scheduler](#step-1-enabling-the-fsrs-scheduler)
   - [Step 2: Personalizing FSRS](#step-2-personalizing-fsrs)
 - [Configuring Different Parameters for Different Decks](#configuring-different-parameters-for-different-decks)
-- [Using the Helper Add-on](#using-the-helper-add-on)
 - [FAQ](#faq)
 - [Compatibility](#compatibility)
 - [Contribute](#contribute)
