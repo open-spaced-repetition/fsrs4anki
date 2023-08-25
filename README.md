@@ -36,14 +36,14 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 # Introduction
 
-FSRS4Anki consists of two main parts: scheduler and optimizer.
+FSRS4Anki consists of two main parts: the scheduler and the optimizer.
 
-- The scheduler replaces the Anki's built-in scheduler and schedules the cards according to the FSRS algorithm.
-- The optimizer uses machine learning to learn your memory patterns and finds parameters that provide the best fit to your review history. For details about the working of the optimizer, please read [the mechanism of optimization](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-mechanism-of-optimization).
+- The scheduler replaces Anki's built-in scheduler and schedules the cards according to the FSRS algorithm.
+- The optimizer uses machine learning to learn your memory patterns and finds parameters that best fit your review history. For details about the working of the optimizer, please read [the mechanism of optimization](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-mechanism-of-optimization).
 
 For details about the FSRS algorithm, please read [the algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm). If you are interested, you can also read my papers:
 - [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://www.maimemo.com/paper/) (free access), and
-- [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://www.researchgate.net/publication/369045947_Optimizing_Spaced_Repetition_Schedule_by_Capturing_the_Dynamics_of_Memory) (submit request).
+- [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://www.researchgate.net/publication/369045947_Optimizing_Spaced_Repetition_Schedule_by_Capturing_the_Dynamics_of_Memory) (submit a request).
 
 FSRS4Anki Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You can read about it here: https://github.com/open-spaced-repetition/fsrs4anki-helper
 
@@ -51,10 +51,10 @@ FSRS4Anki Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You
 
 中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
 
-To get started with FSRS, you'll need to follow a two-step process.
+To get started with FSRS, you must follow a two-step process.
 
-- First, you'll need to enable the FSRS scheduler in your Anki application.
-- Next, you'll need to personalize FSRS to suit your learning patterns.
+- First, you must enable the FSRS scheduler in your Anki application.
+- Next, you must personalize FSRS to suit your learning patterns.
 
 Let's now discuss both of these steps in detail.
 
@@ -72,7 +72,7 @@ Go to Tools > Preferences > Review > Enable V3 Scheduler.
 - In Anki, open the deck options of any deck (it doesn’t matter which deck). Find the Advanced Settings column, and paste the code you copied into the Custom Scheduling field:
 <p align="center"><img width="625" alt="image" src="https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/5c292f91-8845-4f8c-ac42-55f9a0f2946e"></p>
 
-- Ensure that the learning and re-learning steps are shorter than 1 day in any deck that you want to use with FSRS. Other settings, such as “Graduating interval” and “Easy interval”, don’t matter. For more details about which Anki settings matter and which are obsolete, see the [FAQs](https://github.com/open-spaced-repetition/fsrs4anki/wiki/FAQ).
+- Ensure that the learning and re-learning steps are shorter than 1 day in any deck you want to use with FSRS. Other settings, such as “Graduating interval” and “Easy interval”, don’t matter. For more details about which Anki settings matter and which are obsolete, see the [FAQs](https://github.com/open-spaced-repetition/fsrs4anki/wiki/FAQ).
 <p align="center"><img width="625" alt="image" src="https://github.com/user1823/fsrs4anki/assets/32575846/ba36847d-28f5-4df3-b4b3-4ff425609c04"></p>
 
 After you perform the above steps, the FSRS4Anki Scheduler should ideally be active. If you want to confirm this, you can change this part of the code:
@@ -99,8 +99,8 @@ You can then change the code back and the message will no longer display.
 
 Personalizing FSRS for your learning needs involves a two-step process.
 
-- First, you'll need to train the FSRS parameters for your collection using the FSRS optimizer, tailoring the algorithm to your learning patterns.
-- Next, you'll need to choose the desired retention rate and maximum interval.
+- First, you must train the FSRS parameters for your collection using the FSRS optimizer, tailoring the algorithm to your learning patterns.
+- Next, you must choose the desired retention rate and maximum interval.
 
 Let's now discuss both of these steps in detail.
 
@@ -108,7 +108,7 @@ Let's now discuss both of these steps in detail.
 
 For most users, it is advisable to use one of the following two methods (Google Colab and Hugging Face) for training the parameters. Advanced users can explore other options mentioned [here](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Advanced-methods-of-optimization).
 
-Note that the FSRS optimizer requires a minimum of 2000 reviews to produce accurate results. If you don't have enough data, you can skip this step and use the default parameters instead, which are already entered into the scheduler code.
+Note that the FSRS optimizer requires a minimum of 2,000 reviews to produce accurate results. If you don't have enough data, you can skip this step and use the default parameters instead, which are already entered into the scheduler code.
 
 <details>
   <summary>Method 1: Training using Google Colab</summary>
@@ -132,7 +132,7 @@ Google may have access to the uploaded data. But, the risk is similar to uploadi
 
 If you are too worried about privacy, you still have two options.
 - Advanced users can run the script locally using the options mentioned [here](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Advanced-methods-of-optimization).
-- Other users can export their collection with blanked out fields. To do this, go through the following steps:
+- Other users can export their collection with blanked-out fields. To do this, go through the following steps:
     - Take a backup by going to `File → Create Backup` just in case anything goes wrong.
     - Go to `Browse > Notes > Find and Replace`.
     - Type `(.|\n)*` in the "Find" field and keep the "Replace With" field empty.
@@ -145,8 +145,8 @@ If you are too worried about privacy, you still have two options.
 <p align="center"><img width="625" alt="image" src="https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/65da272d-7a01-4c46-a1d9-093e548f1a2d"></p>
 
 - After uploading the file, replace the `collection-2022-09-18@13-21-58.colpkg` with the name of your uploaded file.
-- Replace `Asia/Shanghai` with your timezone. The notebook contains a link to the list of timezones.
-- Also, replace the value of `next_day_starts_at`. To find out this value, Go to `Tools > Preferences > Review > Next day starts at` in your Anki. 
+- Replace `Asia/Shanghai` with your timezone. The notebook contains a link to the list of time zones.
+- Also, replace the value of `next_day_starts_at`. To find this value, Go to `Tools > Preferences > Review > Next day starts at` in your Anki. 
 
 <p align="center"><img width="625" alt="image" src="https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/f344064c-4ccf-4884-94d0-fc0a1d3c3c24"></p>
 
@@ -172,7 +172,7 @@ After training the parameters by either of the methods above, replace the parame
 
 <p align="center"><img width="625" alt="image" src="https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/70b3b45a-f014-4574-81eb-cad6d19f93d9"></p>
 
-⚠️Note: when replacing these parameters, make sure that you don't accidentally erase the square brackets or the comma after the closing bracket. The code will break without them.
+⚠️Note: When replacing these parameters, make sure that you don't accidentally erase the square brackets or the comma after the closing bracket. The code will break without them.
 
 Even after you start using FSRS, you should re-train the parameters once in every two months. However, it depends on how old your collection is. Users with relatively newer collections might want to re-optimize monthly. Re-optimization will ensure that FSRS works well with your current patterns of learning.
 
@@ -182,7 +182,7 @@ Now, you need to choose your `requestRetention`, which denotes the retention rat
 
 As an aid in deciding this value, you can view your past retention rate in Anki stats. For example, if your retention rate in the past was 90%, you can set 0.90 as your `requestRetention`.
 
-You can set a higher `requestRetention` but keep in mind that as you increase the `requestRetention` above 0.90, the review load (reviews/day) would increase very rapidly. For the same reason, it is not advisable to use a `requestRetention` greater than 0.97.
+You can set a higher `requestRetention` but keep in mind that as you increase the `requestRetention` above 0.90, the review load (reviews/day) will increase very rapidly. For the same reason, it is not advisable to use a `requestRetention` greater than 0.97.
 
 After deciding the value of `requestRetention`, put this into the scheduler code. At the same time, decide the value of `maximumInterval`, which is the maximum interval any card is allowed to attain. The value in the FSRS scheduler code overrides the value set in Anki's deck options.
 
@@ -214,7 +214,7 @@ const deckParams = [
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
-    "requestRetention": 0.9, // recommended setting: 0.75 ~ 0.95
+    "requestRetention": 0.9, // recommended setting: 0.75 - 0.95
     "maximumInterval": 36500,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
@@ -249,23 +249,23 @@ Here, I have collected some frequently asked questions: [FAQ](https://github.com
 
 # Compatibility
 
-Some add-ons modify the scheduling of Anki, which would cause conflict with FSRS4Anki scheduler.
+Some add-ons modify the scheduling of Anki, which would cause conflict with the FSRS4Anki scheduler.
 
 | Add-on                                                       | Compatible? | Comment |
 | ------------------------------------------------------------ |-------------------| ------- |
 |[Advanced Review Bottom Bar](https://ankiweb.net/shared/info/1136455830)|Yes✅|Please use the latest version.|
 | [Pass/Fail](https://ankiweb.net/shared/info/876946123) |Yes✅| `Pass` is the equivalent of `Good`.|
 |[Incremental Reading v4.11.3 (unofficial clone)](https://ankiweb.net/shared/info/999215520)|No❌|It shows the interval given by Anki's built-in scheduler, not the custom scheduler.|
-| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021)|No❌|`Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
-| [Delay siblings](https://ankiweb.net/shared/info/1369579727) |No❌|Delay siblings will modify the intervals given by FSRS. However, FSRS4Anki Helper add-on has a similar feature that works better with FSRS. So, you should use the FSRS4Anki Helper add-on instead.|
-| [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No❌|`New Interval` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
-| [Straight Reward](https://ankiweb.net/shared/info/957961234) |No❌|`Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
+| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021)|No❌|The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
+| [Delay siblings](https://ankiweb.net/shared/info/1369579727) |No❌|Delay siblings will modify the intervals given by FSRS. However, the FSRS4Anki Helper add-on has a similar feature that works better with FSRS. So, use the FSRS4Anki Helper add-on instead.|
+| [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No❌|The `New Interval` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
+| [Straight Reward](https://ankiweb.net/shared/info/957961234) |No❌|The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
 
 Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if I miss any add-ons.
 
 # Contribute
 
-You can contribute to FSRS4Anki by beta testing, submitting code, or sharing your data. If you want to share your data with me, please fill this form: https://forms.gle/KaojsBbhMCytaA7h8
+You can contribute to FSRS4Anki by beta testing, submitting code, or sharing your data. If you want to share your data with me, please fill out this form: https://forms.gle/KaojsBbhMCytaA7h8
 
 ## Contributors
 
