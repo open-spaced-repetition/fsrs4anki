@@ -190,7 +190,8 @@ After deciding the value of `requestRetention`, put this into the scheduler code
 
 After performing the above steps, you are ready to start using FSRS. Just start reviewing and FSRS will do its work.
 
-However, for better results, you can install the [FSRS4Anki Helper add-on](https://ankiweb.net/shared/info/759844606) and use it to reschedule your existing cards. This is a one-time measure to reschedule the cards that were previously scheduled according to Anki's built-in algorithm. Read about the add-on here: https://github.com/open-spaced-repetition/fsrs4anki-helper
+### Using the FSRS4Anki Helper add-on to reschedule existing cards
+After setting up FSRS in your Anki, you can install the [FSRS4Anki Helper add-on](https://ankiweb.net/shared/info/759844606) and use it to reschedule your existing cards. This is a one-time measure to reschedule the cards that were previously scheduled according to Anki's built-in algorithm. The add-on also offers many other useful features. Read more about the add-on here: https://github.com/open-spaced-repetition/fsrs4anki-helper
 
 <p align="center"><img width="625" alt="image" src="https://github.com/user1823/fsrs4anki/assets/32575846/92289976-8b35-44b3-b5cd-3e6f89759c8d"></p>
 
