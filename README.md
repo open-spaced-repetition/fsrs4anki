@@ -106,7 +106,7 @@ Let's now discuss both of these steps in detail.
 
 ### Step 2.1 Training the FSRS Parameters
 
-For most users, it is advisable to use one of the following two methods (Google Colab and Hugging Face) for training the parameters. Advanced users can explore other options mentioned here (provide link).
+For most users, it is advisable to use one of the following two methods (Google Colab and Hugging Face) for training the parameters. Advanced users can explore other options mentioned [here](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Advanced-methods-of-optimization).
 
 Note that the FSRS optimizer requires a minimum of 2000 reviews to produce accurate results. If you don't have enough data, you can skip this step and use the default parameters instead, which are already entered into the scheduler code.
 
@@ -131,7 +131,7 @@ The decks that you upload to the optimizer can't be accessed by the author of FS
 Google may have access to the uploaded data. But, the risk is similar to uploading the data to your personal Google Drive folder.
 
 If you are too worried about privacy, you still have two options.
-- Advanced users can run the script locally using the options mentioned here. (provide link)
+- Advanced users can run the script locally using the options mentioned [here](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Advanced-methods-of-optimization).
 - Other users can export their collection with blanked out fields. To do this, go through the following steps:
     - Take a backup by going to `File → Create Backup` just in case anything goes wrong.
     - Go to `Browse > Notes > Find and Replace`.
