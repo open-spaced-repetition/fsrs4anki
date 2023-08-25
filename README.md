@@ -51,10 +51,10 @@ FSRS4Anki Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You
 
 中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
 
-To get started with FSRS, you must follow a two-step process.
+To get started with FSRS, you'll need to follow a two-step process.
 
-- First, you must enable the FSRS scheduler in your Anki application.
-- Next, you must personalize FSRS to suit your learning patterns.
+- First, you'll need to enable the FSRS scheduler in your Anki application.
+- Next, you'll need to personalize FSRS to suit your learning patterns.
 
 Let's now discuss both of these steps in detail.
 
@@ -99,8 +99,8 @@ You can then change the code back and the message will no longer display.
 
 Personalizing FSRS for your learning needs involves a two-step process.
 
-- First, you must train the FSRS parameters for your collection using the FSRS optimizer, tailoring the algorithm to your learning patterns.
-- Next, you must choose the desired retention rate and maximum interval.
+- First, you'll need to train the FSRS parameters for your collection using the FSRS optimizer, tailoring the algorithm to your learning patterns.
+- Next, you'll need to choose the desired retention rate and maximum interval.
 
 Let's now discuss both of these steps in detail.
 
