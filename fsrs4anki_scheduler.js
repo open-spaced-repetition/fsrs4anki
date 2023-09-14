@@ -1,14 +1,6 @@
-// FSRS4Anki v3.20.0 Scheduler Qt6
+// FSRS4Anki v4.5.6 Scheduler Qt6
 set_version();
-// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki
-
-// REVERSE ENGINEERING START
-// print the existing states
-console.log(ctx);
-console.log(get_tags());
-// load the debugger if the web inspector is open
-debugger;
-// REVERSE ENGINEERING END
+// The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
 // Configuration Start
 
@@ -16,78 +8,42 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
+    "w": [1.1395, 1.1395, 5.4265, 14.108, 5.3118, 1.5623, 1.2709, 0.0029, 1.5496, 0.1731, 0.9959, 2.7492, 0.0162, 0.3132, 0.3941, 0.0, 2.0857],
     // The above parameters can be optimized via FSRS4Anki optimizer.
-    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/Free-Spaced-Repetition-Scheduler
+    // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
-    "requestRetention": 0.95, // recommended setting: 0.8 ~ 0.9
-    "maximumInterval": 35565,
-    "easyBonus": 1.5,
-    "hardInterval": 1.2,
+    "requestRetention": 0.91, // recommended setting: 0.75 ~ 0.95
+    "maximumInterval": 36500,
     // FSRS only modifies the long-term scheduling. So (re)learning steps in deck options work as usual.
     // I recommend setting steps shorter than 1 day.
   },
   {
-    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​Easy",
-    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
-    "requestRetention": 0.75,
-    "maximumInterval": 240,
-    "easyBonus": 1.5,
-    "hardInterval": 1.0,
+    // Example 1: User's custom parameters for this deck and its sub-decks.
+    "deckName": "​​Personal",
+    "w": [0.3469, 1.2058, 3.6185, 7.5283, 5.0577, 1.158, 0.9182, 0.0613, 1.4778, 0.1, 0.9284, 2.2341, 0.0354, 0.3872, 1.3764, 0.1928, 2.61],
+    "requestRetention": 0.9,
+    "maximumInterval": 36500,
   },
   {
-    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Medium",
-    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
-    "requestRetention": 0.75,
-    "maximumInterval": 180,
-    "easyBonus": 1.5,
-    "hardInterval": 1.0,
+    // Example 2: User's custom parameters for this deck and its sub-decks.
+    // Don't omit any keys.
+    "deckName": "​SRE💰",
+    "w": [1.2803, 1.2803, 3.6398, 5.8, 4.7209, 1.7206, 1.548, 0.0, 2.1424, 0.1525, 1.5412, 2.2735, 0.0682, 0.4277, 1.4582, 0.0005, 3.2594],
+    "requestRetention": 0.91,
+    "maximumInterval": 36500,
   },
   {
-    "deckName": "​SRE💰::​Software Engineering::Leetcode::Problems::​​Hard",
-    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
-    "requestRetention": 0.6,
-    "maximumInterval": 120,
-    "easyBonus": 1.5,
-    "hardInterval": 1.0,
-  },
-  {
-    "deckName": "Numbers You Should Know",
-    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
+    // Example 1: User's custom parameters for this deck and its sub-decks.
+    "deckName": "​SRE💰::​​​​​​​Numbers You Should Know",
+    "w": [0.5786, 0.6, 1.7459, 3.5585, 4.7548, 0.8957, 0.8386, 0.0629, 1.6831, 0.1, 1.1317, 2.3432, 0.0101, 0.4952, 1.3265, 0.1933, 2.61],
     "requestRetention": 0.95,
-    "maximumInterval": 60,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
+    "maximumInterval": 36500,
   },
-  {
-    "deckName": "Personal",
-    "w": [1.1379, 1.424, 4.6762, -1.0338, -1.2983, 0.05, 1.9417, -0.1661, 1.3268, 1.838, -0.3782, 0.5767, 0.7657],
-    "requestRetention": 0.90,
-    "maximumInterval": 35565,
-    "easyBonus": 1.3,
-    "hardInterval": 1.2,
-  }
 ];
 
-// you can add multiple shared configs too
-const decks_with_shared_config = {
-  "config to be shared among several decks": [
-    "example::deck::name1",
-    "example::deck::name2",
-    "example::deck::name3",
-  ],
-  "other config to be shared among several decks": [
-    "example::deck::name1",
-    "example::deck::name2",
-    "example::deck::name3",
-  ],
-};
-
-
 // To turn off FSRS in specific decks, fill them into the skip_decks list below.
-// And add <div id=deck deck_name="{{Deck}}"></div> to your card's front template's first line.
 // Please don't remove it even if you don't need it.
-const skip_decks = ["ALL::Learning::ML::NNDL", "ALL::Learning::English"];
+const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
 
 // "Fuzz" is a small random delay applied to new intervals to prevent cards from
 // sticking together and always coming up for review on the same day
@@ -103,60 +59,40 @@ debugger;
 
 // display if FSRS is enabled
 if (display_memory_state) {
-  const prev = document.getElementById('FSRS_status')
-  if (prev) { prev.remove(); }
-  var fsrs_status = document.createElement('span');
+  const prev = document.getElementById("FSRS_status");
+  if (prev) {
+    prev.remove();
+  }
+  var fsrs_status = document.createElement("span");
   fsrs_status.innerHTML = "<br>FSRS enabled";
   fsrs_status.id = "FSRS_status";
-  fsrs_status.style.cssText = "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;";
+  fsrs_status.style.cssText =
+    "font-size:12px;opacity:0.5;font-family:monospace;text-align:left;line-height:1em;";
   document.body.appendChild(fsrs_status);
   document.getElementById("qa").style.cssText += "min-height:50vh;";
 }
-
-// add decks with shared config to deck parameters
-for (const deck_config_name in decks_with_shared_config) {
-  const deck_names = decks_with_shared_config[deck_config_name];
-  for (const deck_name of deck_names) {
-    const deck_param = Object.assign({}, deckParams.find(dp => dp.deckName === deck_config_name));
-    if (Object.keys(deck_param).length === 0) {
-      // I did not find the the deck config in deckParams, TODO give some warning to the user
-      continue;
-    };
-    deck_param.deckName = deck_name;
-    deckParams.push(deck_param);
-  };
-};
-
-// remove placeholders for shared deck configs
-for (const deck_name_to_remove in decks_with_shared_config) {
-  const deck_param_index = deckParams.findIndex(dp => dp.deckName == deck_name_to_remove);
-  if (deck_param_index > -1) {
-    deckParams.splice(deck_param_index, 1);
-  };
-};
-
-
-
 let params = {};
 // get the name of the card's deck
-if (deck_name = get_deckname()) {
+if ((deck_name = get_deckname())) {
   if (display_memory_state) {
     fsrs_status.innerHTML += "<br>Deck name: " + deck_name;
   }
   for (const i of skip_decks) {
-    if (deck_name.includes(i)) {
-      fsrs_status.innerHTML = fsrs_status.innerHTML.replace("FSRS enabled", "FSRS disabled");
+    if (deck_name.startsWith(i)) {
+      fsrs_status.innerHTML = fsrs_status.innerHTML.replace(
+        "FSRS enabled",
+        "FSRS disabled",
+      );
       return;
     }
   }
   // Arrange the deckParams of sub-decks in front of their parent decks.
-  deckParams.sort(function(a, b) {
+  deckParams.sort(function (a, b) {
     return -a.deckName.localeCompare(b.deckName);
   });
   for (let i = 0; i < deckParams.length; i++) {
-    console.log("checking if " + deck_name + " includes " + deckParams[i]["deckName"])
-    if (deck_name.includes(deckParams[i]["deckName"])) {
-      console.log("deck name: " + deck_name + ", params: " + deckParams[i])
+    if (deck_name.startsWith(deckParams[i]["deckName"])) {
+      console.log("Found parameters for deck: ", deck_name);
       params = deckParams[i];
       break;
     }
@@ -167,29 +103,31 @@ if (deck_name = get_deckname()) {
   }
 }
 if (Object.keys(params).length === 0) {
-  params = deckParams.find(deck => deck.deckName === "global config for FSRS4Anki");
+  params = deckParams.find(
+    (deck) => deck.deckName === "global config for FSRS4Anki",
+  );
 }
 var w = params["w"];
-console.log("Using deck settings: " + params["deckName"])
 var requestRetention = params["requestRetention"];
 var maximumInterval = params["maximumInterval"];
-var easyBonus = params["easyBonus"];
-var hardInterval = params["hardInterval"];
 // auto-calculate intervalModifier
-const intervalModifier = Math.log(requestRetention) / Math.log(0.9);
+const intervalModifier = 9 * (1 / requestRetention - 1);
 // global fuzz factor for all ratings.
 const fuzz_factor = set_fuzz_factor();
 const ratings = {
-  "again": 1,
-  "hard": 2,
-  "good": 3,
-  "easy": 4
+  again: 1,
+  hard: 2,
+  good: 3,
+  easy: 4,
 };
 // For new cards
 if (is_new()) {
   init_states();
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+  const easy_interval = Math.max(
+    next_interval(customData.easy.s),
+    good_interval + 1,
+  );
   if (states.good.normal?.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -203,7 +141,10 @@ if (is_new()) {
     init_states();
   }
   const good_interval = next_interval(customData.good.s);
-  const easy_interval = Math.max(next_interval(customData.easy.s * easyBonus), good_interval + 1);
+  const easy_interval = Math.max(
+    next_interval(customData.easy.s),
+    good_interval + 1,
+  );
   if (states.good.normal?.review) {
     states.good.normal.review.scheduledDays = good_interval;
   }
@@ -216,27 +157,53 @@ if (is_new()) {
   if (is_empty()) {
     convert_states();
   }
-  const interval = states.current.normal?.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
+  const interval = states.current.normal?.review.elapsedDays
+    ? states.current.normal.review.elapsedDays
+    : states.current.filtered.rescheduling.originalState.review.elapsedDays;
   const last_d = customData.again.d;
   const last_s = customData.again.s;
-  const retrievability = Math.exp(Math.log(0.9) * interval / last_s);
+  const retrievability = Math.pow(1 + interval / (9 * last_s), -1);
   if (display_memory_state) {
-    const color = (retrievability * 100 > 80) ? "green" : "red";
-    const prompt = (retrievability * 100 > 80) ? "" : "<h2>Recommended to flag this card. Retention low.</h2>";
-    fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: <span style='color: " + color + "'>" + (retrievability * 100).toFixed(2) + "%. " + prompt + "</span>";
+    fsrs_status.innerHTML +=
+      "<br>D: " +
+      last_d +
+      "<br>S: " +
+      last_s +
+      "<br>R: " +
+      (retrievability * 100).toFixed(2) +
+      "%";
   }
   customData.again.d = next_difficulty(last_d, "again");
-  customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
+  customData.again.s = next_forget_stability(
+    customData.again.d,
+    last_s,
+    retrievability,
+  );
   customData.hard.d = next_difficulty(last_d, "hard");
-  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability);
+  customData.hard.s = next_recall_stability(
+    customData.hard.d,
+    last_s,
+    retrievability,
+    "hard",
+  );
   customData.good.d = next_difficulty(last_d, "good");
-  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability);
+  customData.good.s = next_recall_stability(
+    customData.good.d,
+    last_s,
+    retrievability,
+    "good",
+  );
   customData.easy.d = next_difficulty(last_d, "easy");
-  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability);
-  let hard_interval = next_interval(last_s * hardInterval);
+  customData.easy.s = next_recall_stability(
+    customData.easy.d,
+    last_s,
+    retrievability,
+    "easy",
+  );
+  let hard_interval = next_interval(customData.hard.s);
   let good_interval = next_interval(customData.good.s);
-  let easy_interval = next_interval(customData.easy.s * easyBonus)
-  hard_interval = Math.min(hard_interval, good_interval)
+  let easy_interval = next_interval(customData.easy.s);
+  hard_interval = Math.min(hard_interval, good_interval);
   good_interval = Math.max(good_interval, hard_interval + 1);
   easy_interval = Math.max(easy_interval, good_interval + 1);
   if (states.hard.normal?.review) {
@@ -250,7 +217,7 @@ if (is_new()) {
   }
 }
 function constrain_difficulty(difficulty) {
-  return Math.min(Math.max(difficulty.toFixed(2), 1), 10);
+  return Math.min(Math.max(+difficulty.toFixed(2), 1), 10);
 }
 function apply_fuzz(ivl) {
   if (!enable_fuzz || ivl < 2.5) return ivl;
@@ -258,7 +225,9 @@ function apply_fuzz(ivl) {
   let min_ivl = Math.max(2, Math.round(ivl * 0.95 - 1));
   let max_ivl = Math.round(ivl * 1.05 + 1);
   if (is_review()) {
-    const scheduledDays = states.current.normal?.review.scheduledDays ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
+    const scheduledDays = states.current.normal?.review.scheduledDays
+      ? states.current.normal.review.scheduledDays
+      : states.current.filtered.rescheduling.originalState.review.scheduledDays;
     if (ivl > scheduledDays) {
       min_ivl = Math.max(min_ivl, scheduledDays + 1);
     }
@@ -270,21 +239,34 @@ function next_interval(stability) {
   return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 function next_difficulty(d, rating) {
-  let next_d = d + w[4] * (ratings[rating] - 3);
-  return constrain_difficulty(mean_reversion(w[2], next_d));
+  let next_d = d - w[6] * (ratings[rating] - 3);
+  return constrain_difficulty(mean_reversion(w[4], next_d));
 }
 function mean_reversion(init, current) {
-  return w[5] * init + (1 - w[5]) * current;
+  return w[7] * init + (1 - w[7]) * current;
 }
-function next_recall_stability(d, s, r) {
-  return +(s * (1 + Math.exp(w[6]) *
-    (11 - d) *
-    Math.pow(s, w[7]) *
-    (Math.exp((1 - r) * w[8]) - 1))).toFixed(2);
+function next_recall_stability(d, s, r, rating) {
+  let hardPenalty = rating === "hard" ? w[15] : 1;
+  let easyBonus = rating === "easy" ? w[16] : 1;
+  return +(
+    s *
+    (1 +
+      Math.exp(w[8]) *
+        (11 - d) *
+        Math.pow(s, -w[9]) *
+        (Math.exp((1 - r) * w[10]) - 1) *
+        hardPenalty *
+        easyBonus)
+  ).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
-  return +(w[9] * Math.pow(d, w[10]) * Math.pow(
-    s, w[11]) * Math.exp((1 - r) * w[12])).toFixed(2);
+  return +Math.min(
+    w[11] *
+      Math.pow(d, -w[12]) *
+      (Math.pow(s + 1, w[13]) - 1) *
+      Math.exp((1 - r) * w[14]),
+    s,
+  ).toFixed(2);
 }
 function init_states() {
   customData.again.d = init_difficulty("again");
@@ -297,16 +279,24 @@ function init_states() {
   customData.easy.s = init_stability("easy");
 }
 function init_difficulty(rating) {
-  return +constrain_difficulty(w[2] + w[3] * (ratings[rating] - 3)).toFixed(2);
+  return +constrain_difficulty(w[4] - w[5] * (ratings[rating] - 3)).toFixed(2);
 }
 function init_stability(rating) {
-  return +Math.max(w[0] + w[1] * (ratings[rating] - 1), 0.1).toFixed(2);
+  return +Math.max(w[ratings[rating] - 1], 0.1).toFixed(2);
 }
 function convert_states() {
-  const scheduledDays = states.current.normal ? states.current.normal.review.scheduledDays : states.current.filtered.rescheduling.originalState.review.scheduledDays;
-  const easeFactor = states.current.normal ? states.current.normal.review.easeFactor : states.current.filtered.rescheduling.originalState.review.easeFactor;
+  const scheduledDays = states.current.normal
+    ? states.current.normal.review.scheduledDays
+    : states.current.filtered.rescheduling.originalState.review.scheduledDays;
+  const easeFactor = states.current.normal
+    ? states.current.normal.review.easeFactor
+    : states.current.filtered.rescheduling.originalState.review.easeFactor;
   const old_s = +Math.max(scheduledDays, 0.1).toFixed(2);
-  const old_d = constrain_difficulty(11 - (easeFactor - 1) / (Math.exp(w[6]) * Math.pow(old_s, w[7]) * (Math.exp(0.1 * w[8]) - 1)));
+  const old_d = constrain_difficulty(
+    11 -
+      (easeFactor - 1) /
+        (Math.exp(w[8]) * Math.pow(old_s, -w[9]) * (Math.exp(0.1 * w[10]) - 1)),
+  );
   customData.again.d = old_d;
   customData.again.s = old_s;
   customData.hard.d = old_d;
@@ -323,7 +313,9 @@ function is_new() {
     }
   }
   if (states.current.filtered?.rescheduling?.originalState !== undefined) {
-    if (Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'new')) {
+    if (
+      Object.hasOwn(states.current.filtered?.rescheduling?.originalState, "new")
+    ) {
       return true;
     }
   }
@@ -336,7 +328,12 @@ function is_learning() {
     }
   }
   if (states.current.filtered?.rescheduling?.originalState !== undefined) {
-    if (Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'learning')) {
+    if (
+      Object.hasOwn(
+        states.current.filtered?.rescheduling?.originalState,
+        "learning",
+      )
+    ) {
       return true;
     }
   }
@@ -346,7 +343,12 @@ function is_learning() {
     }
   }
   if (states.current.filtered?.rescheduling?.originalState !== undefined) {
-    if (Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'relearning')) {
+    if (
+      Object.hasOwn(
+        states.current.filtered?.rescheduling?.originalState,
+        "relearning",
+      )
+    ) {
       return true;
     }
   }
@@ -359,47 +361,56 @@ function is_review() {
     }
   }
   if (states.current.filtered?.rescheduling?.originalState !== undefined) {
-    if (Object.hasOwn(states.current.filtered?.rescheduling?.originalState, 'review')) {
+    if (
+      Object.hasOwn(
+        states.current.filtered?.rescheduling?.originalState,
+        "review",
+      )
+    ) {
       return true;
     }
   }
   return false;
 }
 function is_empty() {
-  return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
+  return (
+    !customData.again.d |
+    !customData.again.s |
+    !customData.hard.d |
+    !customData.hard.s |
+    !customData.good.d |
+    !customData.good.s |
+    !customData.easy.d |
+    !customData.easy.s
+  );
 }
 function set_version() {
-  const version = "v4.0.0";
+  const version = "v4.5.6";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
   customData.easy.v = version;
 }
 function get_deckname() {
-  if (typeof ctx !== 'undefined' && ctx.deckName) {
+  if (typeof ctx !== "undefined" && ctx.deckName) {
     return ctx.deckName;
-  } else if (document.getElementById("deck") !== null && document.getElementById("deck").getAttribute("deck_name")) {
+  } else if (
+    document.getElementById("deck") !== null &&
+    document.getElementById("deck").getAttribute("deck_name")
+  ) {
     return document.getElementById("deck").getAttribute("deck_name");
   } else {
     return null;
   }
 }
-function get_tags() {
-  var tags = [];
-  if (document.getElementsByClassName("tags") !== []) {
-    var children = document.getElementsByClassName("tags")[0]?.children;
-    if(children === undefined || children === null){
-      return tags;
-    }
-    for(var i = 0; i < children.length; i++) {
-      tags.push(children[i].innerText);
-    }
-  }
-  return tags;
-}
 function get_seed() {
-  if (!customData.again.seed | !customData.hard.seed | !customData.good.seed | !customData.easy.seed) {
-    if (typeof ctx !== 'undefined' && ctx.seed) {
+  if (
+    !customData.again.seed |
+    !customData.hard.seed |
+    !customData.good.seed |
+    !customData.easy.seed
+  ) {
+    if (typeof ctx !== "undefined" && ctx.seed) {
       return ctx.seed;
     } else {
       return document.getElementById("qa").innerText;
@@ -410,7 +421,124 @@ function get_seed() {
 }
 function set_fuzz_factor() {
   // Note: Originally copied from seedrandom.js package (https://github.com/davidbau/seedrandom)
-  !function(f,a,c){var s,l=256,p="random",d=c.pow(l,6),g=c.pow(2,52),y=2*g,h=l-1;function n(n,t,r){function e(){for(var n=u.g(6),t=d,r=0;n<g;)n=(n+r)*l,t*=l,r=u.g(1);for(;y<=n;)n/=2,t/=2,r>>>=1;return(n+r)/t}var o=[],i=j(function n(t,r){var e,o=[],i=typeof t;if(r&&"object"==i)for(e in t)try{o.push(n(t[e],r-1))}catch(n){}return o.length?o:"string"==i?t:t+"\0"}((t=1==t?{entropy:!0}:t||{}).entropy?[n,S(a)]:null==n?function(){try{var n;return s&&(n=s.randomBytes)?n=n(l):(n=new Uint8Array(l),(f.crypto||f.msCrypto).getRandomValues(n)),S(n)}catch(n){var t=f.navigator,r=t&&t.plugins;return[+new Date,f,r,f.screen,S(a)]}}():n,3),o),u=new m(o);return e.int32=function(){return 0|u.g(4)},e.quick=function(){return u.g(4)/4294967296},e.double=e,j(S(u.S),a),(t.pass||r||function(n,t,r,e){return e&&(e.S&&v(e,u),n.state=function(){return v(u,{})}),r?(c[p]=n,t):n})(e,i,"global"in t?t.global:this==c,t.state)}function m(n){var t,r=n.length,u=this,e=0,o=u.i=u.j=0,i=u.S=[];for(r||(n=[r++]);e<l;)i[e]=e++;for(e=0;e<l;e++)i[e]=i[o=h&o+n[e%r]+(t=i[e])],i[o]=t;(u.g=function(n){for(var t,r=0,e=u.i,o=u.j,i=u.S;n--;)t=i[e=h&e+1],r=r*l+i[h&(i[e]=i[o=h&o+t])+(i[o]=t)];return u.i=e,u.j=o,r})(l)}function v(n,t){return t.i=n.i,t.j=n.j,t.S=n.S.slice(),t}function j(n,t){for(var r,e=n+"",o=0;o<e.length;)t[h&o]=h&(r^=19*t[h&o])+e.charCodeAt(o++);return S(t)}function S(n){return String.fromCharCode.apply(0,n)}if(j(c.random(),a),"object"==typeof module&&module.exports){module.exports=n;try{s=require("crypto")}catch(n){}}else"function"==typeof define&&define.amd?define(function(){return n}):c["seed"+p]=n}("undefined"!=typeof self?self:this,[],Math);
+  !(function (f, a, c) {
+    var s,
+      l = 256,
+      p = "random",
+      d = c.pow(l, 6),
+      g = c.pow(2, 52),
+      y = 2 * g,
+      h = l - 1;
+    function n(n, t, r) {
+      function e() {
+        for (var n = u.g(6), t = d, r = 0; n < g; )
+          (n = (n + r) * l), (t *= l), (r = u.g(1));
+        for (; y <= n; ) (n /= 2), (t /= 2), (r >>>= 1);
+        return (n + r) / t;
+      }
+      var o = [],
+        i = j(
+          (function n(t, r) {
+            var e,
+              o = [],
+              i = typeof t;
+            if (r && "object" == i)
+              for (e in t)
+                try {
+                  o.push(n(t[e], r - 1));
+                } catch (n) {}
+            return o.length ? o : "string" == i ? t : t + "\0";
+          })(
+            (t = 1 == t ? { entropy: !0 } : t || {}).entropy
+              ? [n, S(a)]
+              : null == n
+              ? (function () {
+                  try {
+                    var n;
+                    return (
+                      s && (n = s.randomBytes)
+                        ? (n = n(l))
+                        : ((n = new Uint8Array(l)),
+                          (f.crypto || f.msCrypto).getRandomValues(n)),
+                      S(n)
+                    );
+                  } catch (n) {
+                    var t = f.navigator,
+                      r = t && t.plugins;
+                    return [+new Date(), f, r, f.screen, S(a)];
+                  }
+                })()
+              : n,
+            3,
+          ),
+          o,
+        ),
+        u = new m(o);
+      return (
+        (e.int32 = function () {
+          return 0 | u.g(4);
+        }),
+        (e.quick = function () {
+          return u.g(4) / 4294967296;
+        }),
+        (e.double = e),
+        j(S(u.S), a),
+        (
+          t.pass ||
+          r ||
+          function (n, t, r, e) {
+            return (
+              e &&
+                (e.S && v(e, u),
+                (n.state = function () {
+                  return v(u, {});
+                })),
+              r ? ((c[p] = n), t) : n
+            );
+          }
+        )(e, i, "global" in t ? t.global : this == c, t.state)
+      );
+    }
+    function m(n) {
+      var t,
+        r = n.length,
+        u = this,
+        e = 0,
+        o = (u.i = u.j = 0),
+        i = (u.S = []);
+      for (r || (n = [r++]); e < l; ) i[e] = e++;
+      for (e = 0; e < l; e++)
+        (i[e] = i[(o = h & (o + n[e % r] + (t = i[e])))]), (i[o] = t);
+      (u.g = function (n) {
+        for (var t, r = 0, e = u.i, o = u.j, i = u.S; n--; )
+          (t = i[(e = h & (e + 1))]),
+            (r = r * l + i[h & ((i[e] = i[(o = h & (o + t))]) + (i[o] = t))]);
+        return (u.i = e), (u.j = o), r;
+      })(l);
+    }
+    function v(n, t) {
+      return (t.i = n.i), (t.j = n.j), (t.S = n.S.slice()), t;
+    }
+    function j(n, t) {
+      for (var r, e = n + "", o = 0; o < e.length; )
+        t[h & o] = h & ((r ^= 19 * t[h & o]) + e.charCodeAt(o++));
+      return S(t);
+    }
+    function S(n) {
+      return String.fromCharCode.apply(0, n);
+    }
+    if ((j(c.random(), a), "object" == typeof module && module.exports)) {
+      module.exports = n;
+      try {
+        s = require("crypto");
+      } catch (n) {}
+    } else
+      "function" == typeof define && define.amd
+        ? define(function () {
+            return n;
+          })
+        : (c["seed" + p] = n);
+  })("undefined" != typeof self ? self : this, [], Math);
   // MIT License
   // Copyright 2019 David Bau.
   // Permission is hereby granted, free of charge, to any person obtaining a copy
