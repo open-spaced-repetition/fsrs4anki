@@ -75,6 +75,9 @@ Using learning and re-learning steps longer than 1 day is not recommended. It co
 
 If you don't enable "Reschedule cards on change", only cards that you review will be rescheduled. All other cards will remain unchanged until reviewed. If you want a smooth and gradual transition from the old algorithm to FSRS, you should disable "Reschedule cards on change". Enabling it will instantly change the intervals of all cards that this preset applies to, which often results in a large backlog of due cards.
 
+![image](https://github.com/Expertium/fsrs4anki/assets/83031600/3d14f65e-365d-4bcb-92d6-cfdeb4703b34)
+
+
 ## Step 3: Finding optimal parameters
 
 FSRS is a machine-learning algorithm that requires a lot of data to fine-tune. If you have at least 1000 reviews (across all cards that this preset applies to), you can click "Optimize FSRS weights" and then click "Optimize".
