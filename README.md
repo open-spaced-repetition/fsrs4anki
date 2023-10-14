@@ -54,11 +54,13 @@ For details about the FSRS algorithm, please read [the algorithm](https://github
 ## Step 1: Enabling the built-in FSRS Scheduler
 
 In order to enable FSRS, go to deck options, scroll down to "Advanced", and toggle FSRS. You will notice that a lot of settings, such as "Graduating interval" or "Easy bonus" have disappeared. Many old setting become irrelevant once FSRS is enabled.
+
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/2294ecbb-91bb-45bb-8634-de36da3372a2)
 
 ## Step 2: Configuring FSRS settings
 
 The most important setting is desired retention: the fraction of due cards recalled successfully.
+
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/b3881b70-5e0d-4824-a54e-08fe92605252)
 
 It can be set as high as 0.97 or as low as 0.7. Higher retention leads to more reviews per day. Users are not allowed to set desired retention to values outside of the 0.7-0.97 range, as this will lead to inefficient studying.
@@ -68,6 +70,7 @@ Maximum interval works the same way as when using the old algorithm, it is the m
 "SM-2 retention" refers to your retention before you started using FSRS. It is only necessary to more accurately schedule cards with missing/incomplete review logs. It does not affect new cards or cards with complete review logs.
 
 Using learning and re-learning steps longer than 1 day is not recommended. It could lead to a situation when the "Hard" interval is greater than the "Good" interval. It is also recommended to not have too many short (re)learning steps because same-day reviews have a negligible impact on long-term memory.
+
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/cba3ca1a-4b55-44ee-ac32-1ca3684b1692)
 
 If you don't enable "Reschedule cards on change", only cards that you review will be rescheduled. All other cards will remain unchanged until reviewed. If you want a smooth and gradual transition from the old algorithm to FSRS, you should disable "Reschedule cards on change". Enabling it will instantly change the intervals of all cards that this preset applies to, which often results in a large backlog of due cards.
@@ -75,11 +78,13 @@ If you don't enable "Reschedule cards on change", only cards that you review wil
 ## Step 3: Finding optimal parameters
 
 FSRS is a machine-learning algorithm that requires a lot of data to fine-tune. If you have at least 1000 reviews (across all cards that this preset applies to), you can click "Optimize FSRS weights" and then click "Optimize".
+
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/dad5aa7b-d506-4368-a840-ec30bdd3d6a2)
 
 The optimal parameters will replace the default parameters automatically. If you have less than 1000 reviews, please use the default parameters, it is better than using the old algorithm.
 
 You can also click "Analyze" after the optimization is done to see metrics that tell you how well FSRS is able to adapt to your memory and your review history. Smaller numbers are better.
+
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c6d383f8-6131-40e0-9728-4cc823483281)
 
 Note that log-loss and RMSE (bins) are not perfectly correlated, so it's possible that two decks will have similar values of RMSE, but very different values of log-loss, and vice versa.
@@ -95,6 +100,7 @@ You can adjust "Deck size" and "Days to simulate" to fit your needs. If you have
 ## Stats and browser
 
 You can click on "Stats" and see new graph, such as this:
+
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/5fa95f94-f90b-4a89-981c-bdc011bf831f)
 
 Stats that rely on Anki's Ease Factor are hidden once FSRS is enabled, as FSRS doesn't rely on the Ease Factor. Additionally, you can sort by Difficulty, Retrievability and Stability in the browser now. Difficulty and Stability do not change between reviews, Retrievability does. If you do not understand what these terms and values mean, you can start learning about FSRS from here: https://github.com/open-spaced-repetition/fsrs4anki/wiki
