@@ -43,7 +43,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 # Introduction
 
-FSRS has been integrated into Anki. If your version of Anki is 23.10 or newer, use built-in FSRS. If your version of Anki is 2.1.66 or older, use standalone version.
+FSRS has been integrated into Anki. If your version of Anki is 23.10 or newer, use the built-in FSRS. If your version of Anki is 2.1.66 or older, use the standalone version.
 
 For details about the FSRS algorithm, please read [the algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm). If you are interested, you can also read my papers:
 - [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://www.maimemo.com/paper/) (free access), and
@@ -53,7 +53,7 @@ For details about the FSRS algorithm, please read [the algorithm](https://github
 
 ## Step 1: Enabling the built-in FSRS Scheduler
 
-In order to enable FSRS, go to deck options, scroll down to "Advanced", and toggle FSRS. You will notice that a lot of settings, such as "Graduating interval" or "Easy bonus" have disappeared. Many old setting become irrelevant once FSRS is enabled.
+In order to enable FSRS, go to deck options, scroll down to "Advanced", and toggle FSRS. You will notice that a lot of settings, such as "Graduating interval" or "Easy bonus," have disappeared. Many old settings become irrelevant once FSRS is enabled.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/2294ecbb-91bb-45bb-8634-de36da3372a2)
 
@@ -65,9 +65,9 @@ The most important setting is desired retention: the fraction of due cards recal
 
 It can be set as high as 0.97 or as low as 0.7. Higher retention leads to more reviews per day. Users are not allowed to set desired retention to values outside of the 0.7-0.97 range, as this will lead to inefficient studying.
 
-Maximum interval works the same way as when using the old algorithm, it is the maximum number of days that can pass until the card is shown again.
+The maximum interval works the same way as when using the old algorithm; it is the maximum number of days that can pass until the card is shown again.
 
-"SM-2 retention" refers to your retention before you started using FSRS. It is only necessary to more accurately schedule cards with missing/incomplete review logs. It does not affect new cards or cards with complete review logs.
+"SM-2 retention" refers to your retention before you started using FSRS. It is only necessary to more accurately schedule cards with missing or incomplete review logs. It does not affect new cards or cards with complete review logs.
 
 Using learning and re-learning steps longer than 1 day is not recommended. It could lead to a situation when the "Hard" interval is greater than the "Good" interval. It is also advised against having too many short (re)learning steps because same-day reviews have a negligible impact on long-term memory.
 
@@ -90,7 +90,7 @@ You can also click "Analyze" after the optimization is done to see metrics that 
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c6d383f8-6131-40e0-9728-4cc823483281)
 
-Note that log-loss and RMSE (bins) are not perfectly correlated, so it's possible that two decks will have similar values of RMSE, but very different values of log-loss, and vice versa.
+Note that log-loss and RMSE (bins) are not perfectly correlated, so it's possible that two decks will have similar values of RMSE but very different values of log-loss, and vice versa.
 
 ## Step 4: (optional) Finding optimal retention and custom scheduling
 
@@ -98,7 +98,7 @@ Click on "Compute optimal retention (experimental)" and then click "Compute". It
 
 You can adjust "Deck size" and "Days to simulate" to fit your needs. If you have an exam coming in 12 months, set "Days to simulate" to 365. If you are a language learner, 5 years (1825 days) is a reasonable timeframe.
 
-"Custom scheduling" allows you to introduce new scheduling rules on top of FSRS. This feature is only for advanced users and developers. If you have been previously using FSRS and have some code in this field, please delete it.
+"Custom scheduling" allows you to introduce new scheduling rules on top of FSRS. This feature is only for advanced users and developers. If you have previously used FSRS and have some code in this field, please delete it.
 
 ## Stats and browser
 
@@ -106,7 +106,7 @@ You can click on "Stats" and see new graph, such as this:
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/5fa95f94-f90b-4a89-981c-bdc011bf831f)
 
-Stats that rely on Anki's Ease Factor are hidden once FSRS is enabled, as FSRS doesn't rely on the Ease Factor. Additionally, you can sort by Difficulty, Retrievability and Stability in the browser now. Difficulty and Stability do not change between reviews, Retrievability does. If you do not understand what these terms and values mean, you can start learning about FSRS from here: https://github.com/open-spaced-repetition/fsrs4anki/wiki
+Stats that rely on Anki's Ease Factor are hidden once FSRS is enabled, as FSRS doesn't rely on the Ease Factor. Additionally, you can sort by Difficulty, Retrievability and Stability in the browser now. Difficulty and Stability do not change between reviews, Retrievability does. If you do not understand what these terms and values mean, you can start learning about FSRS here: https://github.com/open-spaced-repetition/fsrs4anki/wiki
 
 # Standalone FSRS
 
