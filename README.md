@@ -49,6 +49,8 @@ FSRS4Anki Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You
 
 # How to Get Started?
 
+**Update**: FSRS has been integrated into Anki 23.10. To use the native FSRS, you only need to enable the FSRS in the deck options. If you have used the FSRS4Anki custom scheduling before, you need to remove it.
+
 中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
 
 To get started with FSRS, you'll need to follow a two-step process.
