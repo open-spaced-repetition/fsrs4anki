@@ -69,7 +69,7 @@ Maximum interval works the same way as when using the old algorithm, it is the m
 
 "SM-2 retention" refers to your retention before you started using FSRS. It is only necessary to more accurately schedule cards with missing/incomplete review logs. It does not affect new cards or cards with complete review logs.
 
-Using learning and re-learning steps longer than 1 day is not recommended. It could lead to a situation when the "Hard" interval is greater than the "Good" interval. It is also recommended to not have too many short (re)learning steps because same-day reviews have a negligible impact on long-term memory.
+Using learning and re-learning steps longer than 1 day is not recommended. It could lead to a situation when the "Hard" interval is greater than the "Good" interval. It is also advised against having too many short (re)learning steps because same-day reviews have a negligible impact on long-term memory.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/cba3ca1a-4b55-44ee-ac32-1ca3684b1692)
 
