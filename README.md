@@ -25,11 +25,11 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 - [Introduction](#introduction)
 - [Built-in FSRS](#built-in-fsrs)
-- [Standalone FSRS](#Standalone-fsrs)
+- [Standalone FSRS](#standalone-fsrs)
   - [Step 1: Enabling the built-in FSRS Scheduler](#step-1-enabling-the-built-in-fsrs-scheduler)
   - [Step 2: Configuring FSRS settings](#step-2-configuring-fsrs-settings)
   - [Step 3: Finding optimal parameters](#step-3-finding-optimal-parameters)
-  - [Step 4: (optional) Finding optimal retention and custom scheduling](#step-4-(optional)-finding-optimal-retention-and-custom-scheduling)
+  - [Step 4: (optional) Finding optimal retention and custom scheduling](#step-4-optional-finding-optimal-retention-and-custom-scheduling)
   - [Stats and browser](#stats-and-browser)
 - [How to Get Started?](#how-to-get-started)
   - [Step 1: Enabling the FSRS Scheduler](#step-1-enabling-the-fsrs-scheduler)
