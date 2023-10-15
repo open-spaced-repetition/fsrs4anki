@@ -49,7 +49,11 @@ Note that log-loss and RMSE (bins) are not perfectly correlated, so it's possibl
 
 ## Step 4: (optional) Finding optimal retention and custom scheduling
 
-Click on "Compute optimal retention (experimental)" and then click "Compute". It will analyze how much time you spend on your cards, as well as your habits of pressing Hard/Good/Easy, and use that information to simulate different review histories to find a value of desired retention that allows you to remember the most information within given time constraints, "Minutes study/day". Simply put, it finds the value of desired retention that gives you the most efficient study plan.
+Click on "Compute optimal retention (experimental)" and then click "Compute".
+
+![image](https://github.com/Expertium/fsrs4anki/assets/83031600/64511506-d668-428c-bef3-be58bd4d6c5b)
+
+It will analyze how much time you spend on your cards, as well as your habits of pressing Hard/Good/Easy, and use that information to simulate different review histories to find a value of desired retention that allows you to remember the most information within given time constraints, "Minutes study/day". Simply put, it finds the value of desired retention that gives you the most efficient study plan.
 
 You can adjust "Deck size" and "Days to simulate" to fit your needs. If you have an exam coming in 12 months, set "Days to simulate" to 365. If you are a language learner, 5 years (1825 days) is a reasonable timeframe.
 
