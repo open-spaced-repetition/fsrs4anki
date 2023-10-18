@@ -36,7 +36,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 # Introduction
 
-FSRS has been integrated into Anki. If your version of Anki is 23.10 or newer, use the built-in FSRS. Read about how to use it [here](https://github.com/open-spaced-repetition/fsrs4anki/README2.md).
+FSRS has been integrated into Anki. If your version of Anki is 23.10 or newer, use the built-in FSRS. Read about how to use it [here](./README2.md).
 If your version of Anki is 2.1.66 or older, use the standalone version.
 
 For details about the FSRS algorithm, please read [the algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm). If you are interested, you can also read my papers:
