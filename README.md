@@ -1,9 +1,3 @@
-<p align="center">
-  <a href="https://github.com/open-spaced-repetition/fsrs4anki/wiki">
-    <img src="https://user-images.githubusercontent.com/32575846/210218310-4575b0f3-c570-4c5f-acec-9d35206fc920.png" width="150" height="150" alt="FSRS4Anki">
-  </a>
-</p>
-
 <div align="center">
 
 # FSRS4Anki
@@ -36,23 +30,23 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 # Introduction
 
-FSRS has been integrated into Anki. If your version of Anki is 23.10 or newer, use the built-in FSRS. Read about how to use it [here](./README2.md).
-If your version of Anki is 2.1.66 or older, use the standalone version.
-
-For details about the FSRS algorithm, please read [the algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm). If you are interested, you can also read my papers:
-- [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://www.maimemo.com/paper/) (free access), and
-- [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://www.researchgate.net/publication/369045947_Optimizing_Spaced_Repetition_Schedule_by_Capturing_the_Dynamics_of_Memory) (submit a request).
-
 FSRS4Anki consists of two main parts: the scheduler and the optimizer.
 
 - The scheduler replaces Anki's built-in scheduler and schedules the cards according to the FSRS algorithm.
 - The optimizer uses machine learning to learn your memory patterns and finds parameters that best fit your review history. For details about the working of the optimizer, please read [the mechanism of optimization](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-mechanism-of-optimization).
+
+For details about the FSRS algorithm, please read [the algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm). If you are interested, you can also read my papers:
+- [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://www.maimemo.com/paper/) (free access), and
+- [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://www.researchgate.net/publication/369045947_Optimizing_Spaced_Repetition_Schedule_by_Capturing_the_Dynamics_of_Memory) (submit a request).
 
 FSRS4Anki Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You can read about it here: https://github.com/open-spaced-repetition/fsrs4anki-helper
 
 # How to Get Started?
 
 中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
+
+> [!Important]  
+> FSRS has been natively integrated into Anki v23.10. If you are using Anki v23.10 or newer, refer to [this tutorial](./README2.md). If you are using an older version of Anki, continue reading ahead.
 
 To get started with FSRS, you'll need to follow a two-step process.
 
