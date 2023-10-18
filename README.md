@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/open-spaced-repetition/fsrs4anki/wiki">
+    <img src="https://user-images.githubusercontent.com/32575846/210218310-4575b0f3-c570-4c5f-acec-9d35206fc920.png" width="150" height="150" alt="FSRS4Anki">
+  </a>
+</p>
+
 <div align="center">
 
 # FSRS4Anki
