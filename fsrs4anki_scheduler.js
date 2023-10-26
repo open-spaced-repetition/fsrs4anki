@@ -1,4 +1,4 @@
-// FSRS4Anki v4.5.6 Scheduler Qt6
+// FSRS4Anki v4.10.0 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
@@ -143,13 +143,13 @@ if (is_new()) {
     fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
   }
   customData.again.d = next_difficulty(last_d, "again");
-  customData.again.s = next_forget_stability(customData.again.d, last_s, retrievability);
+  customData.again.s = next_forget_stability(last_d, last_s, retrievability);
   customData.hard.d = next_difficulty(last_d, "hard");
-  customData.hard.s = next_recall_stability(customData.hard.d, last_s, retrievability, "hard");
+  customData.hard.s = next_recall_stability(last_d, last_s, retrievability, "hard");
   customData.good.d = next_difficulty(last_d, "good");
-  customData.good.s = next_recall_stability(customData.good.d, last_s, retrievability, "good");
+  customData.good.s = next_recall_stability(last_d, last_s, retrievability, "good");
   customData.easy.d = next_difficulty(last_d, "easy");
-  customData.easy.s = next_recall_stability(customData.easy.d, last_s, retrievability, "easy");
+  customData.easy.s = next_recall_stability(last_d, last_s, retrievability, "easy");
   let hard_interval = next_interval(customData.hard.s);
   let good_interval = next_interval(customData.good.s);
   let easy_interval = next_interval(customData.easy.s);
@@ -292,7 +292,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v4.5.6";
+  const version = "v4.10.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
