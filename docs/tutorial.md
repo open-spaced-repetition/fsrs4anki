@@ -26,6 +26,10 @@ The permissible range for desired retention is 0.70 to 0.97. Higher retention le
 
 Be conservative when adjusting this setting - higher values will greatly increase your workload, and lower values can be demoralizing when you forget a lot of material.
 
+The chart bellow illustrates how the workload changes with retention.
+
+![Workload and desired retention (filled)](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/06c95e90-9579-4a75-bdac-d0884461decf)
+
 Users are not allowed to set the desired retention outside of the 0.70-0.97 range because it will make learning inefficient.
 
 ### Maximum interval
