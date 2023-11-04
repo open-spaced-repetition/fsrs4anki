@@ -110,7 +110,6 @@ Some add-ons can cause conflicts with FSRS. As a general rule of thumb, if an ad
 |[Advanced Review Bottom Bar](https://ankiweb.net/shared/info/1136455830)|Yes✅|Please use the latest version.|
 |[The KING of Button Add-ons](https://ankiweb.net/shared/info/374005964)|Yes✅|Please use the latest version.|
 | [Pass/Fail](https://ankiweb.net/shared/info/876946123) |Yes✅| `Pass` is the equivalent of `Good`.|
-|[Incremental Reading v4.11.3 (unofficial clone)](https://ankiweb.net/shared/info/999215520)|No❌|It shows the interval given by Anki's built-in scheduler, not the custom scheduler.|
 | [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021)|No❌|The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
 | [Delay siblings](https://ankiweb.net/shared/info/1369579727) |No❌|Delay siblings will modify the intervals given by FSRS. However, the FSRS4Anki Helper add-on has a similar feature that works better with FSRS. So, use the FSRS4Anki Helper add-on instead.|
 | [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No❌|The `New Interval` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
