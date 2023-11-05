@@ -124,7 +124,7 @@ Q1: Does FSRS change the way the card's ease changes?
 
 A1: Anki's built-in ease factor doesn't affect anything once FSRS is enabled. This is also why a lot of settings, such as Starting Ease, are hidden once FSRS is enabled.
 
-Q2: Once I started using this FSRS algorithm on my existing deck, if I ever wanted to go back to using Anki's built-in algorithm for the same deck, would that still be possible?
+Q2: Once I started using FSRS on my existing deck, if I ever wanted to go back to using Anki's built-in algorithm for the same deck, would that still be possible?
 
 A2: Yes, just turn FSRS off.
 
