@@ -6,6 +6,7 @@
 - [Step 5: (optional) Compute optimal retention](#step-5-optional-compute-optimal-retention)
 - [Step 6: (optional) Custom Scheduling](#step-6-optional-custom-scheduling)
 - [Add-on compatibility](#add-on-compatibility)
+- [FAQ](#faq)
 
 ## Step 1: Enable the built-in FSRS Scheduler
 
@@ -115,4 +116,64 @@ Some add-ons can cause conflicts with FSRS. As a general rule of thumb, if an ad
 | [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No❌|The `New Interval` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
 | [Straight Reward](https://ankiweb.net/shared/info/957961234) |No❌|The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
 
-Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if I miss any add-ons.
+Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if you want me to check compatibility between FSRS and some add-on.
+
+# FAQ
+
+Q1: Does FSRS change the way the card's ease changes?
+
+A1: Anki's built-in ease factor doesn't affect anything once FSRS is enabled. This is also why a lot of settings, such as Starting Ease, are hidden once FSRS is enabled.
+
+***
+
+Q2: Once I started using FSRS on my existing deck, if I ever wanted to go back to using Anki's built-in algorithm for the same deck, would that still be possible?
+
+A2: Yes, just turn FSRS off.
+
+***
+
+Q3: I'm sure I have >1000 reviews, yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
+
+A3: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer.
+
+***
+
+Q4: My first interval for "Easy" is too long! Is this normal?
+
+A4: Yes. Anki tends to give very short first intervals. Don't be surprised if your first interval for "Good" is 5-7 days and your first interval for "Easy" is several weeks long.
+
+***
+
+Q5: Suppose I have a parent deck with its own preset, and each subdeck has a different preset. When I click on the parent deck to review a card that came from a subdeck, will the parameters of the preset of the parent deck be applied to the card, or the parameters of the preset of the subdeck that this card came from?
+
+A5: The latter. Simply put, if you have something like ParentDeck::SubDeck, and the card came from the subdeck, the parameters of the preset corresponding to the subdeck will be applied.
+
+***
+
+Q6: I only use "Again" and "Good", will FSRS work fine?
+
+A6: Yes. FSRS is about equally accurate for people who rarely use "Hard" and "Easy" and for people who use all 4 buttons a lot. However, this is not the final conclusion, and as we gather more data, this conclusion may change.
+
+***
+
+Q7: How can I check that FSRS is really enabled?
+
+A7: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.97 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals.
+
+***
+
+Q8: Is it better to use the same parameters for all my cards or use different presets with different parameters?
+
+A8: The answer to this question depends entirely on how similar your material is. For example, if you are learning Japanese and geography, it is recommended to use two different presets with different parameters. If you have two decks with Japanese vocabulary, you should use the same preset for both of them.
+
+***
+
+Q9: How often should I re-optimize parameters?
+
+A9: Once per month should be more than enough.
+
+***
+
+Q10: What will happen if I review my cards on a device where FSRS is not supported (or disabled) and then on another device where FSRS is enabled?
+
+A10: Your intervals will become inaccurate, but it won't corrupt your cards and make them unusable. It will just make FSRS bad at what it's supposed to do: maintain your retention at a specified level.
