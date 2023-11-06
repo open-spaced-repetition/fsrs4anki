@@ -53,7 +53,7 @@ If you are using an older version of Anki, refer to [this tutorial](https://gith
 
 # Add-on Compatibility
 
-Some add-ons modify the scheduling of Anki, which would cause conflict with the FSRS4Anki scheduler.
+Some add-ons can cause conflicts with FSRS. As a general rule of thumb, if an add-on affects a card's intervals, it shouldn't be used with FSRS.
 
 | Add-on                                                       | Compatible? | Comment |
 | ------------------------------------------------------------ |-------------------| ------- |
@@ -66,7 +66,7 @@ Some add-ons modify the scheduling of Anki, which would cause conflict with the 
 | [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No❌|The `New Interval` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
 | [Straight Reward](https://ankiweb.net/shared/info/957961234) |No❌|The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
 
-Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if I miss any add-ons.
+Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if you want me to check compatibility between FSRS and some add-on.
 
 # Contribute
 
