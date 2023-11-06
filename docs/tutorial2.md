@@ -1,3 +1,9 @@
+# Table of contents
+- [Step 1: Enabling the FSRS Scheduler](#step-1-enabling-the-fsrs-scheduler)
+- [Step 2: Personalizing FSRS](#step-2-personalizing-fsrs)
+- [Configuring Different Parameters for Different Decks](#configuring-different-parameters-for-different-decks)
+- [FAQ](#faq)
+
 To get started with FSRS, you'll need to follow a two-step process.
 
 - First, you'll need to enable the FSRS scheduler in your Anki application.
