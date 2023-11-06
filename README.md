@@ -8,7 +8,7 @@
 
 # FSRS4Anki
 
-_✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-scheduler.html#add-ons-and-custom-scheduling) based on [Free Spaced Repetition Scheduler](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm) algorithm ✨_  
+_✨ A modern spaced-repetition scheduler for Anki based on the [Free Spaced Repetition Scheduler algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm) ✨_  
 
 </div>
 
@@ -25,7 +25,7 @@ _✨ A modern Anki [custom scheduling](https://faqs.ankiweb.net/the-2021-schedul
 
 - [Introduction](#introduction)
 - [How to Get Started?](#how-to-get-started)
-- [Add-on Compatibility](#compatibility)
+- [Add-on Compatibility](#add-on-compatibility)
 - [Contribute](#contribute)
   - [Contributors](#contributors)
 - [Stargazers over time](#stargazers-over-time)
