@@ -5,7 +5,6 @@
 - [Step 4: (optional) Evaluate the weights](#step-4-optional-evaluate-the-weights)
 - [Step 5: (optional) Compute optimal retention](#step-5-optional-compute-optimal-retention)
 - [Step 6: (optional) Custom Scheduling](#step-6-optional-custom-scheduling)
-- [Add-on compatibility](#add-on-compatibility)
 - [FAQ](#faq)
 
 ## Step 1: Enable the built-in FSRS Scheduler
@@ -101,22 +100,6 @@ Since the tool is experimental, it is better to use your intuition to come up wi
 ## Step 6: (optional) Custom Scheduling
 
 "Custom scheduling" allows you to introduce new scheduling rules on top of FSRS. This feature is only for advanced users and developers.
-
-# Add-On Compatibility
-
-Some add-ons can cause conflicts with FSRS. As a general rule of thumb, if an add-on affects a card's intervals, it shouldn't be used with FSRS.
-
-| Add-on                                                       | Compatible? | Comment |
-| ------------------------------------------------------------ |-------------------| ------- |
-|[Advanced Review Bottom Bar](https://ankiweb.net/shared/info/1136455830)|Yes✅|Please use the latest version.|
-|[The KING of Button Add-ons](https://ankiweb.net/shared/info/374005964)|Yes✅|Please use the latest version.|
-| [Pass/Fail](https://ankiweb.net/shared/info/876946123) |Yes✅| `Pass` is the equivalent of `Good`.|
-| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021)|No❌|The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
-| [Delay siblings](https://ankiweb.net/shared/info/1369579727) |No❌|Delay siblings will modify the intervals given by FSRS. However, the FSRS4Anki Helper add-on has a similar feature that works better with FSRS. So, use the FSRS4Anki Helper add-on instead.|
-| [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No❌|The `New Interval` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
-| [Straight Reward](https://ankiweb.net/shared/info/957961234) |No❌|The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on.|
-
-Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if you want me to check compatibility between FSRS and some add-on.
 
 # FAQ
 
