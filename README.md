@@ -51,6 +51,8 @@ If you are using Anki v23.10 or newer, refer to [this tutorial](https://github.c
 
 If you are using an older version of Anki, refer to [this tutorial](https://github.com/open-spaced-repetition/fsrs4anki/blob/main/docs/tutorial2.md).
 
+Note that setting up FSRS is much easier in Anki v23.10 or newer.
+
 # Add-on Compatibility
 
 Some add-ons can cause conflicts with FSRS. As a general rule of thumb, if an add-on affects a card's intervals, it shouldn't be used with FSRS.
