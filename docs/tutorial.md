@@ -29,7 +29,7 @@ Be conservative when adjusting this setting - higher values will greatly increas
 
 The chart bellow illustrates how the workload changes with retention. The exact shape of the curve depends on the user's parameters and learning habits.
 
-![Workload and retention (matplotlib)](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/5218e456-5ea9-408f-8f00-a1b5cb930de4)
+![Workload and retention, again (small)](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/e2b95037-593a-4633-8774-dd16cba5f48e)
 
 Users are not allowed to set the desired retention outside of the 0.70-0.97 range because it will make learning inefficient.
 
