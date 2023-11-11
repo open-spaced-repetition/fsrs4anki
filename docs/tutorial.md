@@ -45,7 +45,7 @@ You need to configure this value only if you have cards with missing or incomple
 
 ### Learning and re-learning steps
 
-When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. For most users, this means that steps longer than or equal to 1 day should not be used.
+When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or equal to 1 day should not be used.
 
 The reason is that FSRS can determine more optimal intervals but the use of longer (re)learning steps doesn't allow FSRS to schedule the reviews, making the scheduling less optimal. In addition, if longer steps are used, there can be cases where the "Hard" interval exceeds the "Good" interval. 
 
