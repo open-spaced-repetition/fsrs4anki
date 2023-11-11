@@ -1,8 +1,8 @@
 # Table of contents
 - [Step 1: Enable the built-in FSRS Scheduler](#step-1-enable-the-built-in-fsrs-scheduler)
 - [Step 2: Configure FSRS settings](#step-2-configure-fsrs-settings)
-- [Step 3: Find optimal weights](#step-3-find-optimal-weights)
-- [Step 4: (optional) Evaluate the weights](#step-4-optional-evaluate-the-weights)
+- [Step 3: Find optimal parameters](#step-3-find-optimal-parameters)
+- [Step 4: (optional) Evaluate the parameters](#step-4-optional-evaluate-the-parameters)
 - [Step 5: (optional) Compute optimal retention](#step-5-optional-compute-optimal-retention)
 - [Step 6: (optional) Custom Scheduling](#step-6-optional-custom-scheduling)
 - [FAQ](#faq)
@@ -55,29 +55,29 @@ Secondly, the use of multiple short (re)learning steps is also discouraged. This
 
 ### Reschedule cards on change
 
-This option controls whether the due dates of cards will be changed when you enable FSRS or change the weights and/or desired retention. By default, the cards are not rescheduled. This means that future reviews will use the new scheduling, but there will be no immediate change to your workload. This allows a smooth and gradual transition from SM-2 to FSRS.
+This option controls whether the due dates of cards will be changed when you enable FSRS or change the parameters and/or desired retention. By default, the cards are not rescheduled. This means that future reviews will use the new scheduling, but there will be no immediate change to your workload. This allows a smooth and gradual transition from SM-2 to FSRS.
 
 If rescheduling is enabled, the due dates of cards will be immediately changed. This often results in a large number of cards becoming due, so is not recommended when first switching from SM2.
 
 ![image](https://github.com/Expertium/fsrs4anki/assets/83031600/3d14f65e-365d-4bcb-92d6-cfdeb4703b34)
 
-## Step 3: Find optimal weights
+## Step 3: Find optimal parameters
 
-The FSRS optimizer uses machine learning to learn your memory patterns and find weights that best fit your review history. So, the optimizer requires several reviews to fine-tune the weights.
+The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters.
 
-If you have less than 1,000 reviews, please use the default parameters that are already entered into the "Model weights" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
+If you have less than 1,000 reviews, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
 
-If you have at least 1000 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS weights" section. The optimal parameters will replace the default parameters automatically.
+If you have at least 1000 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/dad5aa7b-d506-4368-a840-ec30bdd3d6a2)
 
-The weights are preset-specific. If you have decks that vary wildly in difficulty, it is recommended to use separate presets for them because the weights for easy decks and hard decks will be different.
+The parameters are preset-specific. If you have decks that vary wildly in difficulty, it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different.
 
-By default, weights will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the weights (such as excluding suspended cards), you can adjust the search before calculating the weights. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
+By default, parameters will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
 
-## Step 4: (optional) Evaluate the weights
+## Step 4: (optional) Evaluate the parameters
 
-You can use the `Evaluate` button in the "Optimize FSRS weights" section to see metrics that tell how well the weights in the "Model weights" field fit your review history. Smaller numbers indicate a better fit to your review history.
+You can use the `Evaluate` button in the "Optimize FSRS parameters" section to see metrics that tell how well the parameters in the "FSRS parameters" field fit your review history. Smaller numbers indicate a better fit to your review history.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c6d383f8-6131-40e0-9728-4cc823483281)
 
