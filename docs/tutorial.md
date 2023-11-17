@@ -13,7 +13,7 @@ To enable FSRS, go to Deck Options, scroll down to the "Advanced" section, and t
 
 If you have previously used FSRS using the custom scheduling method, please delete the FSRS code in the custom scheduling field before enabling the native FSRS. Also, if you are using the [FSRS4Anki Helper add-on](https://ankiweb.net/shared/info/759844606), check for add-on updates to ensure that the add-on has been updated to the latest version. 
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/2294ecbb-91bb-45bb-8634-de36da3372a2)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/27c9592c-d383-45f7-bdbd-223019e9fb3e)
 
 ## Step 2: Configure FSRS settings
 
@@ -21,7 +21,8 @@ If you have previously used FSRS using the custom scheduling method, please dele
 
 The most important setting to configure is the desired retention: the fraction of cards recalled successfully when they are due.
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/b3881b70-5e0d-4824-a54e-08fe92605252)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/3905329f-6941-452c-97f4-074558e6f5fd)
+
 
 The permissible range for desired retention is 0.70 to 0.97 (0.7 to 0.99 in Anki 23.10.1 or newer). Higher retention leads to more reviews per day.
 
@@ -45,13 +46,13 @@ You need to configure this value only if you have cards with missing or incomple
 
 ### Learning and re-learning steps
 
-When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or equal to 1 day should not be used.
+When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or **equal** to 1 day should not be used.
 
 The reason is that FSRS can determine more optimal intervals but the use of longer (re)learning steps doesn't allow FSRS to schedule the reviews, making the scheduling less optimal. In addition, if longer steps are used, there can be cases where the "Hard" interval exceeds the "Good" interval. 
 
 Secondly, the use of multiple short (re)learning steps is also discouraged. This is because research shows that same-day reviews have a negligible impact on long-term memory.
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/cba3ca1a-4b55-44ee-ac32-1ca3684b1692)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/a5780dca-4d0d-4382-9323-26e45cb6f002)
 
 ### Reschedule cards on change
 
@@ -59,7 +60,7 @@ This option controls whether the due dates of cards will be changed when you ena
 
 If rescheduling is enabled, the due dates of cards will be immediately changed. This often results in a large number of cards becoming due, so is not recommended when first switching from SM2.
 
-![image](https://github.com/Expertium/fsrs4anki/assets/83031600/3d14f65e-365d-4bcb-92d6-cfdeb4703b34)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/fe61aaa6-cecb-4476-9ed2-9db05b63c7de)
 
 ## Step 3: Find optimal parameters
 
@@ -69,7 +70,7 @@ If you have less than 1,000 reviews, please use the default parameters that are 
 
 If you have at least 1000 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/dad5aa7b-d506-4368-a840-ec30bdd3d6a2)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
 The parameters are preset-specific. If you have decks that vary wildly in difficulty, it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different.
 
@@ -79,7 +80,7 @@ By default, parameters will be calculated from the review history of all decks u
 
 You can use the `Evaluate` button in the "Optimize FSRS parameters" section to see metrics that tell how well the parameters in the "FSRS parameters" field fit your review history. Smaller numbers indicate a better fit to your review history.
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c6d383f8-6131-40e0-9728-4cc823483281)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/871bbe4d-8b05-4439-ab38-cf5c4e9f6fdf)
 
 Log-loss doesn't have an intuitive interpretation. RMSE (bins) can be interpreted as the average difference between the predicted probability of recalling a card (R) and the measured (from the review history) probability. For example, RMSE=0.05 means that, on average, FSRS is off by 5% when predicting R.
 
@@ -89,7 +90,7 @@ Note that log-loss and RMSE (bins) are not perfectly correlated, so two decks ma
 
 It is an experimental tool that tries to calculate a value of desired retention that maximizes the total knowledge within given time constraints, "Minutes study/day". Simply put, it tries to find the value of the desired retention that gives you the most efficient study plan. It does so by analyzing how much time you spend on your cards, as well as your habits of pressing Hard/Good/Easy.
 
-![image](https://github.com/Expertium/fsrs4anki/assets/83031600/64511506-d668-428c-bef3-be58bd4d6c5b)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/da46d838-86b1-47b5-9186-d664aacb2e44)
 
 You can adjust "Deck size" and "Days to simulate" to fit your needs. If you are preparing for an exam that is 12 months away, set "Days to simulate" to 365. If you are a language learner, 5 years (1825 days) is a reasonable timeframe.
 
