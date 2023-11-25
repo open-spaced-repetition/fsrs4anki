@@ -1,4 +1,5 @@
 # Table of contents
+- [The Ultra Short Version](the-ultra-short-version)
 - [Step 1: Enable the built-in FSRS Scheduler](#step-1-enable-the-built-in-fsrs-scheduler)
 - [Step 2: Configure FSRS settings](#step-2-configure-fsrs-settings)
 - [Step 3: Find optimal parameters](#step-3-find-optimal-parameters)
@@ -6,6 +7,16 @@
 - [Step 5: (optional) Compute optimal retention](#step-5-optional-compute-optimal-retention)
 - [Step 6: (optional) Custom Scheduling](#step-6-optional-custom-scheduling)
 - [FAQ](#faq)
+
+## The Ultra Short Version
+
+You're busy and have no time to waste? Here is a minimalist excursion through the guide:
+
+1) Go to deck options and make sure that your learning and re-learning steps are all shorter than `1d` and that all steps can be completed on the same day.
+2) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, that means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the old algorithm.
+3) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
+
+You are now ready to use FSRS!
 
 ## Step 1: Enable the built-in FSRS Scheduler
 
