@@ -1,3 +1,5 @@
+中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
+
 # Table of contents
 - [Step 1: Enabling the FSRS Scheduler](#step-1-enabling-the-fsrs-scheduler)
 - [Step 2: Personalizing FSRS](#step-2-personalizing-fsrs)
