@@ -12,11 +12,11 @@
 
 ## The Ultra Short Version
 
-You're busy and have no time to waste? Here is a minimalist excursion through the guide (for the PC version):
+Are you busy and have no time to waste? Here's a summary of the guide.
 
-1) Go to deck options and enable FSRS under "Advanced", at the very bottom of the deck options window.
-2) Make sure that your learning and re-learning steps are all shorter than `1d` and that all steps can be completed on the same day.
-3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, that means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the old algorithm.
+1) Go to deck options and enable FSRS under "Advanced", at the bottom of the deck options window.
+2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day.
+3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
 
 You are now ready to use FSRS!
@@ -41,11 +41,14 @@ The permissible range for desired retention is 0.70 to 0.97 (0.7 to 0.99 in Anki
 
 Be conservative when adjusting this setting - higher values will greatly increase your workload, and lower values can be demoralizing when you forget a lot of material.
 
-The chart bellow illustrates how the workload changes with retention. The exact shape of the curve depends on the user's parameters and learning habits.
+The following chart illustrates how the workload changes with retention. The exact shape of the curve depends on the user's parameters and learning habits.
 
 ![Workload and retention, again (small)](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/e2b95037-593a-4633-8774-dd16cba5f48e)
 
-Initially users were not allowed to set the desired retention outside of the 0.70-0.97 range because it would make learning inefficient. However, in Anki 23.10.1 the range has been extended to 0.7-0.99 at the request of users.
+Initially, users were not allowed to set the desired retention outside of the 0.70-0.97 range because it would make learning inefficient. In Anki v23.10.1, the range has been extended to 0.70-0.99 at the request of some users. However, setting the desired retention above 0.97 is still not advised for two main reasons:
+
+- Such a high desired retention will significantly increase your workload (cards per day). The repetitions will be so frequent that you will dread doing your reviews before you even discover the power of spaced repetition.
+- With such high retention, each review will contribute minimally to your overall learning. This essentially transforms the spaced repetition system into a massed repetition system, thereby undermining the advantages of the spacing effect.
 
 ### Maximum interval
 
@@ -153,7 +156,7 @@ A6: Yes. FSRS is about equally accurate for people who rarely use "Hard" and "Ea
 
 ***
 
-Q7: How can I check that FSRS is really enabled?
+Q7: How can I confirm that FSRS is working?
 
 A7: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.97 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals.
 
