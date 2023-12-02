@@ -152,7 +152,7 @@ A5: The latter. Simply put, if you have something like ParentDeck::SubDeck, and 
 
 Q6: I only use "Again" and "Good", will FSRS work fine?
 
-A6: Yes. FSRS is about equally accurate for people who rarely use "Hard" and "Easy" and for people who use all 4 buttons a lot. However, this is not the final conclusion, and as we gather more data, this conclusion may change.
+A6: Yes. In fact, FSRS is actually more accurate for people who rarely use "Hard" and "Easy" than for people who use all 4 buttons a lot. However, this doesn't mean that you should change your habits. Keep using the buttons the same way as before.
 
 ***
 
