@@ -134,13 +134,13 @@ A2: Anki's built-in ease factor doesn't affect anything once FSRS is enabled. Th
 
 Q3: Once I started using FSRS on my existing deck, if I ever wanted to go back to using Anki's built-in algorithm for the same deck, would that still be possible?
 
-A3: Yes, just turn FSRS off. However, this will not change the intervals back.
+A3: Yes, just turn FSRS off. However, this will not revert the intervals back.
 
 ***
 
 Q4: I'm sure I have >1000 reviews, yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
 
-A4: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has many subdecks, be sure to chekc that the preset is applied to the subdecks as well, not just to the parent deck.
+A4: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has many subdecks, be sure to check that the preset is applied to the subdecks as well, not just to the parent deck.
 
 ***
 
@@ -176,7 +176,7 @@ It's also very important to not press "Hard" when you forget a card. Press "Agai
 
 Q9: How can I confirm that FSRS is working?
 
-A9: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.97 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals. Alternatively, download the [Helper add-on](https://ankiweb.net/shared/info/759844606) and enable "Display memory state after answer".
+A9: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.99 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals. Alternatively, download the [Helper add-on](https://ankiweb.net/shared/info/759844606) and enable "Display memory state after answer".
 
 ***
 
