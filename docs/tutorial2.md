@@ -312,6 +312,7 @@ If you still want to see a deck sooner rather than later, for example because yo
 Q12: I only use "Again" and "Good", will FSRS work fine?
 
 A12: Yes. FSRS is about equally accurate for people who rarely use "Hard" and "Easy" and for people who use all 4 buttons a lot. However, this is not the final conclusion, and as we gather more data, this conclusion may change.
+
 ***
 
 You haven't seen the answer for your question? Here are many questions asked by others: https://github.com/open-spaced-repetition/fsrs4anki/issues?q=is%3Aissue+label%3Aquestion+
