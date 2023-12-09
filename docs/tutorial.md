@@ -177,3 +177,11 @@ A9: Once per month should be more than enough.
 Q10: What will happen if I review my cards on a device where FSRS is not supported (or disabled) and then on another device where FSRS is enabled?
 
 A10: Your intervals will become inaccurate, but it won't corrupt your cards and make them unusable. It will just make FSRS bad at what it's supposed to do: maintain your retention at a specified level.
+
+***
+
+You haven't seen the answer for your question? Here are many questions asked by others: https://github.com/open-spaced-repetition/fsrs4anki/issues?q=is%3Aissue+label%3Aquestion+
+
+If you still have trouble, please open a new issue to provide the details about that.
+
+https://github.com/open-spaced-repetition/fsrs4anki/issues/new/choose

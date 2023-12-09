@@ -201,4 +201,122 @@ const skip_decks = ["MainDeck3", "MainDeck4::SubDeck"];
 
 # FAQ
 
-Here, I have collected some frequently asked questions: [FAQ](https://github.com/open-spaced-repetition/fsrs4anki/wiki/FAQ)
+Q0: Why should the (re)learning steps be kept low with FSRS? What is considered as long interval by FSRS (from faq it seems maybe 1 day)?
+
+A0: Due to limitations of Anki's custom scheduling, the FSRS scheduler can't determine whether the reviews in the learning or relearning steps occur on the same day or on different days. So, the scheduler assumes that all those reviews occur on the same day. This means that even if the last learning step is greater than 1 day, the first interval set by the FSRS scheduler can still be equal to 1 day. To prevent this unexpected behaviour, it is recommend to not use learning or relearning steps of more than or equal to 1 day.
+
+If you still want to use learning (or relearning) steps greater than one day, it is recommended to reschedule your cards daily using the FSRS helper add-on. The helper add-on can read the entire review history of the card and, thus, provide more accurate next intervals in such cases.
+
+"Auto reschedule the card after each review" allows you to set learning steps longer than 1d (it's not recommended otherwise), but then the intervals displayed above the answer buttons won't match real intervals. So pick your poison - disable this option and use learning steps no longer than or equal to 1d, or enable it but then your displayed intervals won't match real intervals. To enable this feature, you need to install the helper add-on: https://ankiweb.net/shared/info/759844606
+
+***
+
+Q1: Will AnkiDroid kill this (since it still doesn't use v3 scheduling)?
+
+A1: AnkiDroid currently supports the v3 scheduler, which can be enabled through an advanced setting. However, it doesn't support custom scheduling yet, which is required for FSRS to work. AnkiDroid is expected to support FSRS in v2.17. For more details, please see: https://github.com/ankidroid/Anki-Android/issues/12620
+
+Till then, you can enable the "auto-reschedule after sync" option in the FSRS helper add-on. This way, when you sync your reviews from AnkiDroid to Desktop, they would be automatically rescheduled according to the FSRS algorithm. For best results, it is recommended to sync the reviews daily.
+
+However, if you only use AnkiDroid, you're out of luck.
+
+***
+
+Q2: Would a "dormant" deck not actively being used affect the results?
+
+A2: The cards in the "dormant" deck would have long intervals. So FSRS4Anki will predict you will forget them with a high possibility. If you remember them, FSRS4Anki will give longer intervals, but not be linear to the delay.
+
+***
+
+Q3: Does the algorithm change the way the card ease changes? If I just do good and hard will I be stuck in ease hell?
+
+A3: FSRS4Anki substitutes the card ease with the difficulty variable. The lower the difficulty, the higher the factor. The ease hell is solved by mean reversion of difficulty. If you press `good` continuously, the difficulty will converge to $D_0(3)$. For more details about the algorithm, please see [Free Spaced Repetition Scheduler](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm).
+
+***
+
+Q4: How can I see if it's working?
+
+A4: You can use the [AnkiWebView Inspector](https://ankiweb.net/shared/info/31746032) add-on. Open the inspector before you review the cards. Then you will get into debug mode and see the custom scheduling code in the inspector. For more details, please see: [How does the scheduler work?](https://github.com/open-spaced-repetition/fsrs4anki/wiki/How-does-the-scheduler-work%3F)
+
+***
+
+Q5: Does it work on existing cards, using their past review history? Or does it only work with information that is yet to be created in the future?
+
+A5: The scheduler doesn't use the review history, but the optimizer does. The scheduler uses the ease factor and interval of cards to set memory states for existing cards. And you can use [FSRS4Anki Helper](https://ankiweb.net/shared/info/759844606) to reschedule the existing cards based on the entire review history. 
+
+***
+
+Q6: Once I started using this FSRS algorithm on my existing deck, if I ever have to go back to using Anki's built-in algorithm for the same deck, would that still be possible?
+
+A6: The ease factor is modified by the v3 scheduler as usual, and FSRS4Anki doesn’t intervene in it. FSRS4Anki only modifies the interval of cards. So you can go back without any problem.
+
+***
+
+Q7: Once FSRS is running, which Anki settings will become irrelevant (in the sense that changing them won't affect scheduling anymore), and which won't?
+
+A7: FSRS only modifies the long-term scheduling. So `Learning steps` and `Relearning steps` work as usual. And I recommend not setting a step of more than one day. For example, if your current steps are `10m 1h 1d 2d`, you had better remove the `1d 2d` from the steps.
+
+In the latest version of FSRS4Anki, `maximum interval` has been supported. You can modify them in  [fsrs4anki_scheduler.js](../blob/main/fsrs4anki_scheduler.js). 
+
+The `graduating interval`, `easy interval`, `new interval`, `starting ease`, `interval modifier`,  `easy bonus`, and `hard interval` become irrelevant.
+
+***
+
+Q8: How to set different parameters for specific decks?
+
+A8:
+
+Step 1: Add code to the front template of the cards (if the version of Anki that you are using is above 2.1.62, you can skip this step)
+
+Copy the following code `<div id=deck deck_name="{{Deck}}"></div>` and paste it in the front template of cards.
+
+![image](https://user-images.githubusercontent.com/32575846/193453322-2e1220e1-3601-43c3-ad9f-fcd46fd85de6.png)
+
+Step 2: Optimize the parameters for your specific deck
+
+![image](https://user-images.githubusercontent.com/32575846/192762296-d7bd9b5e-d2d0-45af-b51d-95cd7774b353.png)
+
+![image](https://user-images.githubusercontent.com/32575846/215369494-9a14387f-14a2-4731-8d6f-87e39c23316c.png)
+
+Step 3: Set different parameters for specific decks and their sub-decks
+
+![image](https://user-images.githubusercontent.com/32575846/221179126-0942a10c-5dcc-4c76-a50f-29d13b554ac0.png)
+
+***
+
+Q9: Can I use (addon name), which modifies Anki's algorithm and changes the math behind it, together with FSRS?
+
+A9: No. Any algorithm that affects Anki's built-in scheduler will either become useless once you start using FSRS, or will actively interfere with FSRS and cause problems.
+
+***
+
+Q10: FSRS is giving huge intervals to recently learnt cards. How can I fix this?
+
+A10: For many users, the default scheduler in Anki (SM-2) tends to show new cards at unnecessarily short intervals. So, when users switch to FSRS, they tend to feel that the intervals given to new cards are too large. But these larger intervals match the target retention (configured in the scheduler code) better. By using these larger intervals, FSRS can prevent many of the unnecessary reviews that happen when using SM-2. So, it is advisable to try using these larger first intervals for a few days and see how it goes.
+
+If you still want to decrease the intervals, you can increase the requestRetention in the scheduler. But note that this will decrease all the intervals, not just the first intervals.
+
+***
+
+Q11: How can I grade the card to make FSRS more effective?
+
+A11: The grade should be chosen based only on how easy it was to answer the card, not how long you want to wait until you see it again. 
+
+For example, if you habitually avoid the easy button because it shows long intervals, you can end up in a negative cycle: You'd be making the "easy" situations even rarer and easy grade's intervals longer and longer.
+
+This means you should ignore the intervals shown above the answer buttons and instead focus on how well you recall the information.
+
+If you still want to see a deck sooner rather than later, for example because you have an exam coming up, you can use the Advance function of the Helper add-on. Advance is the preferable method because it doesn't skew the grading history of the cards.
+
+***
+
+Q12: I only use "Again" and "Good", will FSRS work fine?
+
+A12: Yes. FSRS is about equally accurate for people who rarely use "Hard" and "Easy" and for people who use all 4 buttons a lot. However, this is not the final conclusion, and as we gather more data, this conclusion may change.
+
+***
+
+You haven't seen the answer for your question? Here are many questions asked by others: https://github.com/open-spaced-repetition/fsrs4anki/issues?q=is%3Aissue+label%3Aquestion+
+
+If you still have trouble, please open a new issue to provide the details about that.
+
+https://github.com/open-spaced-repetition/fsrs4anki/issues/new/choose
