@@ -124,6 +124,8 @@ Q1: Which platforms support FSRS?
 
 A1: As of December 2023, FSRS is supported in the desktop version (Windows, Mac, and Linux), in AnkiWeb (browser version), and in AnkiMobile (iOS). AnkiDroid (Android) doesn't support FSRS yet, but you can use FSRS if you switch to the alpha version.
 
+If you are using AnkiDroid and don't want to use the alpha version, you can enable the "auto-reschedule after sync" option in the FSRS helper add-on on your Desktop. This way, when you sync your reviews from AnkiDroid to Desktop, they would be automatically rescheduled according to the FSRS algorithm. For best results, it is recommended to sync the reviews daily. Keep in mind that if you use this option, you will need to make a full sync from AnkiWeb once you update to the new version of AnkiDroid with built-in FSRS.
+
 ***
 
 Q2: Does FSRS change the way the card's ease changes?
