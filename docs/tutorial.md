@@ -146,9 +146,9 @@ A4: FSRS only takes into account one review per day. If you review a card multip
 
 Q5: My first interval is too long! Is this normal?
 
-A5: Yes. Anki tends to give very short first intervals. Don't be surprised if your first interval for "Good" is 4-5 days and your first interval for "Easy" is several weeks long.
+A5: In short, giving long first intervals is one of the strengths of FSRS. Don't be surprised if your first interval for "Good" is close to a week and your first interval for "Easy" is several weeks long. Read further for a deeper explanation:
 
-For many users, the default algorithm (SM-2) tends to show new cards at unnecessarily short intervals. So, when users switch to FSRS, they tend to feel that the intervals given to new cards are too large. But these larger intervals match the desired retention better. By using these larger intervals, FSRS can prevent many of the unnecessary reviews that happen when using SM-2. So, it is advisable to try using these larger first intervals for a few days and see how it goes. It's worth mentioning that for long intervals, the opposite is true: FSRS is more conservative than SM-2.
+For many users, the default algorithm (SM-2) tends to show new cards at unnecessarily short intervals. So, when users switch to FSRS, they tend to feel that the intervals given to new cards are too large. But these larger intervals match the desired retention better. By using these larger intervals, FSRS can prevent many of the unnecessary reviews that happen when using SM-2. So, it is advisable to try using these larger first intervals for a few days and see how it goes. It's worth mentioning that for mature cards, the opposite is true: FSRS is more conservative than SM-2.
 
 If you still want to decrease the intervals, you can increase your desired retention. But note that this will decrease all the intervals, not just the first intervals.
 
