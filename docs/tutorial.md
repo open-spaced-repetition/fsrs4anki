@@ -170,7 +170,9 @@ Q8: How can I grade the card to make FSRS more effective?
 
 A8: The grade should be chosen based only on how easy it was to answer the card, not how long you want to wait until you see it again. For example, if you habitually avoid the easy button because it shows long intervals, you can end up in a negative cycle: you'd be making the "easy" situations even rarer, and "Easy" intervals will become longer and longer. This means you should ignore the intervals shown above the answer buttons and instead focus on how well you recall the information.
 
-It's also very important to not press "Hard" when you forget a card. Press "Again" if you forgot it, and press "Hard" if you recalled it after a lot of hesitation.
+It's also very important to not press "Hard" when you forget a card. Press "Again" if you forgot it, and press "Hard" only if you recalled it after a lot of hesitation.
+
+If you still want to see a deck sooner rather than later, for example because you have an exam coming up, you can use the Advance function of the Helper add-on. Advance is the preferable method because it doesn't skew the grading history of the cards.
 
 ***
 
