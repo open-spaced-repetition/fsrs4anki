@@ -162,7 +162,11 @@ A6: The latter. Simply put, if you have something like ParentDeck::SubDeck, and 
 
 Q7: I only use "Again" and "Good", will FSRS work fine?
 
-A7: Yes. In fact, FSRS is actually more accurate for people who rarely use "Hard" and "Easy" than for people who use all 4 buttons a lot. However, this doesn't mean that you should change your habits. Keep using the buttons the same way as before.
+A7: Yes. In fact, FSRS is actually more accurate for people who rarely use "Hard" and "Easy" than for people who use all 4 buttons a lot. 
+
+Also, unlike SM-2, FSRS doesn't suffer from the problem of "Ease Hell". This problem is solved by mean reversion of difficulty. If you press good continuously, the difficulty will converge to $D_0(3)$. For more details, read [The Algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm).
+
+However, note that you should not change your rating habits. This is because FSRS uses your past rating history to determine optimal intervals for your future reviews.
 
 ***
 
