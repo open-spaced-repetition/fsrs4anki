@@ -134,7 +134,7 @@ A2: Anki's built-in ease factor doesn't affect anything once FSRS is enabled. Th
 
 Q3: Once I started using FSRS on my existing deck, if I ever wanted to go back to using Anki's built-in algorithm for the same deck, would that still be possible?
 
-A3: Yes, just turn FSRS off. However, this will not revert the intervals back.
+A3: Yes, just turn FSRS off. However, the intervals will not change after turning off FSRS.
 
 ***
 
