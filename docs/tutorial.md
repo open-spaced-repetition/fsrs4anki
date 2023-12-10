@@ -208,6 +208,4 @@ A12: Your intervals will become inaccurate, but it won't corrupt your cards and 
 
 Didn't find the answer to your question? You can browse through several other questions asked by users: https://github.com/open-spaced-repetition/fsrs4anki/issues?q=is%3Aissue+label%3Aquestion+
 
-If you still have trouble, please open a new issue to provide the details about that.
-
-https://github.com/open-spaced-repetition/fsrs4anki/issues/new/choose
+Is your problem still unsolved? Please open a new issue to provide the details: https://github.com/open-spaced-repetition/fsrs4anki/issues/new/choose
