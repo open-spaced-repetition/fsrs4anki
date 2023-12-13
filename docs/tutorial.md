@@ -19,6 +19,8 @@ Are you busy and have no time to waste? Here's a summary of the guide.
 3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
 
+FSRS can adapt to almost any habit of the user, but there is one habit that can cause problems: pressing "Hard" instead of "Again" when you forgot the card, in other words, using Hard as a failing grade. Internally, FSRS treats "Hard" as a passing grade, and so should you. If you have this habit, please correct it and only use "Again" when you forgot your material.
+
 You are now ready to use FSRS!
 
 ## Step 1: Enable the built-in FSRS Scheduler
