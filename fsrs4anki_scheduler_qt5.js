@@ -1,4 +1,4 @@
-// FSRS4Anki v4.10.0 Scheduler Qt5
+// FSRS4Anki v4.11.0 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
@@ -96,8 +96,6 @@ if (Object.keys(params).length === 0) {
 const w = params["w"];
 const requestRetention = params["requestRetention"];
 const maximumInterval = params["maximumInterval"];
-// auto-calculate intervalModifier
-const intervalModifier = 9 * (1 / requestRetention - 1);
 // global fuzz factor for all ratings.
 const fuzz_factor = set_fuzz_factor();
 const ratings = {
@@ -143,7 +141,7 @@ if (is_new()) {
   const interval = (_states$current$norma = states.current.normal) !== null && _states$current$norma !== void 0 && _states$current$norma.review.elapsedDays ? states.current.normal.review.elapsedDays : states.current.filtered.rescheduling.originalState.review.elapsedDays;
   const last_d = customData.again.d;
   const last_s = customData.again.s;
-  const retrievability = Math.pow(1 + interval / (9 * last_s), -1);
+  const retrievability = forgetting_curve(interval, last_s);
   if (display_memory_state) {
     fsrs_status.innerHTML += "<br>D: " + last_d + "<br>S: " + last_s + "<br>R: " + (retrievability * 100).toFixed(2) + "%";
   }
@@ -188,8 +186,13 @@ function apply_fuzz(ivl) {
   }
   return Math.floor(fuzz_factor * (max_ivl - min_ivl + 1) + min_ivl);
 }
+const DECAY = -0.5;
+const FACTOR = 0.9 ** (1 / DECAY) - 1;
+function forgetting_curve(elpased_days, stability) {
+  return Math.pow(1 + FACTOR * elpased_days / stability, DECAY);
+}
 function next_interval(stability) {
-  const new_interval = apply_fuzz(stability * intervalModifier);
+  const new_interval = apply_fuzz(stability / FACTOR * Math.pow(requestRetention, (1 / DECAY) - 1));
   return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
 function next_difficulty(d, rating) {
@@ -301,7 +304,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v4.10.0";
+  const version = "v4.11.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
