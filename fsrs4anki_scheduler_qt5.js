@@ -96,6 +96,8 @@ if (Object.keys(params).length === 0) {
 const w = params["w"];
 const requestRetention = params["requestRetention"];
 const maximumInterval = params["maximumInterval"];
+const DECAY = -0.5;
+const FACTOR = 0.9 ** (1 / DECAY) - 1;
 // global fuzz factor for all ratings.
 const fuzz_factor = set_fuzz_factor();
 const ratings = {
@@ -186,8 +188,6 @@ function apply_fuzz(ivl) {
   }
   return Math.floor(fuzz_factor * (max_ivl - min_ivl + 1) + min_ivl);
 }
-const DECAY = -0.5;
-const FACTOR = 0.9 ** (1 / DECAY) - 1;
 function forgetting_curve(elpased_days, stability) {
   return Math.pow(1 + FACTOR * elpased_days / stability, DECAY);
 }
