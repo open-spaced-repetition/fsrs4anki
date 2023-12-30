@@ -32,6 +32,16 @@
         "ideas",
         "bug"
       ]
+    },
+    {
+      "login": "chrislongros",
+      "name": "Christos Longros",
+      "avatar_url": "https://avatars.githubusercontent.com/u/98426896?v=4",
+      "profile": "http://chrislongros.com",
+      "contributions": [
+        "data",
+        "content"
+      ]
     }
   ],
   "contributorsPerLine": 7,
