@@ -208,6 +208,14 @@ A12: Your intervals will become inaccurate, but it won't corrupt your cards and 
 
 ***
 
+Q13: Does FSRS take into account delays?
+
+A13: Yes, it does. In FSRS, a delay in reviewing (i.e., overdue reviews) affects the next interval as follows:
+
+As the delay increases, retrievability (R) decreases. If the review was successful, the subsequent stability (S) would be higher. However, instead of increasing linearly with the delay like the SM-2/Anki algorithm, the subsequent stability converges to an upper limit, which depends on your FSRS parameters. For details, see [The Algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm)
+
+***
+
 Didn't find the answer to your question? You can browse through several other questions asked by users: https://github.com/open-spaced-repetition/fsrs4anki/issues?q=is%3Aissue+label%3Aquestion+
 
 Is your problem still unsolved? Please open a new issue to provide the details: https://github.com/open-spaced-repetition/fsrs4anki/issues/new/choose
