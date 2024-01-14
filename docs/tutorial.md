@@ -94,6 +94,11 @@ The parameters are preset-specific. If you have decks that vary wildly in diffic
 
 By default, parameters will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
 
+An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets.
+
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c78c8cc9-91af-493d-aad8-bf8425fabb0e)
+
+
 ## Step 4: (optional) Evaluate the parameters
 
 You can use the `Evaluate` button in the "Optimize FSRS parameters" section to see metrics that tell how well the parameters in the "FSRS parameters" field fit your review history. Smaller numbers indicate a better fit to your review history.
