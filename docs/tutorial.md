@@ -217,7 +217,35 @@ Q13: Does FSRS take into account delays?
 
 A13: Yes, it does. In FSRS, a delay in reviewing (i.e., overdue reviews) affects the next interval as follows:
 
-As the delay increases, retrievability (R) decreases. If the review was successful, the subsequent stability (S) would be higher. However, instead of increasing linearly with the delay like the SM-2/Anki algorithm, the subsequent stability converges to an upper limit, which depends on your FSRS parameters. For details, see [The Algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm)
+As the delay increases, retrievability (R) decreases. If the review was successful, the subsequent stability (S) would be higher. However, instead of increasing linearly with the delay like the SM-2/Anki algorithm, the subsequent stability converges to an upper limit, which depends on your FSRS parameters. For details, see [The Algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm).
+
+***
+
+Q14: Does FSRS take into account the time that I spend reviewing a card?
+
+A14: No, FSRS only needs interval lengths and grades. However, the amount of time you spend on reviews is used when calculating optimal retention using the "Compute optimal retention (experimental)" feature.
+
+***
+
+Q15: My log loss and RMSE are extremely high, how do I fix this?
+
+A15: There is no way to fix that, the only thing you can do is keep doing reviews. FSRS is more accurate for people who have a lot of data.
+
+***
+
+Q16: Why my retention in young cards is significantly lower than mature cards?
+
+A16: When your cards' stability is very low, the best interval should be shorter than 1 day. But Anki doesn't allow the long-term interval shorter than 1 day. So the retention of young cards would be lower than mature cards. 
+
+For more details, please this post: https://www.reddit.com/r/Anki/comments/193x8kn/a_specific_case_where_fsrs_couldnt_ensure_the/
+
+***
+
+Q17: My retention is poor with the default parameters, and the first interval is definitely too long for me. How to solve it?
+
+A17: The default parameters are generated from 20k collections. It's a median values for 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention are lower than desired, while the other half will discover that their retention exceed their desired. It's just a matter of degree. It also holds on for the default SM-2.
+
+If you have enough reviews (at least 1000 reviews), you can optimize FSRS for yourself. If you haven't, and the true retention is lower than your desired significantly (greater than 10%), I recommend increasing the desired retention until you have enough reviews for optimization.
 
 ***
 
