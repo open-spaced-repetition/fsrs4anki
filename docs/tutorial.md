@@ -231,12 +231,6 @@ Q15: My log loss and RMSE are extremely high, how do I fix this?
 
 A15: There is no way to fix that, the only thing you can do is keep doing reviews. FSRS is more accurate for people who have a lot of data.
 
-***
-
-Q16: My log loss and RMSE are extremely high, how do I fix this?
-
-A16: There is no way to fix that, the only thing you can do is keep doing reviews. FSRS is more accurate for people who have a lot of data.
-
 
 Didn't find the answer to your question? You can browse through several other questions asked by users: https://github.com/open-spaced-repetition/fsrs4anki/issues?q=is%3Aissue+label%3Aquestion+
 
