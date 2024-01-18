@@ -131,7 +131,7 @@ Q1: I am confused about v2, v3, FSRS v4, etc. Can you explain what's the differe
 
 A1: v2 scheduler (algorithm: SM2): this is the old Anki scheduler, not supported in Anki 23.10 or newer.
 
-v3 scheduler (algorithm: SM-2 or FSRS): this is a new scheduler for Anki. It handles the order of cards and some deck options differently.
+v3 scheduler (algorithm: SM-2 or FSRS): this is a new scheduler for Anki. It handles the order of cards, timezones, and some deck options differently. It does not change the formulas that are used to calculate interval lengths.
 
 SM-2: a simple 30-year-old algorithm developed by Piotr Wozniak, the creator of SuperMemo. Due to its simplicity, it's quite popular and is still used in flashcard apps to this day. It's the default Anki algorithm.
 
