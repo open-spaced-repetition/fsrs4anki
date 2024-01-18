@@ -135,7 +135,7 @@ v3 scheduler (algorithm: SM-2 or FSRS): this is a new scheduler for Anki. It han
 
 SM-2: a simple 30-year-old algorithm developed by Piotr Wozniak, the creator of SuperMemo. Due to its simplicity, it's quite popular and is still used in flashcard apps to this day. It's the default Anki algorithm.
 
-FSRS, or Free Spaced Repetition Scheduler: an open-source algorithm that combines machine learning techniques with universal memory formulas. It has recently been integrated into Anki as an alternative to SM-2. The v3 scheduler must be enabled in order to use FSRS. There are two versions of FSRS: FSRS v4 and FSRS-4.5. They have the same number of parameters, but the shape of the forgetting curve has been changed. All *newest* versions of Anki use FSRS-4.5, but some older versions, such as ANki 23.10, use FSRS v4.
+FSRS, or Free Spaced Repetition Scheduler: an open-source algorithm that combines machine learning techniques with universal memory formulas. It has recently been integrated into Anki as an alternative to SM-2. The v3 scheduler must be enabled in order to use FSRS. There are two versions of FSRS: FSRS v4 and FSRS-4.5. They have the same number of parameters, but the shape of the forgetting curve has been changed. All *newest* versions of Anki use FSRS-4.5, but some older versions, such as Anki 23.10, use FSRS v4.
 
 ***
 
