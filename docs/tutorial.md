@@ -253,7 +253,7 @@ For more details, please read this post: https://www.reddit.com/r/Anki/comments/
 
 ***
 
-Q18: My retention is poor with the default parameters, and the first interval is definitely too long for me. How to solve it?
+Q18: My retention is poor with the default parameters, and the first interval is definitely too long for me. How do I solve it?
 
 A18: The default parameters are generated from 20k collections. They are the median values of 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention is lower than desired retention, while the other half will discover that their retention exceeds their desired retention.
 
