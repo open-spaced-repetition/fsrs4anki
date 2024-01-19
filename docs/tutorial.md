@@ -245,19 +245,19 @@ A16: There is no way to fix that, the only thing you can do is keep doing review
 
 ***
 
-Q17: Why my retention in young cards is significantly lower than mature cards?
+Q17: Why is my retention of young cards significantly lower than my retention of mature cards?
 
-A17: When your cards' stability is very low, the best interval should be shorter than 1 day. But Anki doesn't allow the long-term interval shorter than 1 day. So the retention of young cards would be lower than mature cards. 
+A17: When your cards' stability is very low, the best interval should be shorter than 1 day. But Anki doesn't allow cards that are in the "review" phase to have intervals shorter than 1 day, only cards in the "learning" or "relearning" phase can have such short intervals. As a result, FSRS ends up giving you suboptimal intervals that are too long.
 
-For more details, please this post: https://www.reddit.com/r/Anki/comments/193x8kn/a_specific_case_where_fsrs_couldnt_ensure_the/
+For more details, please read this post: https://www.reddit.com/r/Anki/comments/193x8kn/a_specific_case_where_fsrs_couldnt_ensure_the/
 
 ***
 
 Q18: My retention is poor with the default parameters, and the first interval is definitely too long for me. How to solve it?
 
-A18: The default parameters are generated from 20k collections. It's a median values for 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention are lower than desired, while the other half will discover that their retention exceed their desired. It's just a matter of degree. It also holds on for the default SM-2.
+A18: The default parameters are generated from 20k collections. They are the median values of 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention is lower than desired retention, while the other half will discover that their retention exceeds their desired retention.
 
-If you have enough reviews (at least 1000 reviews), you can optimize FSRS for yourself. If you haven't, and the true retention is lower than your desired significantly (greater than 10%), I recommend increasing the desired retention until you have enough reviews for optimization.
+If you have enough reviews (at least 1000 reviews), you can optimize FSRS parameters to personalize them for yourself. If you don't have enough reviews and the true retention is significantly lower than your desired retention, I recommend increasing the desired retention until you have enough reviews for optimization. You can check your true retention using the Helper add-on, just Shift + Left Mouse Click on Stats.
 
 ***
 
