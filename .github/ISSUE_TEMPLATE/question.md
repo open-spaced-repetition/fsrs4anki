@@ -7,6 +7,12 @@ assignees: ''
 
 ---
 
+Do you have a doubt about using FSRS in Anki? If so, please post on https://forums.ankiweb.net/ instead.
+
+This issue tracker is primarily intended for questions and suggestions about the algorithm itself, rather than its usage in Anki. In addition, a larger community can provide support on the Anki Forums.
+
+Before posting, please read the following:
+
 **Research**
 
 *Enter an [x] character to confirm the points below:*
