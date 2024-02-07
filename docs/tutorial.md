@@ -47,7 +47,7 @@ The following chart illustrates how the workload changes with retention. The exa
 
 ![Workload and retention, again (small)](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/e2b95037-593a-4633-8774-dd16cba5f48e)
 
-Initially, users were not allowed to set the desired retention outside of the 0.70-0.97 range because it would make learning inefficient. In Anki v23.10.1, the range has been extended to 0.70-0.99 at the request of some users. However, setting the desired retention above 0.97 is still not advised for two main reasons:
+Initially, users were not allowed to set the desired retention outside of the 0.70-0.97 range because it would make learning inefficient. In Anki 23.10.1, the range has been extended to 0.70-0.99 at the request of some users. However, setting the desired retention above 0.97 is still not advised for two main reasons:
 
 - Such a high desired retention will significantly increase your workload (cards per day). The repetitions will be so frequent that you will dread doing your reviews before you even discover the power of spaced repetition.
 - With such high retention, each review will contribute minimally to your overall learning. This essentially transforms the spaced repetition system into a massed repetition system, thereby undermining the advantages of the spacing effect.
@@ -90,7 +90,7 @@ If you have at least 1000 reviews (across all cards that this preset applies to)
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
-The parameters are preset-specific. If you have decks that vary wildly in difficulty, it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different.
+The parameters are preset-specific. If you have decks that vary wildly in difficulty, it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different. Parameters and desired retention are independent, you do not need to re-optimize parameters if you have changed desired retention.
 
 By default, parameters will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
 
@@ -141,9 +141,9 @@ FSRS, or Free Spaced Repetition Scheduler: an open-source algorithm that combine
 
 Q2: Which platforms support FSRS?
 
-A2: As of December 2023, FSRS is supported in the desktop version (Windows, Mac, and Linux), in AnkiWeb (browser version), and in AnkiMobile (iOS). AnkiDroid (Android) doesn't support FSRS yet, but you can use FSRS if you switch to the alpha version.
+A2: As of December 2023, FSRS is supported in the desktop version (Windows, Mac, and Linux), in AnkiWeb (browser version), and in AnkiMobile (iOS). AnkiDroid (Android) doesn't officially support FSRS yet, but you can use FSRS if you switch to the beta version. In Google Play, go to the AnkiDroid app and tap Join under "Join the beta".
 
-If you are using AnkiDroid and don't want to use the alpha version, you can enable the "auto-reschedule after sync" option in the FSRS helper add-on on your Desktop. This way, when you sync your reviews from AnkiDroid to Desktop, they would be automatically rescheduled according to the FSRS algorithm. For best results, it is recommended to sync the reviews daily. Keep in mind that if you use this option, you will need to make a full sync from AnkiWeb once you update to the new version of AnkiDroid with built-in FSRS.
+If you are using AnkiDroid and don't want to use the beta version, you can enable the "auto-reschedule after sync" option in the FSRS helper add-on on your Desktop. This way, when you sync your reviews from AnkiDroid to Desktop, they would be automatically rescheduled according to the FSRS algorithm. For best results, it is recommended to sync the reviews daily. Keep in mind that if you use this option, you will need to make a full sync from AnkiWeb once you update to the new version of AnkiDroid with built-in FSRS.
 
 ***
 
