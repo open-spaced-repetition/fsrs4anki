@@ -76,7 +76,7 @@ Secondly, the use of multiple short (re)learning steps is also discouraged. This
 
 This option controls whether the due dates of cards will be changed when you enable FSRS or change the parameters and/or desired retention. By default, the cards are not rescheduled. This means that future reviews will use the new scheduling, but there will be no immediate change to your workload. This allows a smooth and gradual transition from SM-2 to FSRS.
 
-If rescheduling is enabled, the due dates of cards will be immediately changed. This often results in a large number of cards becoming due, so is not recommended when first switching from SM2.
+If rescheduling is enabled, the due dates of cards will be immediately changed. This often results in a large number of cards becoming due, so is not recommended when first switching from SM-2.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/fe61aaa6-cecb-4476-9ed2-9db05b63c7de)
 
@@ -129,7 +129,7 @@ Since the tool is experimental, it is better to use your intuition to come up wi
 
 Q1: I am confused about v2, v3, FSRS v4, etc. Can you explain what's the difference?
 
-A1: v2 scheduler (algorithm: SM2): this is the old Anki scheduler, not supported in Anki 23.10 or newer.
+A1: v2 scheduler (algorithm: SM-2): this is the old Anki scheduler, not supported in Anki 23.10 or newer.
 
 v3 scheduler (algorithm: SM-2 or FSRS): this is a new scheduler for Anki. It handles the order of cards, timezones, and some deck options differently. It does not change the formulas that are used to calculate interval lengths.
 
@@ -141,7 +141,7 @@ FSRS, or Free Spaced Repetition Scheduler: an open-source algorithm that combine
 
 Q2: Which platforms support FSRS?
 
-A2: As of December 2023, FSRS is supported in the desktop version (Windows, Mac, and Linux), in AnkiWeb (browser version), and in AnkiMobile (iOS). The latest stable version of AnkiDroid (Android) doesn't support FSRS yet, but you can use FSRS if you switch to the beta version. In Google Play, go to the AnkiDroid app and tap Join under "Join the beta".
+A2: As of February 2024, FSRS is supported in the desktop version (Windows, Mac, and Linux), in AnkiWeb (browser version), and in AnkiMobile (iOS). The latest stable version of AnkiDroid (Android) doesn't support FSRS yet, but you can use FSRS if you switch to the beta version. In Google Play, go to the AnkiDroid app and tap Join under "Join the beta".
 
 If you are using AnkiDroid and don't want to use the beta version, you can enable the "auto-reschedule after sync" option in the FSRS helper add-on on your Desktop. This way, when you sync your reviews from AnkiDroid to Desktop, they would be automatically rescheduled according to the FSRS algorithm. For best results, it is recommended to sync the reviews daily. Keep in mind that if you use this option, you will need to make a full sync from AnkiWeb once you update to the new version of AnkiDroid with built-in FSRS.
 
