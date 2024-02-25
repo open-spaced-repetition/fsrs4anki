@@ -15,7 +15,7 @@
 Are you busy and have no time to waste? Here's a summary of the guide.
 
 1) Go to deck options and enable FSRS under "Advanced", at the bottom of the deck options window.
-2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day.
+2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review.
 3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
 
@@ -64,7 +64,7 @@ You need to configure this value only if you have cards with missing or incomple
 
 ### Learning and re-learning steps
 
-When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or **equal** to 1 day should not be used.
+When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or **equal** to 1 day should not be used. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review. For the same reason, any steps longer than `8h` are not recommended, although it depends on your lifestyle and learning habits.
 
 The reason is that FSRS can determine more optimal intervals but the use of longer (re)learning steps doesn't allow FSRS to schedule the reviews, making the scheduling less optimal. In addition, if longer steps are used, there can be cases where the "Hard" interval exceeds the "Good" interval. 
 
