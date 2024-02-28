@@ -15,7 +15,7 @@
 Are you busy and have no time to waste? Here's a summary of the guide.
 
 1) Go to deck options and enable FSRS under "Advanced", at the bottom of the deck options window.
-2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day.
+2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review.
 3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
 
@@ -64,7 +64,7 @@ You need to configure this value only if you have cards with missing or incomple
 
 ### Learning and re-learning steps
 
-When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or **equal** to 1 day should not be used.
+When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or **equal** to 1 day should not be used. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review. In general, any steps longer than 12-14 hours are not recommended, since most people will not be able to finish such steps within the same day.
 
 The reason is that FSRS can determine more optimal intervals but the use of longer (re)learning steps doesn't allow FSRS to schedule the reviews, making the scheduling less optimal. In addition, if longer steps are used, there can be cases where the "Hard" interval exceeds the "Good" interval. 
 
@@ -141,9 +141,7 @@ FSRS, or Free Spaced Repetition Scheduler: an open-source algorithm that combine
 
 Q2: Which platforms support FSRS?
 
-A2: As of February 2024, FSRS is supported in the desktop version (Windows, Mac, and Linux), in AnkiWeb (browser version), and in AnkiMobile (iOS). The latest stable version of AnkiDroid (Android) doesn't support FSRS yet, but you can use FSRS if you switch to the beta version. In Google Play, go to the AnkiDroid app and tap Join under "Join the beta".
-
-If you are using AnkiDroid and don't want to use the beta version, you can enable the "auto-reschedule after sync" option in the FSRS helper add-on on your Desktop. This way, when you sync your reviews from AnkiDroid to Desktop, they would be automatically rescheduled according to the FSRS algorithm. For best results, it is recommended to sync the reviews daily. Keep in mind that if you use this option, you will need to make a full sync from AnkiWeb once you update to the new version of AnkiDroid with built-in FSRS.
+A2: As of February 2024, FSRS is supported on all platforms: desktop Anki (Windows, Mac, and Linux), AnkiWeb (browser), AnkiMobile (iOS), and AnkiDroid (Android). Note that the latest version of AnkiDroid doesn't use the year.month.patch naming convention, while Anki and AnkiMobile do. The latest version of AnkiDroid is 2.17, while the latest desktop version is 23.12.1.
 
 ***
 
