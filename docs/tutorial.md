@@ -64,7 +64,7 @@ The  Maximum interval setting works the same way as when using the default algor
 
 You need to configure this value only if you have cards with missing or incomplete review logs. Since review logs typically won't be missing unless you have explicitly deleted them to free up space or you have used some add-ons that modify the review history, **most users will not need to adjust this value**.
 
-Don't forget to click "Save" after changing settings, otherwise your changes won't be saved.
+Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of subdecks take priority over the settings of the parent deck.
 
 ### Learning and re-learning steps
 
