@@ -21,6 +21,8 @@ Are you busy and have no time to waste? Here's a summary of the guide.
 
 FSRS can adapt to almost any user habit, except one habit: pressing "Hard" instead of "Again" when you forget the information. When you press "Hard", FSRS assumes you have recalled the information correctly (though with hesitation/ difficulty). If you press "Hard" even when you have failed to recall the information, the intervals will be unreasonably high (for all the ratings). So, if you have this habit, please change it and use "Again" when you forget the information.
 
+Regarding [add-on compatibility](https://github.com/open-spaced-repetition/fsrs4anki?tab=readme-ov-file#add-on-compatibility), as a general rule of thumb, if an add-on affects intervals and scheduling in some way, it shouldn't be used with FSRS.
+
 You are now ready to use FSRS!
 
 ## Step 1: Enable the built-in FSRS Scheduler
@@ -61,6 +63,8 @@ The  Maximum interval setting works the same way as when using the default algor
 "SM-2 retention" refers to your average retention before you started using FSRS.
 
 You need to configure this value only if you have cards with missing or incomplete review logs. Since review logs typically won't be missing unless you have explicitly deleted them to free up space or you have used some add-ons that modify the review history, **most users will not need to adjust this value**.
+
+Don't forget to click "Save" after changing settings, otherwise your changes won't be saved.
 
 ### Learning and re-learning steps
 
