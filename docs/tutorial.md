@@ -96,7 +96,7 @@ The parameters are preset-specific. If you have decks that vary wildly in diffic
 
 By default, parameters will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
 
-An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets. Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of subdecks take priority over the settings of the parent deck.
+An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets. Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of the preset applied to subdecks take priority over the settings of the preset applied to the parent deck.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c78c8cc9-91af-493d-aad8-bf8425fabb0e)
 
@@ -205,7 +205,7 @@ If you still want to see a deck sooner rather than later, for example because yo
 
 Q10: How can I confirm that FSRS is working?
 
-A10: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.99 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals. Alternatively, download the [Helper add-on](https://ankiweb.net/shared/info/759844606) and enable "Display memory state after answer". If intervals don't change, make sure that you have applied to the right deck. Remember that the settings of subdecks take priority over the settings of the parent deck.
+A10: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.99 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals. Alternatively, download the [Helper add-on](https://ankiweb.net/shared/info/759844606) and enable "Display memory state after answer". If the intervals don't change, make sure that you have applied the preset to the right deck. Remember that the settings of the preset applied to subdecks take priority over the settings of the preset applied to the parent deck.
 
 ***
 
