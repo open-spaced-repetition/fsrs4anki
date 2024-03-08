@@ -2,7 +2,7 @@
 
 # Table of contents
 - [The Ultra Short Version](the-ultra-short-version)
-- [Step 1: Enable the built-in FSRS Scheduler](#step-1-enable-the-built-in-fsrs-scheduler)
+- [Step 1: Enable FSRS](#step-1-enable-fsrs)
 - [Step 2: Configure FSRS settings](#step-2-configure-fsrs-settings)
 - [Step 3: Find optimal parameters](#step-3-find-optimal-parameters)
 - [Step 4: (optional) Evaluate the parameters](#step-4-optional-evaluate-the-parameters)
@@ -25,7 +25,7 @@ Regarding [add-on compatibility](https://github.com/open-spaced-repetition/fsrs4
 
 You are now ready to use FSRS!
 
-## Step 1: Enable the built-in FSRS Scheduler
+## Step 1: Enable FSRS
 
 To enable FSRS, go to Deck Options, scroll down to the "Advanced" section, and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
 
