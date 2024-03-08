@@ -64,8 +64,6 @@ The  Maximum interval setting works the same way as when using the default algor
 
 You need to configure this value only if you have cards with missing or incomplete review logs. Since review logs typically won't be missing unless you have explicitly deleted them to free up space or you have used some add-ons that modify the review history, **most users will not need to adjust this value**.
 
-Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of subdecks take priority over the settings of the parent deck.
-
 ### Learning and re-learning steps
 
 When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. This means that steps longer than or **equal** to 1 day should not be used. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review. In general, any steps longer than 12-14 hours are not recommended, since most people will not be able to finish such steps within the same day.
@@ -98,7 +96,7 @@ The parameters are preset-specific. If you have decks that vary wildly in diffic
 
 By default, parameters will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
 
-An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets.
+An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets. Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of subdecks take priority over the settings of the parent deck.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c78c8cc9-91af-493d-aad8-bf8425fabb0e)
 
