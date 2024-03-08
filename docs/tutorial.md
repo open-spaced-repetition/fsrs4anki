@@ -16,7 +16,7 @@ Are you busy and have no time to waste? Here's a summary of the guide.
 
 1) Go to deck options and enable FSRS under "Advanced", at the bottom of the deck options window.
 2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review.
-3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than  reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
+3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
 
 FSRS can adapt to almost any user habit, except one habit: pressing "Hard" instead of "Again" when you forget the information. When you press "Hard", FSRS assumes you have recalled the information correctly (though with hesitation/ difficulty). If you press "Hard" even when you have failed to recall the information, the intervals will be unreasonably high (for all the ratings). So, if you have this habit, please change it and use "Again" when you forget the information.
@@ -88,7 +88,7 @@ The FSRS optimizer uses machine learning to learn your memory patterns and find 
 
 If you have less than 1000 reviews, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
 
-If you have at least  reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
+If you have at least 1000 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
@@ -161,7 +161,7 @@ A4: Yes, just turn FSRS off. However, the intervals will not change after turnin
 
 ***
 
-Q5: I'm sure I have > reviews, yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
+Q5: I'm sure I have >1000 reviews, yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
 
 A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is also applied to the subdecks, not just to the parent deck.
 
@@ -259,7 +259,7 @@ Q18: My retention is poor with the default parameters, and the first interval is
 
 A18: The default parameters are generated from 20k collections. They are the median values of 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention is lower than desired retention, while the other half will discover that their retention exceeds their desired retention.
 
-If you have enough reviews (at least  reviews), you can optimize FSRS parameters to personalize them for yourself. If you don't have enough reviews and the true retention is significantly lower than your desired retention, I recommend increasing the desired retention until you have enough reviews for optimization. You can check your true retention using the Helper add-on, just Shift + Left Mouse Click on Stats.
+If you have enough reviews (at least 1000 reviews), you can optimize FSRS parameters to personalize them for yourself. If you don't have enough reviews and the true retention is significantly lower than your desired retention, I recommend increasing the desired retention until you have enough reviews for optimization. You can check your true retention using the Helper add-on, just Shift + Left Mouse Click on Stats.
 
 ***
 
