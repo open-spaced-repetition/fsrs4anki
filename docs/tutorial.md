@@ -2,7 +2,7 @@
 
 # Table of contents
 - [The Ultra Short Version](the-ultra-short-version)
-- [Step 1: Enable the built-in FSRS Scheduler](#step-1-enable-the-built-in-fsrs-scheduler)
+- [Step 1: Enable FSRS](#step-1-enable-fsrs)
 - [Step 2: Configure FSRS settings](#step-2-configure-fsrs-settings)
 - [Step 3: Find optimal parameters](#step-3-find-optimal-parameters)
 - [Step 4: (optional) Evaluate the parameters](#step-4-optional-evaluate-the-parameters)
@@ -19,11 +19,13 @@ Are you busy and have no time to waste? Here's a summary of the guide.
 3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
 
-FSRS can adapt to almost any user habit, except one habit: pressing "Hard" instead of "Again" when you forget the information. When you press "Hard", FSRS assumes you have recalled the information correctly (though with hesitation/ difficulty). If you press "Hard" even when you have failed to recall the information, the intervals will be unreasonably high (for all the ratings). So, if you have this habit, please change it and use "Again" when you forget the information.
+FSRS can adapt to almost any habit, except for one habit: pressing "Hard" instead of "Again" when you forget the information. When you press "Hard", FSRS assumes you have recalled the information correctly (though with hesitation and a lot of mental effort). If you press "Hard" when you have failed to recall the information, the intervals will be unreasonably high (for all the ratings). So, if you have this habit, please change it and use "Again" when you forget the information.
+
+Regarding [add-on compatibility](https://github.com/open-spaced-repetition/fsrs4anki?tab=readme-ov-file#add-on-compatibility), as a general rule of thumb, if an add-on affects intervals and scheduling in some way, it shouldn't be used with FSRS.
 
 You are now ready to use FSRS!
 
-## Step 1: Enable the built-in FSRS Scheduler
+## Step 1: Enable FSRS
 
 To enable FSRS, go to Deck Options, scroll down to the "Advanced" section, and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
 
@@ -84,7 +86,7 @@ If rescheduling is enabled, the due dates of cards will be immediately changed. 
 
 The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters.
 
-If you have less than 1,000 reviews, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
+If you have less than 1000 reviews, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
 
 If you have at least 1000 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
@@ -94,7 +96,7 @@ The parameters are preset-specific. If you have decks that vary wildly in diffic
 
 By default, parameters will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
 
-An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets.
+An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets. Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of the preset applied to subdecks take priority over the settings of the preset applied to the parent deck.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c78c8cc9-91af-493d-aad8-bf8425fabb0e)
 
@@ -203,7 +205,7 @@ If you still want to see a deck sooner rather than later, for example because yo
 
 Q10: How can I confirm that FSRS is working?
 
-A10: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.99 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals. Alternatively, download the [Helper add-on](https://ankiweb.net/shared/info/759844606) and enable "Display memory state after answer".
+A10: Review a new card, remember what intervals you saw above the answer buttons. Undo review. Now set the desired retention either to 0.99 (maximum) or to 0.7 (minimum), and review the card again. You should see different intervals. Alternatively, download the [Helper add-on](https://ankiweb.net/shared/info/759844606) and enable "Display memory state after answer". If the intervals don't change, make sure that you have applied the preset to the right deck. Remember that the settings of the preset applied to subdecks take priority over the settings of the preset applied to the parent deck.
 
 ***
 
