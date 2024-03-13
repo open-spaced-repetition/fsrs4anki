@@ -70,7 +70,7 @@ When FSRS is enabled, the learning and re-learning steps should be chosen in suc
 
 The reason is that FSRS can determine more optimal intervals but the use of longer (re)learning steps doesn't allow FSRS to schedule the reviews, making the scheduling less optimal. In addition, if longer steps are used, there can be cases where the "Hard" interval exceeds the "Good" interval. 
 
-Secondly, the use of multiple short (re)learning steps is also discouraged. This is because research shows that same-day reviews have a negligible impact on long-term memory. However, if you notice that your retention for young cards is much lower than desired, it may be advisable to add several learning steps, for example, 2h or 4h.
+Secondly, the use of multiple short (re)learning steps is also discouraged. This is because research shows that same-day reviews have a negligible impact on long-term memory. However, if you notice that your retention for young cards is much lower than desired, adding more intraday learning steps (such as 2h or 4h) may be helpful.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/a5780dca-4d0d-4382-9323-26e45cb6f002)
 
