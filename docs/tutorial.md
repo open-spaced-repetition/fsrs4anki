@@ -1,7 +1,7 @@
 中文版请见：[Anki 新算法 FSRS 配置指南](https://zhuanlan.zhihu.com/p/664758200)
 
 # Table of contents
-- [The Ultra Short Version](the-ultra-short-version)
+- [The Ultra Short Version](#the-ultra-short-version)
 - [Step 1: Enable FSRS](#step-1-enable-fsrs)
 - [Step 2: Configure FSRS settings](#step-2-configure-fsrs-settings)
 - [Step 3: Find optimal parameters](#step-3-find-optimal-parameters)
