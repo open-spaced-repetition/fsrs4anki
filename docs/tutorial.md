@@ -66,11 +66,11 @@ You need to configure this value only if you have cards with missing or incomple
 
 ### Learning and re-learning steps
 
-When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. In general, any steps longer than 12-14 hours are not recommended because most people will not be able to finish such steps on the same day as their first step. A reasonable learning step can be 10m, 15m, 20m or 30m.
+When FSRS is enabled, the learning and re-learning steps should be chosen in such a way that all the learning steps can be completed on the same day. In general, any steps longer than 12-14 hours are not recommended because most people will not be able to finish such steps on the same day as their first step. A *single* reasonable learning step can be 10m, 15m, 20m or 30m.
 
 The reason is that FSRS can determine more optimal intervals but the use of longer (re)learning steps doesn't allow FSRS to schedule the reviews, making the scheduling less optimal. In addition, if longer steps are used, there can be cases where the "Hard" interval exceeds the "Good" interval. 
 
-Secondly, the use of multiple short (re)learning steps is also discouraged. This is because research shows that same-day reviews have a negligible impact on long-term memory. However, if you notice that your retention for young cards is much lower than desired, adding more intraday learning steps (such as 2h or 4h) may be helpful.
+The use of *multiple* short (re)learning steps, such as "5m 10m 15m 30m", is also discouraged. However, if you notice that your retention for young cards is much lower than desired, adding more intraday learning steps (such as 2h or 4h) may be helpful.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/a5780dca-4d0d-4382-9323-26e45cb6f002)
 
