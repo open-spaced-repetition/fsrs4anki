@@ -144,7 +144,7 @@ In Anki 24.04, this feature has been reworked. You no longer need to input "Deck
 
 ## Step 6: (optional) Custom Scheduling
 
-"Custom scheduling" allows you to introduce new scheduling rules on top of FSRS. This feature is only for advanced users and developers. In Anki 24.04, it is located in the "Advanced" section when FSRS is enabled, rather than in the "FSRS" section.
+"Custom scheduling" allows you to introduce new scheduling rules on top of FSRS. This feature is only for advanced users and developers.
 
 # FAQ
 
