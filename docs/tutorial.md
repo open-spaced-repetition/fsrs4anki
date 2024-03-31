@@ -66,6 +66,7 @@ The  Maximum interval setting works the same way as when using the default algor
 When some of your review history is missing, FSRS needs to fill in the gaps. By default, it will assume that when you did those old reviews, you remembered 90% of the material. If your old retention was significantly higher or lower than 90%, adjusting this option will allow FSRS to better approximate the missing reviews. Your review history may be incomplete for two reasons:
 1. Because you've used the 'ignore reviews before' option.
 2. Because you've previously deleted review logs to free up space, used some add-ons that modify the review history, or imported material from a different SRS program. 
+
 The latter is quite rare, so unless you've used the 'ignore reviews before' option, you probably don't need to adjust this setting.
 Even in Anki 24.04, it is located in the "Advanced" section, not in the "FSRS" section.
 
