@@ -27,7 +27,7 @@ You are now ready to use FSRS!
 
 ## Step 1: Enable FSRS
 
-To enable FSRS, go to Deck Options, scroll down to the "Advanced" section, and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
+To enable FSRS, go to Deck Options, scroll down to the "Advanced" section ("FSRS in ANki 24.04), and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
 
 If you have previously used FSRS using the custom scheduling method, please delete the FSRS code in the custom scheduling field before enabling the native FSRS. Also, if you are using the [FSRS4Anki Helper add-on](https://ankiweb.net/shared/info/759844606), check for add-on updates to ensure that the add-on has been updated to the latest version. 
 
@@ -137,7 +137,7 @@ In Anki 24.04, this feature has been reworked. You no longer need to input "Deck
 
 ## Step 6: (optional) Custom Scheduling
 
-"Custom scheduling" allows you to introduce new scheduling rules on top of FSRS. This feature is only for advanced users and developers.
+"Custom scheduling" allows you to introduce new scheduling rules on top of FSRS. This feature is only for advanced users and developers. In Anki 24.04, it is located in the "Advanced" section when FSRS is enabled, rather than in the "FSRS" section.
 
 # FAQ
 
