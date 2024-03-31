@@ -93,7 +93,8 @@ In Anki 24.04, a feature to exclude review history until a specific date from op
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/1d53d964-2136-43b2-977f-5116141c38f9)
 
-It is useful if you have been misusing Hard. Hard should be used as a passing grade, not a failing grade. You can also use this feature if your learning habits have changed very significantly over time, however, FSRS can likely adapt to those changes.
+
+This can be useful if you imported someone else's scheduling data, or if you have been misusing Hard. Hard should be used as a passing grade, not a failing grade. This feature can also be helpful if your learning or rating habits have changed significantly over time.
 
 
 ## Step 3: Find optimal parameters
