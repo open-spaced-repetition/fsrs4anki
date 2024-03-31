@@ -60,7 +60,7 @@ The  Maximum interval setting works the same way as when using the default algor
 
 ### Historical retention (SM-2 retention)
 
-"SM-2 retention" refers to your average retention before you started using FSRS.
+"Historical retention" (called "SM-2 retention" before Anki 24.04) is the average retention in the past.
 
 You need to configure this value only if you have cards with missing or incomplete review logs. Since review logs typically won't be missing unless you have explicitly deleted them to free up space or you have used some add-ons that modify the review history, **most users will not need to adjust this value**. In Anki 24.04, it's called Historical Retention, and it is located in the "Advanced" section when FSRS is enabled rather than in the "FSRS" section.
 
