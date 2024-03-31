@@ -62,7 +62,6 @@ The  Maximum interval setting works the same way as when using the default algor
 
 "Historical retention" (called "SM-2 retention" before Anki 24.04) is the average retention in the past.
 
-
 When some of your review history is missing, FSRS needs to fill in the gaps. By default, it will assume that when you did those old reviews, you remembered 90% of the material. If your old retention was significantly higher or lower than 90%, adjusting this option will allow FSRS to better approximate the missing reviews. Your review history may be incomplete for two reasons:
 1. Because you've used the 'ignore reviews before' option.
 2. Because you've previously deleted review logs to free up space, used some add-ons that modify the review history, or imported material from a different SRS program. 
@@ -94,8 +93,7 @@ This is a new feature added in Anki 24.04. If set, review history up to the prov
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/1d53d964-2136-43b2-977f-5116141c38f9)
 
-
-This can be useful if you imported someone else's scheduling data, or if you have been misusing Hard. Hard should be used as a passing grade, not a failing grade. This feature can also be helpful if your learning or rating habits have changed significantly over time.
+This can be useful if you imported someone else's scheduling data, or if you have been misusing Hard. Hard should be used as a passing grade, not a failing grade. This feature can also be helpful if your learning or rating habits have changed significantly over time. If you are using this feature, it's important to accurately select your Historical Retention setting.
 
 
 ## Step 3: Find optimal parameters
