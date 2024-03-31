@@ -58,7 +58,7 @@ Initially, users were not allowed to set the desired retention outside of the 0.
 
 The  Maximum interval setting works the same way as when using the default algorithm. It is the maximum number of days that a card can wait until it is shown again. For more information, see [Maximum interval](https://docs.ankiweb.net/deck-options.html#maximum-interval) in the Anki manual. In Anki 24.04, it is located in the "Advanced" section when FSRS is enabled, rather than in the "FSRS" section.
 
-### SM-2 retention
+### Historical retention (SM-2 retention)
 
 "SM-2 retention" refers to your average retention before you started using FSRS.
 
