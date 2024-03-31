@@ -14,7 +14,7 @@
 
 Are you busy and have no time to waste? Here's a summary of the guide.
 
-1) Go to deck options and enable FSRS under "Advanced", at the bottom of the deck options window.
+1) Go to deck options and enable FSRS under "Advanced" ("FSRS" in Anki 24.04), at the bottom of the deck options window.
 2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review.
 3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews (400 in Anki 24.04) across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
@@ -27,7 +27,7 @@ You are now ready to use FSRS!
 
 ## Step 1: Enable FSRS
 
-To enable FSRS, go to Deck Options, scroll down to the "Advanced" section ("FSRS in ANki 24.04), and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
+To enable FSRS, go to Deck Options, scroll down to the "Advanced" section ("FSRS" in Anki 24.04), and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
 
 If you have previously used FSRS using the custom scheduling method, please delete the FSRS code in the custom scheduling field before enabling the native FSRS. Also, if you are using the [FSRS4Anki Helper add-on](https://ankiweb.net/shared/info/759844606), check for add-on updates to ensure that the add-on has been updated to the latest version. 
 
