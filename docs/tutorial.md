@@ -62,7 +62,12 @@ The  Maximum interval setting works the same way as when using the default algor
 
 "Historical retention" (called "SM-2 retention" before Anki 24.04) is the average retention in the past.
 
-You need to configure this value only if you have cards with missing or incomplete review logs. Since review logs typically won't be missing unless you have explicitly deleted them to free up space or you have used some add-ons that modify the review history, **most users will not need to adjust this value**. In Anki 24.04, it's called Historical Retention, and it is located in the "Advanced" section when FSRS is enabled rather than in the "FSRS" section.
+
+When some of your review history is missing, FSRS needs to fill in the gaps. By default, it will assume that when you did those old reviews, you remembered 90% of the material. If your old retention was significantly higher or lower than 90%, adjusting this option will allow FSRS to better approximate the missing reviews. Your review history may be incomplete for two reasons:
+1. Because you've used the 'ignore reviews before' option.
+2. Because you've previously deleted review logs to free up space, used some add-ons that modify the review history, or imported material from a different SRS program. 
+The latter is quite rare, so unless you've used the 'ignore reviews before' option, you probably don't need to adjust this setting.
+Even in Anki 24.04, it is located in the "Advanced" section, not in the "FSRS" section.
 
 ### Learning and re-learning steps
 
