@@ -14,9 +14,9 @@
 
 Are you busy and have no time to waste? Here's a summary of the guide.
 
-1) Go to deck options and enable FSRS under "Advanced", at the bottom of the deck options window.
+1) Go to deck options and enable FSRS under "Advanced" ("FSRS" in Anki 24.04), at the bottom of the deck options window.
 2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review.
-3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
+3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews (400 in Anki 24.04) across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
 
 FSRS can adapt to almost any habit, except for one habit: pressing "Hard" instead of "Again" when you forget the information. When you press "Hard", FSRS assumes you have recalled the information correctly (though with hesitation and a lot of mental effort). If you press "Hard" when you have failed to recall the information, the intervals will be unreasonably high (for all the ratings). So, if you have this habit, please change it and use "Again" when you forget the information.
@@ -27,7 +27,7 @@ You are now ready to use FSRS!
 
 ## Step 1: Enable FSRS
 
-To enable FSRS, go to Deck Options, scroll down to the "Advanced" section, and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
+To enable FSRS, go to Deck Options, scroll down to the "Advanced" section ("FSRS" in Anki 24.04), and toggle FSRS. This setting is shared by all deck presets. Note that after enabling FSRS, several settings, such as "Graduating interval", "Easy bonus", etc. will disappear. This is because these settings are irrelevant when FSRS is enabled.
 
 If you have previously used FSRS using the custom scheduling method, please delete the FSRS code in the custom scheduling field before enabling the native FSRS. Also, if you are using the [FSRS4Anki Helper add-on](https://ankiweb.net/shared/info/759844606), check for add-on updates to ensure that the add-on has been updated to the latest version. 
 
@@ -58,11 +58,16 @@ Initially, users were not allowed to set the desired retention outside of the 0.
 
 The  Maximum interval setting works the same way as when using the default algorithm. It is the maximum number of days that a card can wait until it is shown again. For more information, see [Maximum interval](https://docs.ankiweb.net/deck-options.html#maximum-interval) in the Anki manual.
 
-### SM-2 retention
+### Historical retention (SM-2 retention)
 
-"SM-2 retention" refers to your average retention before you started using FSRS.
+"Historical retention" (called "SM-2 retention" before Anki 24.04) is the average retention in the past.
 
-You need to configure this value only if you have cards with missing or incomplete review logs. Since review logs typically won't be missing unless you have explicitly deleted them to free up space or you have used some add-ons that modify the review history, **most users will not need to adjust this value**.
+When some of your review history is missing, FSRS needs to fill in the gaps. By default, it will assume that when you did those old reviews, you remembered 90% of the material. If your old retention was significantly higher or lower than 90%, adjusting this option will allow FSRS to better approximate the missing reviews. Your review history may be incomplete for two reasons:
+1. Because you've used the 'ignore reviews before' option.
+2. Because you've previously deleted review logs to free up space, used some add-ons that modify the review history, or imported material from a different SRS program. 
+
+The latter is quite rare, so unless you've used the 'ignore reviews before' option, you probably don't need to adjust this setting.
+Even in Anki 24.04, it is located in the "Advanced" section, not in the "FSRS" section.
 
 ### Learning and re-learning steps
 
@@ -82,13 +87,22 @@ If rescheduling is enabled, the due dates of cards will be immediately changed. 
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/fe61aaa6-cecb-4476-9ed2-9db05b63c7de)
 
+### Ignore reviews before
+
+This is a new feature added in Anki 24.04. If set, review history up to the provided date will be ignored when optimizing and evaluating FSRS parameters. 
+
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/1d53d964-2136-43b2-977f-5116141c38f9)
+
+This can be useful if you imported someone else's scheduling data, or if you have been misusing Hard. Hard should be used as a passing grade, not a failing grade. This feature can also be helpful if your learning or rating habits have changed significantly over time. If you are using this feature, it's important to accurately select your Historical Retention.
+
+
 ## Step 3: Find optimal parameters
 
 The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters.
 
-If you have less than 1000 reviews, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
+If you have less than 1000 reviews (400 in Anki 24.04), please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
 
-If you have at least 1000 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
+If you have at least 1000/400 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
@@ -122,6 +136,9 @@ You can adjust "Deck size" and "Days to simulate" to fit your needs. If you are 
 The suggested retention will greatly depend on your inputs, and if it significantly differs from 0.9, it's a sign that the time allocated per day is either too low or too high for the number of cards you're trying to learn. 
 
 Since the tool is experimental, it is better to use your intuition to come up with a value of desired retention. However, the suggested retention can be useful as a reference when you have no idea of what you want your retention rate to be.
+
+In Anki 24.04, this feature has been reworked. You no longer need to input "Deck size" and "Minutes study/day", only "Days to simulate". The result will also depend on the maximum interval setting. Previously, the goal was to find the value of desired retention that would allow you to remember as much as possible within the given time constraints. Now the goal is to find the values of desired retention that minimizes the workload/acquired knowledge ratio. For more details, please read this: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Optimal-Retention. It's important to note that you can set your desired retention higher than recommended if you want to do **more** work (minutes of studying per day) to remember **more**, but you shouldn't set your desired retention lower than recommended because you would have to do **more** work to remember **less**.
+
 
 ## Step 6: (optional) Custom Scheduling
 
@@ -161,7 +178,7 @@ A4: Yes, just turn FSRS off. However, the intervals will not change after turnin
 
 ***
 
-Q5: I'm sure I have >1000 reviews, yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
+Q5: I'm sure I have >1000 reviews (400 in Anki 24.04), yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
 
 A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is also applied to the subdecks, not just to the parent deck.
 
@@ -259,7 +276,7 @@ Q18: My retention is poor with the default parameters, and the first interval is
 
 A18: The default parameters are generated from 20k collections. They are the median values of 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention is lower than desired retention, while the other half will discover that their retention exceeds their desired retention.
 
-If you have enough reviews (at least 1000 reviews), you can optimize FSRS parameters to personalize them for yourself. If you don't have enough reviews and the true retention is significantly lower than your desired retention, I recommend increasing the desired retention until you have enough reviews for optimization. You can check your true retention using the Helper add-on, just Shift + Left Mouse Click on Stats.
+If you have enough reviews (at least 1000/400 reviews), you can optimize FSRS parameters to personalize them for yourself. If you don't have enough reviews and the true retention is significantly lower than your desired retention, I recommend increasing the desired retention until you have enough reviews for optimization. You can check your true retention using the Helper add-on, just Shift + Left Mouse Click on Stats.
 
 ***
 
