@@ -79,6 +79,12 @@ The use of *multiple* short (re)learning steps, such as "5m 10m 15m 30m", is als
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/a5780dca-4d0d-4382-9323-26e45cb6f002)
 
+### Review sort order
+
+When FSRS is enabled, sorting by relative overdueness is equivalent to sorting by the probability of recall. This is recommended to prioritize reviewing cards that are most likely to be forgotten first.
+
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/06718413-b13b-47c6-90df-955fd24107c1)
+
 ### Reschedule cards on change
 
 This option controls whether the due dates of cards will be changed when you enable FSRS or change the parameters and/or desired retention. By default, the cards are not rescheduled. This means that future reviews will use the new scheduling, but there will be no immediate change to your workload. This allows a smooth and gradual transition from SM-2 to FSRS.
