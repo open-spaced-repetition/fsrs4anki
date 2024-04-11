@@ -108,7 +108,7 @@ If you have at least 1000/400 reviews (across all cards that this preset applies
 
 The parameters are preset-specific. If you have decks that vary wildly in difficulty, it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different. Parameters and desired retention are independent, you do not need to re-optimize parameters if you have changed desired retention.
 
-By default, parameters will be calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual.
+Parameters are calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual. Optimization doesn't happen automatically, you have to manually click "Optimize" or "Optimize all presets".
 
 An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets. Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of the preset applied to subdecks take priority over the settings of the preset applied to the parent deck.
 
