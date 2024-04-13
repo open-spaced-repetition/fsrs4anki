@@ -139,6 +139,8 @@ Since the tool is experimental, it is better to use your intuition to come up wi
 
 In Anki 24.04, this feature has been reworked. You no longer need to input "Deck size" and "Minutes study/day", only "Days to simulate". The result will also depend on the maximum interval setting. Previously, the goal was to find the value of desired retention that would allow you to remember as much as possible within the given time constraints. Now the goal is to find the values of desired retention that minimizes the workload/acquired knowledge ratio. For more details, please read this: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Optimal-Retention. It's important to note that you can set your desired retention higher than recommended if you want to do **more** work (minutes of studying per day) to remember **more**, but you shouldn't set your desired retention lower than recommended because you would have to do **more** work to remember **less**.
 
+In Anki 24.04.1, this feature has been renamed to "Compute minimum recommended retention", to make it more clear that users shouldn't set their desired retention below the recommended value.
+
 
 ## Step 6: (optional) Custom Scheduling
 
