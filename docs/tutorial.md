@@ -162,7 +162,7 @@ FSRS, or Free Spaced Repetition Scheduler: an open-source algorithm that combine
 
 Q2: Which platforms support FSRS?
 
-A2: As of February 2024, FSRS is supported on all platforms: desktop Anki (Windows, Mac, and Linux), AnkiWeb (browser), AnkiMobile (iOS), and AnkiDroid (Android). Note that the latest version of AnkiDroid doesn't use the year.month.patch naming convention, while Anki and AnkiMobile do. The latest version of AnkiDroid is 2.17, while the latest desktop version is 23.12.1.
+A2: As of February 2024, FSRS is supported on all platforms: desktop Anki (Windows, Mac, and Linux), AnkiWeb (browser), AnkiMobile (iOS), and AnkiDroid (Android). Note that the latest version of AnkiDroid doesn't use the year.month.patch naming convention, while Anki and AnkiMobile do.
 
 If you have just updated to AnkiDroid 2.17 and had enabled FSRS on other devices before updating to AnkiDroid 2.17, you may need to force a full-sync from AnkiWeb on AnkiDroid so that FSRS works correctly.
 
