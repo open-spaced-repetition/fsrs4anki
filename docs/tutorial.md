@@ -182,7 +182,7 @@ A4: Yes, just turn FSRS off. However, the intervals will not change after turnin
 
 Q5: I'm sure I have >1000 reviews (400 in Anki 24.04), yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
 
-A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is also applied to the subdecks, not just to the parent deck.
+A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is applied to the subdecks, not just to the parent deck.
 
 ***
 
@@ -204,7 +204,7 @@ A7: The latter. Simply put, if you have something like ParentDeck::SubDeck, and 
 
 Q8: I only use "Again" and "Good", will FSRS work fine?
 
-A8: Yes. In fact, FSRS is actually more accurate for people who rarely use "Hard" and "Easy" than for people who use all 4 buttons a lot. 
+A8: Yes. In fact, FSRS is actually a little more accurate for people who rarely use "Hard" and "Easy" than for people who use all 4 buttons a lot. 
 
 Also, unlike SM-2, FSRS doesn't suffer from the problem of "Ease Hell". This problem is solved by mean reversion of difficulty. If you press good continuously, the difficulty will converge to $D_0(3)$. For more details, read [The Algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm).
 
@@ -230,13 +230,13 @@ A10: Review a new card, remember what intervals you saw above the answer buttons
 
 Q11: Is it better to use the same parameters for all my cards or use different presets with different parameters?
 
-A11: The answer to this question depends entirely on how similar your material is. For example, if you are learning Japanese and geography, it is recommended to use two different presets with different parameters. If you have two decks with Japanese vocabulary, you should use the same preset for both of them.
+A11: The answer to this question depends entirely on how similar your material is. For example, if you are learning Japanese and geography, it is recommended to use two different presets with different parameters. If you have two decks with Japanese vocabulary, you should use the same preset for both of them. Generally speaking, it's usually better to have different presets.
 
 ***
 
 Q12: How often should I re-optimize parameters?
 
-A12: Once per month should be more than enough.
+A12: Once per month should be more than enough. A more sophisticated rule is to optimize after every 2^n reviews: after 512, then after 1024, then after 2048, etc. But the "one month" rule is simpler.
 
 ***
 
