@@ -106,7 +106,7 @@ If you have at least 1000/400 reviews (across all cards that this preset applies
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
-The parameters are preset-specific. If you have decks that vary wildly in difficulty, it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different. Parameters and desired retention are independent, you do not need to re-optimize parameters if you have changed desired retention.
+The parameters are preset-specific. If you have decks that vary wildly in subjective difficulty (not FSRS difficulty), it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different. There is no objective method for choosing which decks should have their own presets. Parameters and desired retention are independent, you do not need to re-optimize parameters if you have changed desired retention.
 
 Parameters are calculated from the review history of all decks using the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual. Optimization doesn't happen automatically, you have to manually click "Optimize" or "Optimize all presets".
 
@@ -204,7 +204,7 @@ A7: The latter. Simply put, if you have something like ParentDeck::SubDeck, and 
 
 Q8: I only use "Again" and "Good", will FSRS work fine?
 
-A8: Yes. In fact, FSRS is actually a little more accurate for people who rarely use "Hard" and "Easy" than for people who use all 4 buttons a lot. 
+A8: Yes. According to our research, FSRS is a little more accurate for people who mostly use "Again" and "Good" than for people who use all 4 buttons a lot. However, this conclusion may change as we investigate this further.
 
 Also, unlike SM-2, FSRS doesn't suffer from the problem of "Ease Hell". This problem is solved by mean reversion of difficulty. If you press good continuously, the difficulty will converge to $D_0(3)$. For more details, read [The Algorithm](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm).
 
