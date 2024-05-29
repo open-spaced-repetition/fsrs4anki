@@ -108,18 +108,18 @@ If you have at least 1000/400 reviews (across all cards that this preset applies
 
 The parameters are preset-specific. If you have decks that vary wildly in subjective difficulty (not FSRS difficulty), it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different. There is no objective method for choosing which decks should have their own presets. Parameters and desired retention are independent, you do not need to re-optimize parameters if you have changed desired retention.
 
-If you are confident in your understanding of the algorithm and don't mind doing extra work, there is a way to check whether some of your subdecks would benefit from creating a new preset:
+If you are confident in your knowledge of the algorithm and are willing to do extra work, there is a way to check whether a deck benefits from having it's own preset.
 
-1) Copy the parameters of the preset of the parent deck. Let's call them Parameters-1 and let's call the preset Preset-1.
-2) Create a new preset for the subdeck. Let's call it Preset-2.
-3) Paste Parameters-1 into the field with FSRS parameters of Preset-2 and click "Evaluate", write down the RMSE and log loss values.
-4) Click "Optimize" to obtain a new set of parameters for Preset-2. Let's call them Parameters-2.
-5) Click "Evaluate" and write down RMSE and log loss values.
-6) If Parameters-2 result in lower RMSE and log loss values than Parameters-1, then it means that this deck should have its own preset (Preset-2) with its own parameters (Parameters-2).
+1) Go to deck options of the deck you want to create a new preset for. Now copy the parameters from the `FSRS parameters` field. We will use this later for evaluation.
+2) Now create a new preset and save it to this deck.
+3) Paste the parameters you previously copied in the `FSRS parameters` field of the newly created preset.
+4) Click `Evaluate` and write down the RMSE and log loss values.
+5) Now click `Optimize` to obtain a new set of parameters. Click `Evaluate` and write down the RMSE and log loss values.
+6) If this new set of parameters results in lower RMSE and log loss values, then save the preset along with the new parameters.
 
 Don't worry, FSRS will still perform well even without the aforementioned steps. This method is optional.
 
-Parameters are calculated from the review history of all decks the use the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual. Optimization doesn't happen automatically, you have to manually click "Optimize" or "Optimize all presets".
+Parameters are calculated from the review history of all decks that use the current preset. If you want to alter which cards are used for optimizing the parameters (such as excluding suspended cards), you can adjust the search before calculating the parameters. The search works the same way as it does in the Browser. For details, see [Searching](https://docs.ankiweb.net/searching.html) in the Anki Manual. Optimization doesn't happen automatically, you have to manually click "Optimize" or "Optimize all presets".
 
 An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets. Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of the preset applied to subdecks take priority over the settings of the preset applied to the parent deck.
 
