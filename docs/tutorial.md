@@ -106,7 +106,7 @@ If you have at least 1000/400 reviews (across all cards that this preset applies
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
-The parameters are preset-specific. If you have decks that vary wildly in subjective difficulty (not FSRS difficulty), it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different. There is no objective method for choosing which decks should have their own presets. Parameters and desired retention are independent, you do not need to re-optimize parameters if you have changed desired retention.
+The parameters are preset-specific. If you have decks that vary wildly in subjective difficulty (not FSRS difficulty), it is recommended to use separate presets for them because the parameters for easy decks and hard decks will be different. Parameters and desired retention are independent, you do not need to re-optimize parameters if you have changed desired retention.
 
 If you are confident in your knowledge of the algorithm and are willing to do extra work, there is a way to check whether a deck benefits from having it's own preset.
 
