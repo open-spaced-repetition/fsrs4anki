@@ -294,7 +294,7 @@ Q18: My retention is poor with the default parameters, and the first interval is
 
 A18: The default parameters are generated from 20k collections. They are the median values of 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention is lower than desired retention, while the other half will discover that their retention exceeds their desired retention.
 
-If the true retention is significantly lower than your desired retention, it is recommended to increase desired retention. You can check your true retention using the FSRS4Anki Helper add-on, just Shift + Left Mouse Click on Stats. Of course, if you have a large number of reviews, you should use optimized parameters instead of the default parameters.
+If the true retention is significantly lower than your desired retention, try increasing the desired retention to compensate. You can check your true retention using the FSRS4Anki Helper add-on, just Shift + Left Mouse Click on Stats. Of course, if you have a large number of reviews, it is advisable to use the optimized parameters rather than the default parameters.
 
 ***
 
