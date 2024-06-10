@@ -57,15 +57,17 @@ Some add-ons can cause conflicts with FSRS. As a general rule of thumb, if an ad
 
 | Add-on                                                       | Compatible? | Comment |
 | ------------------------------------------------------------ |-------------------| ------- |
+| [Review Heatmap](https://ankiweb.net/shared/info/1771074083) | Yes :white_check_mark: | Doesn't affect anything FSRS-related. |
+| [Advanced Browser](https://ankiweb.net/shared/info/874215009) | Yes :white_check_mark: | Please use the latest version. |
 | [Advanced Review Bottom Bar](https://ankiweb.net/shared/info/1136455830) | Yes :white_check_mark: | Please use the latest version. |
 | [The KING of Button Add-ons](https://ankiweb.net/shared/info/374005964) | Yes :white_check_mark: | Please use the latest version. |
 | [Pass/Fail](https://ankiweb.net/shared/info/876946123) | Yes :white_check_mark: | `Pass` is the equivalent of `Good`. |
-| [AJT Card Management](https://ankiweb.net/shared/info/1021636467) | Yes :white_check_mark: | `Learn Now` is compatible for Anki version 23.12. `Grade Now` works fine with the scheduler, but it doesn't work with `Compute optimal retention (experimental)`. |
-| [Incremental Reading v4.11.3 (unofficial clone)](https://ankiweb.net/shared/info/999215520) | Unsure :question: | If you are using the standalone version of FSRS, it shows the interval given by Anki's built-in scheduler, not the custom scheduler. It is technically compatible with built-in FSRS, but FSRS was not designed for incremental reading, and FSRS settings do not apply to IR cards. |
-| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021) | No :x: | The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on. |
-| [Delay siblings](https://ankiweb.net/shared/info/1369579727) | No :x:| Delay siblings will modify the intervals given by FSRS. However, the FSRS4Anki Helper add-on has a similar feature that works better with FSRS. So, use the FSRS4Anki Helper add-on instead. |
-| [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No :x:| The `New Interval` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on. |
-| [Straight Reward](https://ankiweb.net/shared/info/957961234) | No :x: | The `Ease Factor` doesn't affect the interval given by FSRS. So, you won't benefit from using this add-on. |
+| [AJT Card Management](https://ankiweb.net/shared/info/1021636467) | Yes :white_check_mark: | Compatible with Anki 23.12 and newer. |
+| [Incremental Reading v4.11.3 (unofficial clone)](https://ankiweb.net/shared/info/999215520) | Unsure :question: | If you are using the standalone version of FSRS, it shows the interval given by Anki's built-in scheduler, not the custom scheduler. This add-on is technically compatible with built-in FSRS, but FSRS was not designed for incremental reading, and FSRS settings do not apply to IR cards because they work in a different way compared to other card types. |
+| [Delay siblings](https://ankiweb.net/shared/info/1369579727) | No :x:| Delay siblings will modify the intervals given by FSRS. However, the FSRS4Anki Helper add-on has a similar feature that works better with FSRS. Please use the FSRS4Anki Helper add-on instead. |
+| [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021) | No :x: | The Ease Factor is no longer relevant when FSRS is enabled, therefore you won't benefit from using this add-on. |
+| [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No :x:| The `New Interval` setting is no longer relevant when FSRS is enabled, therefore you won't benefit from using this add-on. |
+| [Straight Reward](https://ankiweb.net/shared/info/957961234) | No :x: | The Ease Factor is no longer relevant when FSRS is enabled, therefore you won't benefit from using this add-on. |
 
 Let me know via [issues](https://github.com/open-spaced-repetition/fsrs4anki/issues) if you want me to check compatibility between FSRS and some add-on.
 
