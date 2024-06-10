@@ -14,10 +14,15 @@
 
 Are you busy and have no time to waste? Here's a summary of the guide.
 
-1) Go to deck options and enable FSRS under "Advanced" ("FSRS" in Anki 24.04), at the bottom of the deck options window.
-2) Ensure that all your learning and re-learning steps are shorter than `1d` and that all steps can be completed on the same day. `23h` is not recommended because, while it's technically less than one day, it's very unlikely that you will be able to finish this step on the same day as your first review.
-3) Click the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically. Parameters are preset-specific. If an error message pops up, it means you have less than 1000 reviews (400 in Anki 24.04) across all cards that this preset is applied to. In that case, just use the default parameters; it's still better than using the legacy SM-2 algorithm.
-4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people.
+1) Go to deck options and enable FSRS under the "FSRS" section (under the "Advanced" section in Anki versions before 24.04), at the bottom of the deck options page. FSRS can only be enabled globally; you cannot enable it for some presets and disable it for others.
+2) Ensure that all your learning and re-learning steps are shorter than `1d` and can be completed on the same day. `23h` is not recommended even though it's less than one day because you won't be able to finish this step on the same day as your first review. Steps such as `10m` or `30m` are good.
+3) Click the "Optimize" button under the "Optimize FSRS parameters" section. If you see a message that says "The FSRS parameters currently appear to be optimal", that's fine. In the versions before 24.06, an error message might pop up, saying that you don't have a sufficient number of reviews (400 in Anki 24.04, 1000 in older versions). In that case, use FSRS with the default parameters; it's still better than using the legacy SM-2 algorithm. 
+4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people. Parameters and desired retention are preset-specific, you can make multiple presets with different parameters and desired retention.
+
+Don't forget to click "Save" before closing the deck options window.
+
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/bc443d3e-46a3-4301-8604-4ae3fd3f0605)
+
 
 FSRS can adapt to almost any habit, except for one habit: pressing "Hard" instead of "Again" when you forget the information. When you press "Hard", FSRS assumes you have recalled the information correctly (though with hesitation and a lot of mental effort). If you press "Hard" when you have failed to recall the information, the intervals will be unreasonably high (for all the ratings). So, if you have this habit, please change it and use "Again" when you forget the information.
 
@@ -63,10 +68,10 @@ The  Maximum interval setting works the same way as when using the default algor
 "Historical retention" (called "SM-2 retention" before Anki 24.04) is the average retention in the past.
 
 When some of your review history is missing, FSRS needs to fill in the gaps. By default, it will assume that when you did those old reviews, you remembered 90% of the material. If your old retention was significantly higher or lower than 90%, adjusting this option will allow FSRS to better approximate the missing reviews. Your review history may be incomplete for two reasons:
-1. Because you've used the 'ignore reviews before' option.
+1. Because you've used the 'Ignore reviews before' option.
 2. Because you've previously deleted review logs to free up space, used some add-ons that modify the review history, or imported material from a different SRS program. 
 
-The latter is quite rare, so unless you've used the 'ignore reviews before' option, you probably don't need to adjust this setting.
+The latter is quite rare, so unless you've used the 'Ignore reviews before' option, you probably don't need to adjust this setting.
 Even in Anki 24.04, it is located in the "Advanced" section, not in the "FSRS" section.
 
 ### Learning and re-learning steps
@@ -100,9 +105,9 @@ This can be useful if you imported someone else's scheduling data, or if you hav
 
 The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters.
 
-If you have less than 1000 reviews (400 in Anki 24.04), please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
+You can find the optimal parameters for your cards by using the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
-If you have at least 1000/400 reviews (across all cards that this preset applies to), you can generate the optimal parameters for your cards using the `Optimize` button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
+In Anki 24.06+, there is no minimum number of reviews required for optimization. Based on the number of reviews available, Anki will decide which parameters to optimize. In Anki 24.04, at least 400 reviews are required; in older versions, at least 1000 reviews are required. If you are using one of those versions and don't have enough reviews across all cards that this preset is applied to, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
@@ -128,7 +133,7 @@ An option to optimize all presets has been added in Anki 23.12, it's useful if y
 
 ## Step 4: (optional) Evaluate the parameters
 
-You can use the `Evaluate` button in the "Optimize FSRS parameters" section to see metrics that tell how well the parameters in the "FSRS parameters" field fit your review history. Smaller numbers indicate a better fit to your review history.
+You can use the "Evaluate" button in the "Optimize FSRS parameters" section to see metrics that tell how well the parameters in the "FSRS parameters" field fit your review history. Smaller numbers indicate a better fit to your review history.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/871bbe4d-8b05-4439-ab38-cf5c4e9f6fdf)
 
@@ -191,9 +196,9 @@ A4: Yes, just turn FSRS off. However, the intervals will not change after turnin
 
 ***
 
-Q5: I'm sure I have >1000 reviews (400 in Anki 24.04), yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
+Q5: I'm sure I have >1000 reviews (>400 in Anki 24.04), yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
 
-A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is applied to the subdecks, not just to the parent deck.
+A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is applied to the subdecks, not just to the parent deck. Note that in Anki 24.06 and newer, there is no minimum limit for the number of reviews to use "Optimize".
 
 ***
 
@@ -289,7 +294,7 @@ Q18: My retention is poor with the default parameters, and the first interval is
 
 A18: The default parameters are generated from 20k collections. They are the median values of 20k sets of parameters. Thus, inevitably, half of the new users will find that their retention is lower than desired retention, while the other half will discover that their retention exceeds their desired retention.
 
-If you have enough reviews (at least 1000/400 reviews), you can optimize FSRS parameters to personalize them for yourself. If you don't have enough reviews and the true retention is significantly lower than your desired retention, I recommend increasing the desired retention until you have enough reviews for optimization. You can check your true retention using the Helper add-on, just Shift + Left Mouse Click on Stats.
+If the true retention is significantly lower than your desired retention, try increasing the desired retention to compensate. You can check your true retention using the FSRS4Anki Helper add-on, just Shift + Left Mouse Click on Stats. Of course, if you have a large number of reviews, it is advisable to use the optimized parameters rather than the default parameters.
 
 ***
 
