@@ -198,7 +198,7 @@ A4: Yes, just turn FSRS off. However, the intervals will not change after turnin
 
 Q5: I'm sure I have >1000 reviews (>400 in Anki 24.04), yet when I try to optimize parameters for my preset, I get an error telling me that I don't have enough reviews. Is that a bug?
 
-A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is applied to the subdecks, not just to the parent deck. Also, if you are using Anki 24.06 or newer, you can use "Optimize" with any number of reviews.
+A5: FSRS only takes into account one review per day. If you review a card multiple times per day, only the chronologically first review will be used by the optimizer. Also, if your deck has subdecks, ensure that the preset is applied to the subdecks, not just to the parent deck. Note that in Anki 24.06 and newer, there is no minimum limit for the number of reviews to use "Optimize".
 
 ***
 
