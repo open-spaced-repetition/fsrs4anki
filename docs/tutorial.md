@@ -107,7 +107,7 @@ The FSRS optimizer uses machine learning to learn your memory patterns and find 
 
 You can find the optimal parameters for your cards by using the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
-In Anki 24.06+, there is no minimum number of reviews required for optimization. Based on the number of reviews available, Anki will decide which parameters to optimize. It's possible that some parameters will change while others will remain the same. In Anki 24.04, at least 400 reviews are required; in older versions, at least 1000 reviews are required. If you are using one of those versions and don't have enough reviews across all cards that this preset is applied to, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
+In Anki 24.06+, there is no minimum number of reviews required for optimization. Based on the number of reviews available, Anki will decide which parameters to optimize. In Anki 24.04, at least 400 reviews are required; in older versions, at least 1000 reviews are required. If you are using one of those versions and don't have enough reviews across all cards that this preset is applied to, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/072c42fc-41fa-4ff0-841b-3a55dd23c8a1)
 
