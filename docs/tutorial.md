@@ -298,6 +298,14 @@ If the true retention is significantly lower than your desired retention, try in
 
 ***
 
+Q19: Why my workload increases/decreases significantly after I switch to FSRS?
+
+A19: The workload depends on your retention:
+- If your true retention before switching to FSRS was significantly lower than your current desired retention, FSRS will let you review more frequently than before.
+- If your previous true retention was significantly higher than your current desired retention, FSRS will let you review less frequently.
+
+***
+
 Didn't find the answer to your question? You can browse through several other questions asked by users: https://github.com/open-spaced-repetition/fsrs4anki/issues?q=is%3Aissue+label%3Aquestion+
 
 Is your problem still unsolved? Please open a new issue to provide the details: https://github.com/open-spaced-repetition/fsrs4anki/issues/new/choose
