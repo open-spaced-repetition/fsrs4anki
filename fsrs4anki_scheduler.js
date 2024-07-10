@@ -1,4 +1,4 @@
-// FSRS4Anki v4.11.1 Scheduler Qt6
+// FSRS4Anki v5.0.0 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
@@ -8,7 +8,7 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61],
+    "w": [0.41, 1.18, 3.04, 15.24, 7.14, 0.64, 1.00, 0.06, 1.65, 0.17, 1.11, 2.02, 0.09, 0.30, 2.12, 0.24, 2.94, 0.48, 0.64],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
@@ -20,7 +20,7 @@ const deckParams = [
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
     "deckName": "MainDeck1",
-    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
+    "w": [0.41, 1.18, 3.04, 15.24, 7.14, 0.64, 1.00, 0.06, 1.65, 0.17, 1.11, 2.02, 0.09, 0.30, 2.12, 0.24, 2.94, 0.48, 0.64],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   },
@@ -28,7 +28,7 @@ const deckParams = [
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
     "deckName": "MainDeck2::SubDeck::SubSubDeck",
-    "w": [0.6, 0.9, 2.9, 6.8, 4.72, 1.02, 1, 0.04, 1.49, 0.17, 1.02, 2.15, 0.07, 0.35, 1.17, 0.32, 2.53],
+    "w": [0.41, 1.18, 3.04, 15.24, 7.14, 0.64, 1.00, 0.06, 1.65, 0.17, 1.11, 2.02, 0.09, 0.30, 2.12, 0.24, 2.94, 0.48, 0.64],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   }
@@ -121,6 +121,16 @@ if (is_new()) {
   if (is_empty()) {
     init_states();
   }
+  const last_d = customData.again.d;
+  const last_s = customData.again.s;
+  customData.again.d = next_difficulty(last_d, "again");
+  customData.again.s = next_short_term_stability(last_s, ratings["again"]);
+  customData.hard.d = next_difficulty(last_d, "hard");
+  customData.hard.s = next_short_term_stability(last_s, ratings["hard"]);
+  customData.good.d = next_difficulty(last_d, "good");
+  customData.good.s = next_short_term_stability(last_s, ratings["good"]);
+  customData.easy.d = next_difficulty(last_d, "easy");
+  customData.easy.s = next_short_term_stability(last_s, ratings["easy"]);
   const good_interval = next_interval(customData.good.s);
   const easy_interval = Math.max(next_interval(customData.easy.s), good_interval + 1);
   if (states.good.normal?.review) {
@@ -212,6 +222,9 @@ function next_forget_stability(d, s, r) {
     (Math.pow(s + 1, w[13]) - 1) *
     Math.exp((1 - r) * w[14]), s).toFixed(2);
 }
+function next_short_term_stability(s, rating) {
+  return +(s * Math.exp(w[17] * (rating - 3 + w[18]))).toFixed(2);
+}
 function init_states() {
   customData.again.d = init_difficulty("again");
   customData.again.s = init_stability("again");
@@ -223,7 +236,7 @@ function init_states() {
   customData.easy.s = init_stability("easy");
 }
 function init_difficulty(rating) {
-  return +constrain_difficulty(w[4] - w[5] * (ratings[rating] - 3)).toFixed(2);
+  return +constrain_difficulty(w[4] - Math.exp(w[5] * (ratings[rating] - 1)) + 1).toFixed(2);
 }
 function init_stability(rating) {
   return +Math.max(w[ratings[rating] - 1], 0.1).toFixed(2);
@@ -295,7 +308,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v4.11.1";
+  const version = "v5.0.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
