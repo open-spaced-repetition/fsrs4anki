@@ -21,7 +21,7 @@ Are you busy and have no time to waste? Here's a summary of the guide.
 
 Don't forget to click "Save" before closing the deck options window.
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/bc443d3e-46a3-4301-8604-4ae3fd3f0605)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/64d68d9c-23c5-46e9-970c-6b5500e0ca12)
 
 
 FSRS can adapt to almost any habit, except for one habit: pressing "Hard" instead of "Again" when you forget the information. When you press "Hard", FSRS assumes you have recalled the information correctly (though with hesitation and a lot of mental effort). If you press "Hard" when you have failed to recall the information, the intervals will be unreasonably high (for all the ratings). So, if you have this habit, please change it and use "Again" when you forget the information.
@@ -96,7 +96,7 @@ If rescheduling is enabled, the due dates of cards will be immediately changed. 
 
 This is a new feature added in Anki 24.04. If set, review history up to the provided date will be ignored when optimizing and evaluating FSRS parameters. 
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/1d53d964-2136-43b2-977f-5116141c38f9)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/d5675c4c-c65d-4d7b-a47a-10a2cda68176)
 
 This can be useful if you imported someone else's scheduling data, or if you have been misusing Hard. Hard should be used as a passing grade, not a failing grade. This feature can also be helpful if your learning or rating habits have changed significantly over time. If you are using this feature, it's important to accurately select your Historical Retention.
 
@@ -128,7 +128,7 @@ Parameters are calculated from the review history of all decks that use the curr
 
 An option to optimize all presets has been added in Anki 23.12, it's useful if you have a lot of presets. Don't forget to click "Save" after changing settings, otherwise, your changes won't be saved. Also remember that the settings of the preset applied to subdecks take priority over the settings of the preset applied to the parent deck.
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/c78c8cc9-91af-493d-aad8-bf8425fabb0e)
+![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/a5b930b9-2284-46c6-b98d-43c50215f6b3)
 
 
 ## Step 4: (optional) Evaluate the parameters
