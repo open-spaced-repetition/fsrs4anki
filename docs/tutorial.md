@@ -94,7 +94,7 @@ If rescheduling is enabled, the due dates of cards will be immediately changed. 
 
 ### Ignore reviews before
 
-This is a new feature added in Anki 24.04. If set, cards which were introduced after the provided date will be ignored when optimizing and evaluating FSRS parameters. 
+This is a new feature added in Anki 24.04. If set, cards which were introduced before the provided date will be ignored when optimizing and evaluating FSRS parameters. 
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/d5675c4c-c65d-4d7b-a47a-10a2cda68176)
 
