@@ -68,7 +68,7 @@ The  Maximum interval setting works the same way as when using the default algor
 "Historical retention" (called "SM-2 retention" before Anki 24.04) is the average retention in the past.
 
 When some of your review history is missing, FSRS needs to fill in the gaps. By default, it will assume that when you did those old reviews, you remembered 90% of the material. If your old retention was significantly higher or lower than 90%, adjusting this option will allow FSRS to better approximate the missing reviews. Your review history may be incomplete for two reasons:
-1. Because you've used the 'Ignore reviews before' option.
+1. Because you've used the 'Ignore reviews before' option to omit (not delete) some of your review history.
 2. Because you've previously deleted review logs to free up space, used some add-ons that modify the review history, or imported material from a different SRS program. 
 
 The latter is quite rare, so unless you've used the 'Ignore reviews before' option, you probably don't need to adjust this setting.
@@ -94,7 +94,8 @@ If rescheduling is enabled, the due dates of cards will be immediately changed. 
 
 ### Ignore reviews before
 
-This is a new feature added in Anki 24.04. If set, review history up to the provided date will be ignored when optimizing and evaluating FSRS parameters. 
+This is a new feature added in Anki 24.04. If set, review history up to the provided date will be ignored when optimizing and evaluating FSRS parameters. More technically speaking, if a card has no learning steps after
+the provided date, none of its reviews will be used for optimization and evaluation. This feature doesn't permanently delete review history.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/d5675c4c-c65d-4d7b-a47a-10a2cda68176)
 
