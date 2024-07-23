@@ -6,7 +6,7 @@
 - [Step 2: Configure FSRS settings](#step-2-configure-fsrs-settings)
 - [Step 3: Find optimal parameters](#step-3-find-optimal-parameters)
 - [Step 4: (optional) Evaluate the parameters](#step-4-optional-evaluate-the-parameters)
-- [Step 5: (optional) Compute optimal retention](#step-5-optional-compute-optimal-retention)
+- [Step 5: (optional) Compute minimum recommended retention](#step-5-optional-compute-minimum-recommended-retention)
 - [Step 6: (optional) Custom Scheduling](#step-6-optional-custom-scheduling)
 - [FAQ](#faq)
 
@@ -50,7 +50,7 @@ The permissible range for desired retention is 0.70 to 0.97 (0.7 to 0.99 in Anki
 
 Be conservative when adjusting this setting - higher values will greatly increase your workload, and lower values can be demoralizing when you forget a lot of material.
 
-The following chart illustrates how the workload changes with retention. **The exact shape of the curve depends on the user's parameters and learning habits.** To find the optimal retention for you, please use the "Compute optimal retention (experimental)" feature, which is explained in [Step 5](#step-5-optional-compute-optimal-retention).
+The following chart illustrates how the workload changes with retention. **The exact shape of the curve depends on the user's parameters and learning habits.** To find the optimal retention for you, please use the "Compute minimum recommended retention (experimental)" feature, which is explained in [Step 5](#step-5-optional-compute-optimal-retention).
 
 ![Workload and retention, again (small)](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/e2b95037-593a-4633-8774-dd16cba5f48e)
 
@@ -141,19 +141,17 @@ Log-loss doesn't have an intuitive interpretation. RMSE (bins) can be interprete
 
 Note that log-loss and RMSE (bins) are not perfectly correlated, so two decks may have similar RMSE values but very different log-loss values, and vice-versa.
 
-## Step 5: (optional) Compute optimal retention
+## Step 5: (optional) Compute minimum recommended retention
 
-It is an experimental tool that tries to calculate a value of desired retention that maximizes the total knowledge within given time constraints, "Minutes study/day". Simply put, it tries to find the value of the desired retention that gives you the most efficient study plan. It does so by analyzing how much time you spend on your cards, as well as your habits of pressing Hard/Good/Easy.
+It is an experimental tool that tries to calculate a value of desired retention that minimizes the ratio of the amount of time spent studying to the total knowledge acquired. Simply put, it tries to find the value of the desired retention that gives you the most efficient study plan. It does so by analyzing how much time you spend on your cards, as well as your habits of pressing Hard/Good/Easy, and creating a simulation.
 
-![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/da46d838-86b1-47b5-9186-d664aacb2e44)
+![image](https://github.com/user-attachments/assets/1e4550ca-9db9-40fa-8103-3167982c9f1c)
 
-You can adjust "Deck size" and "Days to simulate" to fit your needs. If you are preparing for an exam that is 12 months away, set "Days to simulate" to 365. If you are a language learner, 5 years (1825 days) is a reasonable timeframe.
+You can adjust "Days to simulate" to fit your needs. If you are preparing for an exam that is 12 months away, set "Days to simulate" to 365. If you are a language learner, 5 years (1825 days) is a reasonable timeframe.
 
-The suggested retention will greatly depend on your inputs, and if it significantly differs from 0.9, it's a sign that the time allocated per day is either too low or too high for the number of cards you're trying to learn. 
+The recommended value can be useful as a reference when you have no idea of what you want your desired retention to be. However, since the tool is experimental, you should also use your own intuition when choosing desired retention.
 
-Since the tool is experimental, it is better to use your intuition to come up with a value of desired retention. However, the suggested retention can be useful as a reference when you have no idea of what you want your retention rate to be.
-
-In Anki 24.04, this feature has been reworked. You no longer need to input "Deck size" and "Minutes study/day", only "Days to simulate". The result will also depend on the maximum interval setting. Previously, the goal was to find the value of desired retention that would allow you to remember as much as possible within the given time constraints. Now the goal is to find the values of desired retention that minimizes the workload/acquired knowledge ratio. For more details, please read this: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Optimal-Retention. It's important to note that you can set your desired retention higher than recommended if you want to do **more** work (minutes of studying per day) to remember **more**, but you shouldn't set your desired retention lower than recommended because you would have to do **more** work to remember **less**.
+In Anki 24.04, this feature has been reworked. You no longer need to input "Deck size" and "Minutes study/day", only "Days to simulate". The result will also depend on the maximum interval setting. Previously, the goal was to find the value of desired retention that would allow you to remember as much as possible within the given time constraints. Now the goal is to find the value of desired retention that minimizes the workload/acquired knowledge ratio. For more details, please read this: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Optimal-Retention. It's important to note that you can set your desired retention higher than recommended if you want to do **more** work (minutes of studying per day) to remember **more**, but you shouldn't set your desired retention lower than recommended because you would have to do **more** work to remember **less**.
 
 In Anki 24.04.1, this feature has been renamed to "Compute minimum recommended retention", to make it more clear that users shouldn't set their desired retention below the recommended value.
 
@@ -272,7 +270,7 @@ As the delay increases, retrievability (R) decreases. If the review was successf
 
 Q15: Does FSRS take into account the time that I spend reviewing a card?
 
-A15: No, FSRS only needs interval lengths and grades. However, the amount of time you spend on reviews is used when calculating optimal retention using the "Compute optimal retention (experimental)" feature.
+A15: No, FSRS only needs interval lengths and grades. However, the amount of time you spend on reviews is used when calculating optimal retention using the "Compute minimum recommended retention (experimental)" feature.
 
 ***
 
