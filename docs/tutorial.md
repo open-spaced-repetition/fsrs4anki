@@ -50,7 +50,7 @@ The permissible range for desired retention is 0.70 to 0.97 (0.7 to 0.99 in Anki
 
 Be conservative when adjusting this setting - higher values will greatly increase your workload, and lower values can be demoralizing when you forget a lot of material.
 
-The following chart illustrates how the workload changes with retention. **The exact shape of the curve depends on the user's parameters and learning habits.** To find the optimal retention for you, please use the "Compute minimum recommended retention (experimental)" feature, which is explained in [Step 5](#step-5-optional-compute-optimal-retention).
+The following chart illustrates how the workload changes with retention. **The exact shape of the curve depends on the user's parameters and learning habits.** To find the optimal retention for you, please use the "Compute minimum recommended retention (experimental)" feature, which is explained in [Step 5](#step-5-optional-compute-minimum-recommended-retention).
 
 ![Workload and retention, again (small)](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/e2b95037-593a-4633-8774-dd16cba5f48e)
 
