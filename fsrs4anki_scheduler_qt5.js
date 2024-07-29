@@ -1,4 +1,4 @@
-// FSRS4Anki v5.0.0 Scheduler Qt5
+// FSRS4Anki v5.0.2 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
@@ -207,7 +207,7 @@ function next_interval(stability) {
 }
 function next_difficulty(d, rating) {
   let next_d = d - w[6] * (ratings[rating] - 3);
-  return constrain_difficulty(mean_reversion(w[4], next_d));
+  return constrain_difficulty(mean_reversion(init_difficulty("easy"), next_d));
 }
 function mean_reversion(init, current) {
   return w[7] * init + (1 - w[7]) * current;
@@ -317,7 +317,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v5.0.0";
+  const version = "v5.0.2";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
