@@ -130,7 +130,7 @@ An option to optimize all presets has been added in Anki 23.12, it's useful if y
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/a5b930b9-2284-46c6-b98d-43c50215f6b3)
 
-If you ever want to reset parameters to default values, click the anticlockwise open circle arrow to the right and bottom of the field with parameters.
+If you ever want to reset parameters to their default values, click the anticlockwise open circle arrow to the right and bottom of the field with parameters.
 
 ![Resetting parameters](https://github.com/user-attachments/assets/80832f4a-12c3-4e8b-adf3-898d9ab7a586)
 
