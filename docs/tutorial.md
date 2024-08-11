@@ -130,6 +130,10 @@ An option to optimize all presets has been added in Anki 23.12, it's useful if y
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/83031600/a5b930b9-2284-46c6-b98d-43c50215f6b3)
 
+If you ever want to reset parameters to their default values, click the anticlockwise open circle arrow to the right and bottom of the field with parameters.
+
+![Resetting parameters](https://github.com/user-attachments/assets/80832f4a-12c3-4e8b-adf3-898d9ab7a586)
+
 
 ## Step 4: (optional) Evaluate the parameters
 
@@ -137,9 +141,9 @@ You can use the "Evaluate" button in the "Optimize FSRS parameters" section to s
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/871bbe4d-8b05-4439-ab38-cf5c4e9f6fdf)
 
-Log-loss doesn't have an intuitive interpretation. RMSE (bins) can be interpreted as the average difference between the predicted probability of recalling a card (R) and the measured (from the review history) probability. For example, RMSE=0.05 means that, on average, FSRS is off by 5% when predicting R.
+Log loss doesn't have an intuitive interpretation. RMSE (bins) can be interpreted as the average difference between the predicted probability of recalling a card (R) and the measured (from the review history) probability. For example, RMSE=0.05 means that, on average, FSRS is off by 5% when predicting R.
 
-Note that log-loss and RMSE (bins) are not perfectly correlated, so two decks may have similar RMSE values but very different log-loss values, and vice-versa.
+Note that log loss and RMSE (bins) are not perfectly correlated, so two decks may have similar RMSE values but very different log loss values, and vice-versa.
 
 ## Step 5: (optional) Compute minimum recommended retention
 
