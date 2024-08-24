@@ -16,7 +16,7 @@ Are you busy and have no time to waste? Here's a summary of the guide.
 
 1) Go to deck options and enable FSRS under the "FSRS" section (under the "Advanced" section in Anki versions before 24.04), at the bottom of the deck options page. FSRS can only be enabled globally; you cannot enable it for some presets and disable it for others.
 2) Ensure that all your learning and re-learning steps are shorter than `1d` and can be completed on the same day. `23h` is not recommended even though it's less than one day because you won't be able to finish this step on the same day as your first review. Steps such as `10m` or `30m` are good.
-3) Click the "Optimize" button under the "Optimize FSRS parameters" section. If you see a message that says "The FSRS parameters currently appear to be optimal", that's fine. In the versions before 24.06, an error message might pop up, saying that you don't have a sufficient number of reviews (400 in Anki 24.04, 1000 in older versions). In that case, use FSRS with the default parameters; it's still better than using the legacy SM-2 algorithm. 
+3) Click the "Optimize" button under the "FSRS parameters" field. If you see a message that says "The FSRS parameters currently appear to be optimal", that's fine. In the versions before 24.06, an error message might pop up, saying that you don't have a sufficient number of reviews (400 in Anki 24.04, 1000 in older versions). In that case, use FSRS with the default parameters; it's still better than using the legacy SM-2 algorithm. 
 4) Choose a value of desired retention: the proportion of cards recalled successfully when they are due. **This is the most important setting in FSRS. Higher retention leads to shorter intervals and more reviews per day.** 80-95% is reasonable, 90% should work fine for most people. Parameters and desired retention are preset-specific, you can make multiple presets with different parameters and desired retention.
 
 Don't forget to click "Save" before closing the deck options window.
@@ -103,9 +103,9 @@ This can be useful if you imported someone else's scheduling data, or if you hav
 
 ## Step 3: Find optimal parameters
 
-The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters.
+The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters. Both reviews that were done before and after enabling FSRS count.
 
-You can find the optimal parameters for your cards by using the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
+You can find the optimal parameters for your cards by using the "Optimize" button under the "FSRS parameters" field. The optimal parameters will replace the default parameters automatically.
 
 In Anki 24.06+, there is no minimum number of reviews required for optimization. Based on the number of reviews available, Anki will decide which parameters to optimize. In Anki 24.04, at least 400 reviews are required; in older versions, at least 1000 reviews are required. If you are using one of those versions and don't have enough reviews across all cards that this preset is applied to, please use the default parameters that are already entered into the "FSRS parameters" field. Even with the default parameters, FSRS is better than the default Anki algorithm (SM-2).
 
@@ -137,7 +137,7 @@ If you ever want to reset parameters to their default values, click the anticloc
 
 ## Step 4: (optional) Evaluate the parameters
 
-You can use the "Evaluate" button in the "Optimize FSRS parameters" section to see metrics that tell how well the parameters in the "FSRS parameters" field fit your review history. Smaller numbers indicate a better fit to your review history.
+You can use the "Evaluate" button under the "FSRS parameters" field to see metrics that tell how well the parameters in the "FSRS parameters" field fit your review history. Smaller numbers indicate a better fit to your review history.
 
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/871bbe4d-8b05-4439-ab38-cf5c4e9f6fdf)
 
