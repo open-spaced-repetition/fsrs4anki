@@ -103,7 +103,7 @@ This can be useful if you imported someone else's scheduling data, or if you hav
 
 ## Step 3: Find optimal parameters
 
-The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters.
+The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters. Both reviews that were done before and after enabling FSRS count.
 
 You can find the optimal parameters for your cards by using the "Optimize" button under the "Optimize FSRS parameters" section. The optimal parameters will replace the default parameters automatically.
 
