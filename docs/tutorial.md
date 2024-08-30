@@ -103,7 +103,7 @@ This can be useful if you imported someone else's scheduling data, or if you hav
 
 ## Step 3: Find optimal parameters
 
-The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters. Both reviews that were done before and after enabling FSRS count.
+The FSRS optimizer uses machine learning to learn your memory patterns and find parameters that best fit your review history. So, the optimizer requires several reviews to fine-tune the parameters. Both reviews that were done before and after enabling FSRS count. If you took a long break from Anki and then reviewed cards that are long overdue, don't worry, it won't skew your parameters, as long as you answer honestly. Internally, FSRS treats Again as "fail" and Hard/Good/Easy as "pass".
 
 You can find the optimal parameters for your cards by using the "Optimize" button under the "FSRS parameters" field. The optimal parameters will replace the default parameters automatically.
 
