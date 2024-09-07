@@ -52,7 +52,7 @@ Be conservative when adjusting this setting - higher values will greatly increas
 
 The following chart illustrates how the workload changes with retention. **The exact shape of the curve depends on the user's parameters and learning habits.** To find the optimal retention for you, please use the "Compute minimum recommended retention (experimental)" feature, which is explained in [Step 5](#step-5-optional-compute-minimum-recommended-retention).
 
-![Workload_retention_smooth_1 3](https://github.com/user-attachments/assets/1181bfec-be43-4ddd-a2d8-acb373c7691d)
+![Workload_retention_smooth_1 3 5](https://github.com/user-attachments/assets/4ad95fbe-32ec-4558-83bb-f95ba8b5ee3d)
 
 Initially, users were not allowed to set the desired retention outside of the 0.70-0.97 range because it would make learning inefficient. In Anki 23.10.1, the range has been extended to 0.70-0.99 at the request of some users. However, setting the desired retention above 0.97 is still not advised for two main reasons:
 
