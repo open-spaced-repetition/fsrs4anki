@@ -90,6 +90,14 @@ This option controls whether the due dates of cards will be changed when you ena
 
 If rescheduling is enabled, the due dates of cards will be immediately changed. This often results in a large number of cards becoming due, so is not recommended when first switching from SM-2.
 
+If you insist on rescheduling cards and then see a huge backlog, here is the suggesion to deal with the backlog:
+
+1. Set review sort order to “relative overdueness”
+2. (Optional) set the deck option Maximum reviews/day
+3. Work off the backlog little by little, reviewing however many cards you can per day.
+
+You can also catch up the backlog with filtered decks: https://docs.ankiweb.net/filtered-decks.html#catching-up
+
 ![image](https://github.com/open-spaced-repetition/fsrs4anki/assets/32575846/fe61aaa6-cecb-4476-9ed2-9db05b63c7de)
 
 ### Ignore reviews before
