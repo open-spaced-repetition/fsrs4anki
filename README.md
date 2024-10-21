@@ -106,6 +106,17 @@ You can contribute to FSRS4Anki by beta testing, submitting code, or sharing you
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
+# Developer Resources
+
+If you're a developer considering using the FSRS algorithm in your own projects, we've curated some valuable resources for you. Check out the [Awesome FSRS](https://github.com/open-spaced-repetition/awesome-fsrs) repository, where you'll find:
+
+- FSRS implementations in various programming languages
+- Related papers and research
+- Example applications using FSRS
+- Other algorithms and resources related to spaced repetition systems
+
+This carefully curated list will help you better understand FSRS and choose the right implementation for your project. We encourage you to explore these resources and consider contributing to the FSRS ecosystem.
+
 # Star History
 
 <a href="https://star-history.com/#open-spaced-repetition/fsrs4anki&Date">
