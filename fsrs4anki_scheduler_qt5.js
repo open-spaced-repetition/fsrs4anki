@@ -1,4 +1,4 @@
-// FSRS4Anki v5.0.2 Scheduler Qt5
+// FSRS4Anki v5.2.0 Scheduler Qt5
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
@@ -8,7 +8,8 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [0.41, 1.18, 3.04, 15.24, 7.14, 0.64, 1.00, 0.06, 1.65, 0.17, 1.11, 2.02, 0.09, 0.30, 2.12, 0.24, 2.94, 0.48, 0.64],
+    "w": [0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046, 1.54575, 0.1192, 1.01925,
+      1.9395, 0.11, 0.29605, 2.2698, 0.2315, 2.9898, 0.51655, 0.6621],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
@@ -20,7 +21,8 @@ const deckParams = [
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
     "deckName": "MainDeck1",
-    "w": [0.41, 1.18, 3.04, 15.24, 7.14, 0.64, 1.00, 0.06, 1.65, 0.17, 1.11, 2.02, 0.09, 0.30, 2.12, 0.24, 2.94, 0.48, 0.64],
+    "w": [0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046, 1.54575, 0.1192, 1.01925,
+      1.9395, 0.11, 0.29605, 2.2698, 0.2315, 2.9898, 0.51655, 0.6621],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   },
@@ -28,7 +30,8 @@ const deckParams = [
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
     "deckName": "MainDeck2::SubDeck::SubSubDeck",
-    "w": [0.41, 1.18, 3.04, 15.24, 7.14, 0.64, 1.00, 0.06, 1.65, 0.17, 1.11, 2.02, 0.09, 0.30, 2.12, 0.24, 2.94, 0.48, 0.64],
+    "w": [0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046, 1.54575, 0.1192, 1.01925,
+      1.9395, 0.11, 0.29605, 2.2698, 0.2315, 2.9898, 0.51655, 0.6621],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   }
@@ -205,8 +208,12 @@ function next_interval(stability) {
   const new_interval = apply_fuzz(stability / FACTOR * (Math.pow(requestRetention, 1 / DECAY) - 1));
   return Math.min(Math.max(Math.round(new_interval), 1), maximumInterval);
 }
+function linear_damping(delta_d, old_d) {
+  return delta_d * (10 - old_d) / 9;
+}
 function next_difficulty(d, rating) {
-  let next_d = d - w[6] * (ratings[rating] - 3);
+  let delta_d = - w[6] * (ratings[rating] - 3);
+  let next_d = d + linear_damping(delta_d, d);
   return constrain_difficulty(mean_reversion(init_difficulty("easy"), next_d));
 }
 function mean_reversion(init, current) {
@@ -317,7 +324,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v5.0.2";
+  const version = "v5.2.0";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
