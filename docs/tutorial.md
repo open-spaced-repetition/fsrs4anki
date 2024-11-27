@@ -2,7 +2,7 @@ If you find this tutorial helpful, I'd be grateful if you could give it a star.
 
 [![Star on GitHub](https://img.shields.io/github/stars/open-spaced-repetition/fsrs4anki.svg?style=social)](https://github.com/open-spaced-repetition/fsrs4anki)
 
-> 中文版请见：[Anki 新算法 FSRS 配置指南](https://zhuanlan.zhihu.com/p/664758200)
+> 中文版请见：[Anki 新算法 FSRS 配置指南](https://l-m-sherlock.github.io/ZhiHuArchive/664758200.html)
 
 # Table of contents
 - [The Ultra Short Version](#the-ultra-short-version)
