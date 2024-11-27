@@ -1,4 +1,8 @@
-中文版请见：[FSRS4Anki 使用指北](https://zhuanlan.zhihu.com/p/636564830)
+If you find this tutorial helpful, I'd be grateful if you could give it a star.
+
+[![Star on GitHub](https://img.shields.io/github/stars/open-spaced-repetition/fsrs4anki.svg?style=social)](https://github.com/open-spaced-repetition/fsrs4anki)
+
+> 中文版请见：[FSRS4Anki 使用指北](https://l-m-sherlock.github.io/ZhiHuArchive/636564830.html)
 
 # Table of contents
 - [Step 1: Enabling the FSRS Scheduler](#step-1-enabling-the-fsrs-scheduler)
