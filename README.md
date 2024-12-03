@@ -28,7 +28,7 @@ _✨ A modern spaced-repetition scheduler for Anki based on the [Free Spaced Rep
 - [Add-on Compatibility](#add-on-compatibility)
 - [Contribute](#contribute)
   - [Contributors](#contributors)
-- [Stargazers over time](#stargazers-over-time)
+- [Stargazers Over Time](#stargazers-over-time)
 
 # Introduction
 
@@ -117,7 +117,7 @@ If you're a developer considering using the FSRS algorithm in your own projects,
 
 This carefully curated list will help you better understand FSRS and choose the right implementation for your project. We encourage you to explore these resources and consider contributing to the FSRS ecosystem.
 
-# Star History
+# Stargazers Over Time
 
 <a href="https://star-history.com/#open-spaced-repetition/fsrs4anki&Date">
  <picture>
