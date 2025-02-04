@@ -28,6 +28,7 @@ _✨ A modern spaced-repetition scheduler for Anki based on the [Free Spaced Rep
 - [Add-on Compatibility](#add-on-compatibility)
 - [Contribute](#contribute)
   - [Contributors](#contributors)
+- [Developer Resources](#developer-resources)
 - [Stargazers Over Time](#stargazers-over-time)
 
 # Introduction
