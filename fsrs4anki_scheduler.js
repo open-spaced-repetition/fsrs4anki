@@ -1,4 +1,4 @@
-// FSRS4Anki v5.2.0 Scheduler Qt6
+// FSRS4Anki v5.3.4 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
@@ -224,10 +224,11 @@ function next_recall_stability(d, s, r, rating) {
     easyBonus)).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
+  let sMin = s / Math.exp(w[17] * w[18])
   return +Math.min(w[11] *
     Math.pow(d, -w[12]) *
     (Math.pow(s + 1, w[13]) - 1) *
-    Math.exp((1 - r) * w[14]), s).toFixed(2);
+    Math.exp((1 - r) * w[14]), sMin).toFixed(2);
 }
 function next_short_term_stability(s, rating) {
   return +(s * Math.exp(w[17] * (rating - 3 + w[18]))).toFixed(2);
@@ -315,7 +316,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v5.2.0";
+  const version = "v5.3.4";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
