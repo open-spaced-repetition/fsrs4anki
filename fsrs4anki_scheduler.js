@@ -224,7 +224,7 @@ function next_recall_stability(d, s, r, rating) {
     easyBonus)).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
-  let sMin = s / Math.exp(w[17] * w[18])
+  let sMin = s / Math.exp(w[17] * w[18]);
   return +Math.min(w[11] *
     Math.pow(d, -w[12]) *
     (Math.pow(s + 1, w[13]) - 1) *

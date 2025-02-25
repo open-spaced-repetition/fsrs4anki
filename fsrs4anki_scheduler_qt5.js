@@ -225,7 +225,7 @@ function next_recall_stability(d, s, r, rating) {
   return +(s * (1 + Math.exp(w[8]) * (11 - d) * Math.pow(s, -w[9]) * (Math.exp((1 - r) * w[10]) - 1) * hardPenalty * easyBonus)).toFixed(2);
 }
 function next_forget_stability(d, s, r) {
-  let sMin = s / Math.exp(w[17] * w[18])
+  let sMin = s / Math.exp(w[17] * w[18]);
   return +Math.min(w[11] * Math.pow(d, -w[12]) * (Math.pow(s + 1, w[13]) - 1) * Math.exp((1 - r) * w[14]), sMin).toFixed(2);
 }
 function next_short_term_stability(s, rating) {
