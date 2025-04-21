@@ -58,7 +58,7 @@ FSRS4Anki Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You
 
 # How to Get Started?
 
-If you are using Anki v23.10 or newer, refer to [this tutorial](https://github.com/open-spaced-repetition/fsrs4anki/blob/main/docs/tutorial.md).
+If you are using Anki 23.10 or newer, refer to this section of [the Anki manual](https://docs.ankiweb.net/deck-options.html#fsrs).
 
 If you are using an older version of Anki, refer to [this tutorial](https://github.com/open-spaced-repetition/fsrs4anki/blob/main/docs/tutorial2.md).
 
