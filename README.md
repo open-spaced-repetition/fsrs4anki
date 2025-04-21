@@ -62,7 +62,7 @@ If you are using Anki 23.10 or newer, refer to this section of [the Anki manual]
 
 If you are using an older version of Anki, refer to [this tutorial](https://github.com/open-spaced-repetition/fsrs4anki/blob/main/docs/tutorial2.md).
 
-Note that setting up FSRS is much easier in Anki v23.10 or newer.
+Note that setting up FSRS is much easier in Anki 23.10 or newer.
 
 # Add-on Compatibility
 
