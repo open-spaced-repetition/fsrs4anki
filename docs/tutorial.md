@@ -1,3 +1,5 @@
+The [FSRS section of the Anki manual](https://docs.ankiweb.net/deck-options.html#fsrs) is based on this tutorial, it's recommended to read the Anki manual because the tutorial will no longer be receiving updates.
+
 If you find this tutorial helpful, I'd be grateful if you could give it a star.
 
 [![Star on GitHub](https://img.shields.io/github/stars/open-spaced-repetition/fsrs4anki.svg?style=social)](https://github.com/open-spaced-repetition/fsrs4anki)
