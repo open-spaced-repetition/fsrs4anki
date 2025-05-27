@@ -45,7 +45,7 @@ I hope this project can raise awareness and help more students.
 
 # Introduction
 
-FSRS4Anki consists of two main parts: the scheduler and the optimizer.
+FSRS4Anki (Free Spaced Repetition Scheduler for Anki) consists of two main parts: the scheduler and the optimizer.
 
 - The scheduler replaces Anki's built-in scheduler and schedules the cards according to the FSRS algorithm.
 - The optimizer uses machine learning to learn your memory patterns and finds parameters that best fit your review history. For details about the working of the optimizer, please read [the mechanism of optimization](https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-mechanism-of-optimization).
@@ -54,7 +54,7 @@ For details about the FSRS algorithm, please read [the algorithm](https://github
 - [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://dl.acm.org/doi/10.1145/3534678.3539081?cid=99660547150) (free access), and
 - [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://drive.google.com/file/u/0/d/1riJbkH39JB71Wj0AzESTngUM0LaeoD2l/view) (Google Scholar).
 
-FSRS4Anki Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You can read about it here: https://github.com/open-spaced-repetition/fsrs4anki-helper
+FSRS Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You can read about it here: https://github.com/open-spaced-repetition/fsrs4anki-helper
 
 # How to Get Started?
 
@@ -77,7 +77,7 @@ Some add-ons can cause conflicts with FSRS. As a general rule of thumb, if an ad
 | [Pass/Fail](https://ankiweb.net/shared/info/876946123) | Yes :white_check_mark: | `Pass` is the equivalent of `Good`, `Fail` is the equivalent of `Again.` |
 | [AJT Card Management](https://ankiweb.net/shared/info/1021636467) | Yes :white_check_mark: | Compatible with Anki 23.12 and newer. |
 | [Incremental Reading v4.11.3 (unofficial clone)](https://ankiweb.net/shared/info/999215520) | Unsure :question: | If you are using the standalone version of FSRS, it shows the interval given by Anki's built-in scheduler, not the custom scheduler. This add-on is technically compatible with built-in FSRS, but FSRS was not designed for incremental reading, and FSRS settings do not apply to IR cards because they work in a different way compared to other card types. |
-| [Delay siblings](https://ankiweb.net/shared/info/1369579727) | No :x:| Delay siblings will modify the intervals given by FSRS. However, the FSRS4Anki Helper add-on has a similar feature that works better with FSRS. Please use the FSRS4Anki Helper add-on instead. |
+| [Delay siblings](https://ankiweb.net/shared/info/1369579727) | No :x:| Delay siblings will modify the intervals given by FSRS. However, the FSRS Helper add-on has a similar feature that works better with FSRS. Please use the FSRS Helper add-on instead. |
 | [Auto Ease Factor](https://ankiweb.net/shared/info/1672712021) | No :x: | The Ease Factor is no longer relevant when FSRS is enabled, therefore you won't benefit from using this add-on. |
 | [autoLapseNewInterval](https://ankiweb.net/shared/info/372281481) |No :x:| The `New Interval` setting is no longer relevant when FSRS is enabled, therefore you won't benefit from using this add-on. |
 | [Straight Reward](https://ankiweb.net/shared/info/957961234) | No :x: | The Ease Factor is no longer relevant when FSRS is enabled, therefore you won't benefit from using this add-on. |
@@ -129,6 +129,14 @@ If you're a developer considering using the FSRS algorithm in your own projects,
 - Other algorithms and resources related to spaced repetition systems
 
 This carefully curated list will help you better understand FSRS and choose the right implementation for your project. We encourage you to explore these resources and consider contributing to the FSRS ecosystem.
+
+# Research Resources
+
+For those new to spaced repetition algorithms, we recommend starting with our comprehensive guide: [Spaced Repetition Algorithm: A Three-Day Journey from Novice to Expert](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Spaced-Repetition-Algorithm:-A-Three%E2%80%90Day-Journey-from-Novice-to-Expert)
+
+Dive deeper into the academic foundations of FSRS and spaced repetition through our curated collection of [Datasets, Code & Research Papers](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Research-resources)
+
+Explore our extensive collection of [Research Notebooks](https://github.com/open-spaced-repetition/fsrs4anki/wiki/Notebooks) documenting detailed analyses and experiments with FSRS and spaced repetition algorithms
 
 # Stargazers Over Time
 
