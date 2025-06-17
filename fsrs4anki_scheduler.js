@@ -1,4 +1,4 @@
-// FSRS4Anki v6.0.0 Scheduler Qt6
+// FSRS4Anki v6.1.1 Scheduler Qt6
 set_version();
 // The latest version will be released on https://github.com/open-spaced-repetition/fsrs4anki/releases/latest
 
@@ -8,7 +8,7 @@ const deckParams = [
   {
     // Default parameters of FSRS4Anki for global
     "deckName": "global config for FSRS4Anki",
-    "w": [0.2172, 1.1771, 3.2602, 16.1507, 7.0114, 0.57, 2.0966, 0.0069, 1.5261, 0.112, 1.0178, 1.849, 0.1133, 0.3127, 2.2934, 0.2191, 3.0004, 0.7536, 0.3332, 0.1437, 0.2],
+    "w": [0.212, 1.2931, 2.3065, 8.2956, 6.4133, 0.8334, 3.0194, 0.001, 1.8722, 0.1666, 0.796, 1.4835, 0.0614, 0.2629, 1.6483, 0.6014, 1.8729, 0.5425, 0.0912, 0.0658, 0.1542],
     // The above parameters can be optimized via FSRS4Anki optimizer.
     // For details about the parameters, please see: https://github.com/open-spaced-repetition/fsrs4anki/wiki/The-Algorithm
     // User's custom parameters for global
@@ -20,7 +20,7 @@ const deckParams = [
   {
     // Example 1: User's custom parameters for this deck and its sub-decks.
     "deckName": "MainDeck1",
-    "w": [0.2172, 1.1771, 3.2602, 16.1507, 7.0114, 0.57, 2.0966, 0.0069, 1.5261, 0.112, 1.0178, 1.849, 0.1133, 0.3127, 2.2934, 0.2191, 3.0004, 0.7536, 0.3332, 0.1437, 0.2],
+    "w": [0.212, 1.2931, 2.3065, 8.2956, 6.4133, 0.8334, 3.0194, 0.001, 1.8722, 0.1666, 0.796, 1.4835, 0.0614, 0.2629, 1.6483, 0.6014, 1.8729, 0.5425, 0.0912, 0.0658, 0.1542],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   },
@@ -28,7 +28,7 @@ const deckParams = [
     // Example 2: User's custom parameters for this deck and its sub-decks.
     // Don't omit any keys.
     "deckName": "MainDeck2::SubDeck::SubSubDeck",
-    "w": [0.2172, 1.1771, 3.2602, 16.1507, 7.0114, 0.57, 2.0966, 0.0069, 1.5261, 0.112, 1.0178, 1.849, 0.1133, 0.3127, 2.2934, 0.2191, 3.0004, 0.7536, 0.3332, 0.1437, 0.2],
+    "w": [0.212, 1.2931, 2.3065, 8.2956, 6.4133, 0.8334, 3.0194, 0.001, 1.8722, 0.1666, 0.796, 1.4835, 0.0614, 0.2629, 1.6483, 0.6014, 1.8729, 0.5425, 0.0912, 0.0658, 0.1542],
     "requestRetention": 0.9,
     "maximumInterval": 36500,
   }
@@ -317,7 +317,7 @@ function is_empty() {
   return !customData.again.d | !customData.again.s | !customData.hard.d | !customData.hard.s | !customData.good.d | !customData.good.s | !customData.easy.d | !customData.easy.s;
 }
 function set_version() {
-  const version = "v6.0.0";
+  const version = "v6.1.1";
   customData.again.v = version;
   customData.hard.v = version;
   customData.good.v = version;
