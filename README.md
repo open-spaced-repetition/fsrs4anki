@@ -39,9 +39,9 @@ FSRS4Anki (Free Spaced Repetition Scheduler for Anki) consists of two main parts
 - The scheduler replaces Anki's built-in scheduler and schedules the cards according to the FSRS algorithm.
 - The optimizer uses machine learning to learn your memory patterns and finds parameters that best fit your review history. For details about the working of the optimizer, please read [the mechanism of optimization](https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-mechanism-of-optimization).
 
-For details about the FSRS algorithm, please read [the algorithm](https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-Algorithm). If you are interested, you can also read my papers:
-- [A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://dl.acm.org/doi/10.1145/3534678.3539081?cid=99660547150) (free access) [[中文版](https://memodocs.maimemo.com/docs/2022_KDD)], and
-- [Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://drive.google.com/file/u/0/d/1riJbkH39JB71Wj0AzESTngUM0LaeoD2l/view) (Google Scholar) [[中文版](https://memodocs.maimemo.com/docs/2023_TKDE)].
+Research on  [the FSRS algorithm](https://github.com/open-spaced-repetition/awesome-fsrs/wiki/The-Algorithm) follows the path pioneered by Maimemo: data-driven, balancing interpretability and verifiability. See also:
+- [Maimemo: A Stochastic Shortest Path Algorithm for Optimizing Spaced Repetition Scheduling](https://dl.acm.org/doi/10.1145/3534678.3539081?cid=99660547150) (free access) [[中文版](https://memodocs.maimemo.com/docs/2022_KDD)], and
+- [Maimemo: Optimizing Spaced Repetition Schedule by Capturing the Dynamics of Memory](https://drive.google.com/file/u/0/d/1riJbkH39JB71Wj0AzESTngUM0LaeoD2l/view) (Google Scholar) [[中文版](https://memodocs.maimemo.com/docs/2023_TKDE)].
 
 FSRS Helper is an Anki add-on that complements the FSRS4Anki Scheduler. You can read about it here: https://github.com/open-spaced-repetition/fsrs4anki-helper
 
