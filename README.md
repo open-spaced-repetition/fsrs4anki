@@ -129,11 +129,11 @@ Explore our extensive collection of [Research Notebooks](https://github.com/open
 
 # Stargazers Over Time
 
-<a href="https://star-history.com/#open-spaced-repetition/fsrs4anki&Date">
+<a href="https://star-history.dera.page/#open-spaced-repetition/fsrs4anki&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=open-spaced-repetition/fsrs4anki&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=open-spaced-repetition/fsrs4anki&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=open-spaced-repetition/fsrs4anki&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=open-spaced-repetition/fsrs4anki&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=open-spaced-repetition/fsrs4anki&type=Date" />
+   <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=open-spaced-repetition/fsrs4anki&type=Date" />
  </picture>
 </a>
 
